@@ -1,0 +1,19 @@
+# 1 워크플로의 이름 지정
+name: Production-CI/CD
+# 2 워크플로가 시작될 조건 지정
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest # 3 실행 환경 지정
+    #4 실행스텝지정
+    steps:
+      - name: Checkout source code.
+        uses: actions/checkout@v2
+      - name: Check Node v
+        run: node -v
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build
+        run: yarn build
