@@ -4,9 +4,20 @@ name: Production-CI/CD
 on:
   push:
     branches: [main]
+
+env:
+  S3_BUCKET_NAME: ddd-mara
+  CODE_DEPLOY_APPLICATION_NAME: ddd-code-deploy
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ddd
+
 jobs:
   build:
     runs-on: ubuntu-latest # 3 실행 환경 지정
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     #4 실행스텝지정
     steps:
       - name: Checkout source code.
@@ -17,3 +28,26 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
+
+      - name: Make zip file
+        run: zip -qq -r ./$GITHUB_SHA.zip . -x "node_modules/*"
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
+
+      - name: Code Deploy
+        run: |
+          aws deploy create-deployment \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
+
