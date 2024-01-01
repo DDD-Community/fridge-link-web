@@ -8,7 +8,7 @@ on:
 env:
   S3_BUCKET_NAME: ddd-mara
   CODE_DEPLOY_APPLICATION_NAME: ddd-code-deploy
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ddd
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ddd-deploy-group
 
 jobs:
   build:
