@@ -1,27 +1,82 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+    format('woff');
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  html,
+  body {
+    font-family: Pretendard;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer components {
+  .heading1-bold {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: bold;
+  }
+  .heading2-bold {
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: bold;
+  }
+  .heading2-semibold {
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 600;
+  }
+  .heading3-bold {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: bold;
+  }
+  .heading3-semibold {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 600;
+  }
+  .heading4-bold {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: bold;
+  }
+  .heading4-semibold {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+  .body1-semibold {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+  .body1-medium {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .body1-regular {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+  .body2-semibold {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 600;
+  }
+  .body2-medium {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+  }
+  .body2-regular {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+  }
 }
