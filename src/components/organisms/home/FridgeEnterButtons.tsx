@@ -1,19 +1,20 @@
 import React from 'react';
-import MyRefrigeIconSvg from '@/assets/icons/IMG/Home/img_home_my.svg';
+import MyFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_my.svg';
+import FriendsFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_friend.svg';
 import FridgeEnterButton from '@/components/molecules/FridgeEnterButton';
 
 const FridgeEnterButtons: React.FC = () => {
   return (
     <div className="flex">
       <FridgeEnterButton
-        svgComponent={<MyRefrigeIconSvg />}
+        svgComponent={<MyFridgeIconSvg />}
         text="내 냉장고"
-        linkTo="/myrefrige"
+        linkTo="/myfridge"
       />
       <FridgeEnterButton
-        svgComponent={<MyRefrigeIconSvg />}
+        svgComponent={<FriendsFridgeIconSvg />}
         text="친구 냉장고"
-        linkTo="/friendrefrige"
+        linkTo="/friendfridge"
       />
     </div>
   );
