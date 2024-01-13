@@ -1,9 +1,11 @@
 import React from 'react';
+import IcAlertSVG from '@/assets/icons/ICON/COMMON/ic_alert.svg';
+
 const HomeHeader: React.FC = () => {
   return (
-    <div>
+    <div className="flex items-center justify-between w-full h-48">
       <div>로고</div>
-      <div>알림</div>
+      <IcAlertSVG />
     </div>
   );
 };

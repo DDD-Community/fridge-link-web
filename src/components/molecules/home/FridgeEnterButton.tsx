@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import WhiteBox from '@/components/atoms/WhiteBox';
 
 interface FridgeEnterButtonProps {
   svgComponent: React.ReactNode;
@@ -13,9 +14,11 @@ const FridgeEnterButton: React.FC<FridgeEnterButtonProps> = ({
   linkTo,
 }) => {
   return (
-    <Link href={linkTo}>
-      {svgComponent}
-      <p>{text}</p>
+    <Link className="w-full" href={linkTo}>
+      <WhiteBox>
+        {svgComponent}
+        <p>{text}</p>
+      </WhiteBox>
     </Link>
   );
 };

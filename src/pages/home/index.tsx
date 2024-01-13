@@ -7,9 +7,7 @@ import GreenButton from '@/components/atoms/GreenButton';
 
 const Home: NextPage = () => {
   return (
-    <main
-      className={`flex flex-col min-h-screen justify-center items-center p-24 `}
-    >
+    <main className={`flex flex-col min-h-screen p-20 bg-gray1`}>
       <HomeHeader />
       <AlertBox count={4} />
       <FridgeEnterButtons />

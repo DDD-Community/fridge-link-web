@@ -27,6 +27,23 @@ const config: Config = {
         white: '#FFFFFF',
         black: '#000000',
       },
+      spacing: {
+        '6': '6px',
+        '12': '12px',
+        '18': '18px',
+        '20': '20px',
+        '32': '32px',
+      },
+      borderRadius: {
+        '12': '12px',
+      },
+      height: {
+        '48': '48px',
+      },
+      gap: {
+        '8.5': '8.5px',
+        '22': '22px',
+      },
     },
   },
   plugins: [],

@@ -8,7 +8,7 @@ interface LayoutHeaderProps {
 
 const LayoutHeader: React.FC<LayoutHeaderProps> = ({ title, linkTo }) => {
   return (
-    <div>
+    <div className="h-48">
       <div>history</div>
       <div>{title}</div>
       {linkTo != null && <Link href={linkTo}>설정</Link>}

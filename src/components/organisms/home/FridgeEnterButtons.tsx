@@ -5,14 +5,14 @@ import FridgeEnterButton from '@/components/molecules/home/FridgeEnterButton';
 
 const FridgeEnterButtons: React.FC = () => {
   return (
-    <div className="flex">
+    <div className="flex gap-8.5">
       <FridgeEnterButton
-        svgComponent={<MyFridgeIconSvg />}
+        svgComponent={<MyFridgeIconSvg width={72} height={72} />}
         text="내 냉장고"
         linkTo="/myfridge"
       />
       <FridgeEnterButton
-        svgComponent={<FriendsFridgeIconSvg />}
+        svgComponent={<FriendsFridgeIconSvg width={97} height={72} />}
         text="친구 냉장고"
         linkTo="/friendfridge"
       />
