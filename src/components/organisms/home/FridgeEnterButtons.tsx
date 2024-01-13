@@ -1,7 +1,7 @@
 import React from 'react';
 import MyFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_my.svg';
 import FriendsFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_friend.svg';
-import FridgeEnterButton from '@/components/molecules/FridgeEnterButton';
+import FridgeEnterButton from '@/components/molecules/home/FridgeEnterButton';
 
 const FridgeEnterButtons: React.FC = () => {
   return (
