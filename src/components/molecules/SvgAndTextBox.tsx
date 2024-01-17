@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import WhiteBox from '@/components/atoms/WhiteBox';
+import { WhiteBox } from '@/components/atoms';
 
 interface SvgAndTextBoxProps {
   svgComponent: React.ReactNode;

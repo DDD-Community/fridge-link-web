@@ -1,10 +1,9 @@
 import { type NextPage } from 'next';
 import MyFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_my.svg';
 import FriendsFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_friend.svg';
-import NearExpirationWarnBox from '@/components/molecules/NearExpirationWarnBox';
-import TermBoard from '@/components/organisms/IngredientBoard';
-import GreenLink from '@/components/atoms/GreenLink';
-import SvgAndTextBox from '@/components/molecules/SvgAndTextBox';
+import { GreenLink } from '@/components/atoms';
+import { NearExpirationWarnBox, SvgAndTextBox } from '@/components/molecules';
+import { IngredientBoard } from '@/components/organisms';
 
 const Home: NextPage = () => {
   const isNearExpirationWarn = true;
@@ -27,7 +26,7 @@ const Home: NextPage = () => {
       </div>
       <div>
         <div className="text-gray6 mt-30 mb-12 heading4-semibold">소비기한</div>
-        <TermBoard />
+        <IngredientBoard />
       </div>
       <GreenLink
         className="mt-14"

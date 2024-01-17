@@ -1,5 +1,5 @@
 import React from 'react';
-import IngredientDateTag from '../atoms/IngredientDateTag';
+import { IngredientDateTag } from '../atoms';
 import AppleSVG from '@/assets/icons/Frame 35.svg';
 
 interface IngredientItemBoxProps {

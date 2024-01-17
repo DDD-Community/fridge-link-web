@@ -1,7 +1,6 @@
 import React from 'react';
-import WhiteBox from '@/components/atoms/WhiteBox';
-import EmptyIngredient from '../molecules/EmptyIngredient';
-import IngredientItemBox from '../molecules/IngredientItemBox';
+import { WhiteBox } from '@/components/atoms';
+import { EmptyIngredient, IngredientItemBox } from '@/components/molecules';
 
 const TermBoard: React.FC = () => {
   const isIngredientItem = true;
