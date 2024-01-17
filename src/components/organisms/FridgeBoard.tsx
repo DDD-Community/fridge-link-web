@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { WhiteBox } from '@/components/atoms';
 import { EmptyIngredient, FridgeTab } from '@/components/molecules';
 
-interface FridgeBoardProps {
-  currentTabName: '냉장' | '냉동';
-  handleTabNameChange: (tabName: '냉장' | '냉동') => void;
-}
-const FridgeBoard: React.FC<FridgeBoardProps> = ({
-  currentTabName,
-  handleTabNameChange,
-}) => {
+const FridgeBoard: React.FC = () => {
+  const [currentTabName, setCurrentTabName] = useState<'냉장' | '냉동'>('냉장');
+
+  const handleTabNameChange: (tabName: '냉장' | '냉동') => void = (tabName) => {
+    setCurrentTabName(tabName);
+  };
   return (
     <WhiteBox className="p-[20px]">
       <FridgeTab
