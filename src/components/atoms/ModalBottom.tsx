@@ -17,7 +17,7 @@ const ModalBox: React.FC<ModalBoxProps> = ({ children, blackClickHandler }) => {
       onClick={blackClickHandler}
     >
       <div
-        className="w-full h-[500px] mb-[-24px] bg-white p-4 rounded-[24px]"
+        className="w-full min-h-[500px] pt-[40px] mb-[-24px] bg-white p-[20px] rounded-[24px]"
         onClick={handleWhiteContentClick}
       >
         {children}
