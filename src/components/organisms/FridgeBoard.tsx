@@ -2,12 +2,24 @@ import React from 'react';
 import { WhiteBox } from '@/components/atoms';
 import { EmptyIngredient, FridgeTab } from '@/components/molecules';
 
-const FridgeBoard: React.FC = () => {
+interface FridgeBoardProps {
+  currentTabName: '냉장' | '냉동';
+  handleTabNameChange: (tabName: '냉장' | '냉동') => void;
+}
+const FridgeBoard: React.FC<FridgeBoardProps> = ({
+  currentTabName,
+  handleTabNameChange,
+}) => {
   return (
     <WhiteBox className="p-[20px]">
-      <FridgeTab />
+      <FridgeTab
+        currentTabName={currentTabName}
+        handleTabNameChange={handleTabNameChange}
+      />
       <div>
-        <EmptyIngredient text="냉장칸에 추가된 식자재가 없어요!" />
+        <EmptyIngredient
+          text={`${currentTabName}칸에 추가된 식자재가 없어요!`}
+        />
       </div>
     </WhiteBox>
   );
