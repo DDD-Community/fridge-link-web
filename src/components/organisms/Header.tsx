@@ -14,7 +14,7 @@ const Header: React.FC<{
 }> = ({ headerLeft, headerTitle, headerRight, transparent = false }) => {
   return (
     <div
-      className={`flex justify-center items-center fixed top-0 w-screen max-w-[480px] py-[12px] px-[20px] z-[1000]  ${transparent ? '' : 'bg-white'}`}
+      className={`flex justify-center items-center fixed top-0 w-screen max-w-[480px] py-[12px] px-[20px] z-[1000]  ${transparent ? '' : 'bg-gray1'}`}
     >
       {headerLeft ?? (
         <div
