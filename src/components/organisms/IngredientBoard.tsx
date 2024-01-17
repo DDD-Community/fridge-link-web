@@ -14,7 +14,7 @@ const TermBoard: React.FC = () => {
         </div>
       ) : (
         <div className={`flex flex-col items-center`}>
-          <EmptyIngredient />
+          <EmptyIngredient text="현재 냉장고에 추가된 식자재가 없어요!" />
         </div>
       )}
     </WhiteBox>
