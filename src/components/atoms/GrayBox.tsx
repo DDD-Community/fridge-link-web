@@ -6,7 +6,7 @@ interface GrayBoxProps {
 
 const GrayBox: React.FC<GrayBoxProps> = ({ children }) => {
   return (
-    <div className="flex flex-col justify-center items-center gap-22 p-32 w-full bg-white rounded-12">
+    <div className="flex flex-col justify-center items-start bg-[#F5F6F7] gap-22 p-[16px] w-full bg-white rounded-12">
       {children}
     </div>
   );
