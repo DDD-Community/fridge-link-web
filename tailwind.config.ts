@@ -26,8 +26,6 @@ const config: Config = {
         gray8: '#363A45',
         white: '#FFFFFF',
         black: '#000000',
-        pink: '#FFEBE6',
-        green: '#E1F4EF',
       },
       spacing: {
         '6': '6px',
