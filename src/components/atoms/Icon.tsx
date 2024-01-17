@@ -109,3 +109,20 @@ export const Mypage: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     </defs>
   </svg>
 );
+
+export const AllowBottom: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    width="12"
+    height="7"
+    viewBox="0 0 12 7"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M0.784544 0.597105C1.11063 0.271017 1.63932 0.271017 1.96541 0.597105L5.99998 4.63167L10.0345 0.597105C10.3606 0.271017 10.8893 0.271017 11.2154 0.597105C11.5415 0.923193 11.5415 1.45189 11.2154 1.77797L5.99998 6.99341L0.784544 1.77797C0.458456 1.45189 0.458456 0.923193 0.784544 0.597105Z"
+      fill="black"
+    />
+  </svg>
+);
