@@ -26,23 +26,38 @@ const config: Config = {
         gray8: '#363A45',
         white: '#FFFFFF',
         black: '#000000',
+        pink: '#FFEBE6',
+        green: '#E1F4EF',
       },
       spacing: {
         '6': '6px',
+        '9': '9px',
         '12': '12px',
+        '14': '14px',
         '18': '18px',
         '20': '20px',
+        '30': '30px',
         '32': '32px',
       },
       borderRadius: {
+        '6': '6px',
         '12': '12px',
+      },
+      minHeight: {
+        '268': '268px',
+      },
+      width: {
+        '64': '64px',
       },
       height: {
         '48': '48px',
       },
       gap: {
+        '8': '8px',
         '8.5': '8.5px',
+        '10': '10px',
         '22': '22px',
+        '25': '25px',
       },
     },
   },

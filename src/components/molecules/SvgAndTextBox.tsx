@@ -2,13 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import WhiteBox from '@/components/atoms/WhiteBox';
 
-interface FridgeEnterButtonProps {
+interface SvgAndTextBoxProps {
   svgComponent: React.ReactNode;
   text: string;
   linkTo: string;
 }
 
-const FridgeEnterButton: React.FC<FridgeEnterButtonProps> = ({
+const SvgAndTextBox: React.FC<SvgAndTextBoxProps> = ({
   svgComponent,
   text,
   linkTo,
@@ -17,10 +17,10 @@ const FridgeEnterButton: React.FC<FridgeEnterButtonProps> = ({
     <Link className="w-full" href={linkTo}>
       <WhiteBox>
         {svgComponent}
-        <p>{text}</p>
+        <p className="heading4-semibold text-gray6">{text}</p>
       </WhiteBox>
     </Link>
   );
 };
 
-export default FridgeEnterButton;
+export default SvgAndTextBox;
