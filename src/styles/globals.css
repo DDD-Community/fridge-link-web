@@ -9,6 +9,8 @@
 @layer base {
   html,
   body {
+    padding: 0;
+    margin: 0;
     font-family: Pretendard;
   }
 }
@@ -79,4 +81,8 @@
     line-height: 18px;
     font-weight: 400;
   }
+}
+
+* {
+  box-sizing: border-box;
 }

@@ -8,6 +8,6 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  ignorePatterns: ['/src/assets/**'],
+  ignorePatterns: ['/src/assets/**', '/src/styles/**'],
   rules: {},
 };
