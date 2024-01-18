@@ -7,8 +7,10 @@ interface ModalBoxProps {
 
 const ModalBox: React.FC<ModalBoxProps> = ({ children, blackClickHandler }) => {
   const handleWhiteContentClick: (e: React.MouseEvent) => void = (e) => {
+    if (e.target === e.currentTarget) {
+      blackClickHandler();
+    }
     e.stopPropagation();
-    console.log('받아온 이벤트를 실행');
   };
 
   return (
@@ -17,7 +19,7 @@ const ModalBox: React.FC<ModalBoxProps> = ({ children, blackClickHandler }) => {
       onClick={blackClickHandler}
     >
       <div
-        className="w-full min-h-[500px] pt-[40px] mb-[-24px] bg-white p-[20px] rounded-[24px]"
+        className="w-full max-w-[480px] min-h-[500px] pt-[40px] mb-[-24px] bg-white p-[20px] rounded-[24px]"
         onClick={handleWhiteContentClick}
       >
         {children}
