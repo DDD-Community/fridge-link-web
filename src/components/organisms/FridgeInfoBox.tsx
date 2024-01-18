@@ -3,13 +3,17 @@ import { GreenButton } from '../atoms';
 import { AllowBottom } from '../atoms/Icon';
 
 const FridgeInfoBox: React.FC<{
+  toggleIsOpenFridgeListModal: () => void;
   toggleIsOpenIngredientAddModal: () => void;
-}> = ({ toggleIsOpenIngredientAddModal }) => {
+}> = ({ toggleIsOpenFridgeListModal, toggleIsOpenIngredientAddModal }) => {
   return (
     <div className="flex justify-between items-end mb-[28px]">
       <div className="flex flex-col gap-[12px]">
         <div className="body1-medium text-gray7">홍길동님의</div>
-        <div className="flex items-center gap-[8px]">
+        <div
+          className="flex items-center gap-[8px]"
+          onClick={toggleIsOpenFridgeListModal}
+        >
           <div className="heading1-bold">기본 냉장고</div>
           <AllowBottom />
         </div>

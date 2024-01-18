@@ -5,3 +5,4 @@ export { default as SvgAndTextBox } from './SvgAndTextBox';
 export { default as FridgeTab } from './FridgeTab';
 export { default as Counter } from './Counter';
 export { default as IngredientAddItem } from './IngredientAddItem';
+export { default as FridgeListItem } from './FridgeListItem';
