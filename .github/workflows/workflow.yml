@@ -22,10 +22,13 @@ jobs:
     steps:
       - name: Checkout source code.
         uses: actions/checkout@v2
+
       - name: Check Node v
         run: node -v
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
       - name: Build
         run: yarn build
 
