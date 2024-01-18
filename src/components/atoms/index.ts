@@ -7,3 +7,4 @@ export { default as BorderTab } from './BorderTab';
 export { default as ModalBottom } from './ModalBottom';
 export { default as ModalCenter } from './ModalCenter';
 export { default as Toggle } from './Toggle';
+export { default as ToastMessage } from './ToastMessage';

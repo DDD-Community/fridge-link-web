@@ -7,7 +7,8 @@ import useCount from '@/hooks/useCount';
 
 const IngredientAddModal: React.FC<{
   toggleIsOpenIngredientAddModal: () => void;
-}> = ({ toggleIsOpenIngredientAddModal }) => {
+  toggleIsOppenToastMessage: () => void;
+}> = ({ toggleIsOpenIngredientAddModal, toggleIsOppenToastMessage }) => {
   const [isInFreezer, setIsInFreezer] = useState(false);
   const [memoContent, setMemoContent] = useState('');
   const { currentCount, handleIncreaseCount, handleDecreaseCount } = useCount();
@@ -20,6 +21,7 @@ const IngredientAddModal: React.FC<{
   const handleSubmit: () => void = () => {
     console.log({ currentCount, isInFreezer, memoContent });
     toggleIsOpenIngredientAddModal();
+    toggleIsOppenToastMessage();
   };
 
   return (
