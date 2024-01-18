@@ -6,18 +6,31 @@ import {
 } from '@/components/organisms';
 import { type NextPage } from 'next';
 import { useState } from 'react';
+import { ToastMessage } from '@/components/atoms';
 
 const FridgePage: NextPage = () => {
   const [isOpenIngredientAddModal, setIsOpenIngredientAddModal] =
     useState(false);
+  const [isOpenToastMessage, setIsOpenToastMessage] = useState(false);
+
+  const toggleIsOppenToastMessage: () => void = () => {
+    setIsOpenToastMessage((prev) => !prev);
+  };
 
   const toggleIsOpenIngredientAddModal: () => void = () => {
     setIsOpenIngredientAddModal((prev) => !prev);
   };
   return (
     <>
+      {isOpenToastMessage && (
+        <ToastMessage
+          text="식자재 추가가 완료되었습니다."
+          toggleHandler={toggleIsOppenToastMessage}
+        />
+      )}
       {isOpenIngredientAddModal && (
         <IngredientAddModal
+          toggleIsOppenToastMessage={toggleIsOppenToastMessage}
           toggleIsOpenIngredientAddModal={toggleIsOpenIngredientAddModal}
         />
       )}
