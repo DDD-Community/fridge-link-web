@@ -37,9 +37,11 @@ const FridgeListModal: React.FC<{
         )}
       </div>
       <div className="flex w-full gap-[8px]">
-        <button className="p-[13px] border-2 border-2 rounded-[12px]">
-          <TrashcanSVG />
-        </button>
+        {!isMyFridgeList && (
+          <button className="p-[13px] border-2 border-2 rounded-[12px]">
+            <TrashcanSVG />
+          </button>
+        )}
         <Button className="flex-grow bg-primary2" text="이동하기" />
       </div>
     </ModalBottom>

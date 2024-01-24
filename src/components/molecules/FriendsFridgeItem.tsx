@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
+import profileImg from '@/assets/profile.png';
+import Image from 'next/image';
+import { ArrowRightGray } from '../atoms/Icon';
 
 interface FriendsFridgeItemProps {
   name: string;
@@ -13,9 +16,11 @@ const FriendsFridgeItem: React.FC<FriendsFridgeItemProps> = ({
   linkTo,
 }) => {
   return (
-    <div className="w-full flex justify-between">
+    <div className="w-full flex items-center justify-between">
       <div className="flex gap-[12px]">
-        <div>프로필</div>
+        <div>
+          <Image src={profileImg} alt={`누군가의 프로필`} />
+        </div>
         <div className="flex flex-col">
           <div className="heading4-semibold text-gray7">{name}</div>
           <div className="body2-medium text-gray5">
@@ -23,7 +28,9 @@ const FriendsFridgeItem: React.FC<FriendsFridgeItemProps> = ({
           </div>
         </div>
       </div>
-      <Link href={`${linkTo}`}>이동</Link>
+      <Link href={`${linkTo}`}>
+        <ArrowRightGray />
+      </Link>
     </div>
   );
 };
