@@ -4,7 +4,7 @@ import { AllowBottom } from '../atoms/Icon';
 
 const FridgeInfoBox: React.FC<{
   toggleIsOpenFridgeListModal: () => void;
-  toggleIsOpenIngredientAddModal: () => void;
+  toggleIsOpenIngredientAddModal?: () => void;
 }> = ({ toggleIsOpenFridgeListModal, toggleIsOpenIngredientAddModal }) => {
   return (
     <div className="flex justify-between items-end mb-[28px]">
@@ -18,11 +18,13 @@ const FridgeInfoBox: React.FC<{
           <AllowBottom />
         </div>
       </div>
-      <Button
-        className="rounded-6 w-[100px] p-[10px] body1-semibold bg-primary2"
-        text="식자재 추가"
-        onClick={toggleIsOpenIngredientAddModal}
-      />
+      {toggleIsOpenIngredientAddModal && (
+        <Button
+          className="rounded-6 w-[100px] p-[10px] body1-semibold bg-primary2"
+          text="식자재 추가"
+          onClick={toggleIsOpenIngredientAddModal}
+        />
+      )}
     </div>
   );
 };

@@ -4,10 +4,12 @@ import { FridgeListItem } from '../molecules';
 import { PlusSVG, TrashcanSVG } from '../atoms/Icon';
 
 const FridgeListModal: React.FC<{
+  isMyFridgeList?: boolean;
   toggleIsOpenFridgeListModal: () => void;
-}> = ({ toggleIsOpenFridgeListModal }) => {
+}> = ({ toggleIsOpenFridgeListModal, isMyFridgeList }) => {
   const [currentFridgeName, setCurrentFridgeName] = useState('기본 냉장고');
   const FRIDGE_NAME_LIST = ['기본 냉장고', '김치 냉장고', '주류 냉장고'];
+
   return (
     <ModalBottom blackClickHandler={toggleIsOpenFridgeListModal}>
       <div>
@@ -27,10 +29,12 @@ const FridgeListModal: React.FC<{
           />
         ))}
 
-        <button className="flex justify-center items-center h-[64px] border-2 rounded-[12px] text-gray3">
-          <PlusSVG />
-          냉장고 추가
-        </button>
+        {!isMyFridgeList && (
+          <button className="flex justify-center items-center h-[64px] border-2 rounded-[12px] text-gray3">
+            <PlusSVG />
+            냉장고 추가
+          </button>
+        )}
       </div>
       <div className="flex w-full gap-[8px]">
         <button className="p-[13px] border-2 border-2 rounded-[12px]">
