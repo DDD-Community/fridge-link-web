@@ -1,5 +1,5 @@
 import React from 'react';
-import { GreenButton } from '../atoms';
+import { Button } from '../atoms';
 import { AllowBottom } from '../atoms/Icon';
 
 const FridgeInfoBox: React.FC<{
@@ -18,10 +18,10 @@ const FridgeInfoBox: React.FC<{
           <AllowBottom />
         </div>
       </div>
-      <GreenButton
-        className="rounded-6 w-[100px] p-[10px] body1-semibold"
+      <Button
+        className="rounded-6 w-[100px] p-[10px] body1-semibold bg-primary2"
         text="식자재 추가"
-        handler={toggleIsOpenIngredientAddModal}
+        onClick={toggleIsOpenIngredientAddModal}
       />
     </div>
   );

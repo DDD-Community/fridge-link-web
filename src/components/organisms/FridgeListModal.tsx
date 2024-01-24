@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GreenButton, ModalBottom } from '../atoms';
+import { Button, ModalBottom } from '../atoms';
 import { FridgeListItem } from '../molecules';
 import { PlusSVG, TrashcanSVG } from '../atoms/Icon';
 
@@ -36,7 +36,7 @@ const FridgeListModal: React.FC<{
         <button className="p-[13px] border-2 border-2 rounded-[12px]">
           <TrashcanSVG />
         </button>
-        <GreenButton className="flex-grow" text="이동하기" />
+        <Button className="flex-grow bg-primary2" text="이동하기" />
       </div>
     </ModalBottom>
   );

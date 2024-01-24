@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { GreenButton, ModalBottom, Toggle } from '@/components/atoms';
+import { Button, ModalBottom, Toggle } from '@/components/atoms';
 import { BoxSVG, CalendarSVG, FreezerSVG, MemoSVG } from '../atoms/Icon';
 import { AppleIcon } from '../atoms/IngredientIcons';
-import { Counter, IngredientAddItem } from '../molecules';
+import { Counter, IngredientAddItemContainer } from '../molecules';
 import useCount from '@/hooks/useCount';
 
 const IngredientAddModal: React.FC<{
@@ -32,7 +32,7 @@ const IngredientAddModal: React.FC<{
           <div className="heading1-bold">사과</div>
         </div>
         <div className="flex flex-col gap-[10px] mb-[32px]">
-          <IngredientAddItem
+          <IngredientAddItemContainer
             isRow={false}
             svgComponent={<CalendarSVG />}
             title="소비기한"
@@ -46,8 +46,8 @@ const IngredientAddModal: React.FC<{
                 2024년 01월 6일
               </div>
             </div>
-          </IngredientAddItem>
-          <IngredientAddItem
+          </IngredientAddItemContainer>
+          <IngredientAddItemContainer
             isRow={true}
             svgComponent={<BoxSVG />}
             title="수량"
@@ -57,15 +57,15 @@ const IngredientAddModal: React.FC<{
               handleIncreaseCount={handleIncreaseCount}
               handleDecreaseCount={handleDecreaseCount}
             />
-          </IngredientAddItem>
-          <IngredientAddItem
+          </IngredientAddItemContainer>
+          <IngredientAddItemContainer
             isRow={true}
             svgComponent={<FreezerSVG />}
             title="냉동보관"
           >
             <Toggle isToggleOn={isInFreezer} toggleState={toggleIsInFreezer} />
-          </IngredientAddItem>
-          <IngredientAddItem
+          </IngredientAddItemContainer>
+          <IngredientAddItemContainer
             isRow={false}
             svgComponent={<MemoSVG />}
             title="메모"
@@ -78,12 +78,12 @@ const IngredientAddModal: React.FC<{
               className="w-full p-[12px] rounded-[6px] body1-medium"
               placeholder="식자재 관련 정보를 입력해 주세요."
             />
-          </IngredientAddItem>
+          </IngredientAddItemContainer>
         </div>
-        <GreenButton
-          className="w-full"
+        <Button
+          className="w-full bg-primary2"
           text="추가완료"
-          handler={handleSubmit}
+          onClick={handleSubmit}
         />
       </div>
     </ModalBottom>

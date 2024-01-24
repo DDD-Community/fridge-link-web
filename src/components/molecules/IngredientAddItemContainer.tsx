@@ -1,13 +1,13 @@
 import React from 'react';
 import { GrayBox } from '../atoms';
 
-interface IngredientAddItemProps {
+interface IngredientAddItemContainerProps {
   isRow: boolean;
   svgComponent: React.ReactNode;
   title: string;
   children: React.ReactNode;
 }
-const IngredientAddItem: React.FC<IngredientAddItemProps> = ({
+const IngredientAddItemContainer: React.FC<IngredientAddItemContainerProps> = ({
   isRow,
   svgComponent,
   title,
@@ -28,4 +28,4 @@ const IngredientAddItem: React.FC<IngredientAddItemProps> = ({
   );
 };
 
-export default IngredientAddItem;
+export default IngredientAddItemContainer;
