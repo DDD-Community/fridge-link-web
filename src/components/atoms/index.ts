@@ -8,3 +8,4 @@ export { default as ModalBottom } from './ModalBottom';
 export { default as ModalCenter } from './ModalCenter';
 export { default as Toggle } from './Toggle';
 export { default as ToastMessage } from './ToastMessage';
+export { default as SearchInput } from './SearchInput';

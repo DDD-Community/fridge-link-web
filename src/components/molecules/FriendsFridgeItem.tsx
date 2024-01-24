@@ -13,11 +13,15 @@ const FriendsFridgeItem: React.FC<FriendsFridgeItemProps> = ({
   linkTo,
 }) => {
   return (
-    <div>
-      <div>프로필</div>
-      <div>
-        <div>{name}</div>
-        <div>냉장고 저장 목록 {ingredientCount}개</div>
+    <div className="w-full flex justify-between">
+      <div className="flex gap-[12px]">
+        <div>프로필</div>
+        <div className="flex flex-col">
+          <div className="heading4-semibold text-gray7">{name}</div>
+          <div className="body2-medium text-gray5">
+            냉장고 저장 목록 {ingredientCount}개
+          </div>
+        </div>
       </div>
       <Link href={`${linkTo}`}>이동</Link>
     </div>
