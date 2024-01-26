@@ -8,9 +8,11 @@ import CartSVG from '@/assets/my/cart.svg';
 import QuestionSVG from '@/assets/my/question.svg';
 import PolicySVG from '@/assets/my/POLICY.svg';
 import InfoSVG from '@/assets/my/INFO.svg';
+import ProfileImg from '@/assets/Property=1, State=nor.png';
 import Header from '@/components/organisms/Header';
 import { type NextPage } from 'next';
 import React from 'react';
+import Image from 'next/image';
 
 const GENERAGE_NAV_LIST = [
   { name: '계정 설정', svgComponent: <SettingSVG />, linkTo: '' },
@@ -33,19 +35,21 @@ const Mypage: NextPage = () => {
         className={`flex flex-col gap-[20px] min-h-screen p-20 bg-gray1`}
       >
         <div className="flex justify-between items-center">
-          <div className="flex gap-[15px]">
-            <div>이미지</div>
+          <div className="flex gap-[15px] items-center">
+            <Image src={ProfileImg} alt="프로필 예시" />
             <div className="heading2-semibold">닉네임</div>
           </div>
           <Button
             text="프로필 수정"
-            className="bg-white text-black rounded-[30px] p-[10px]"
+            className="w-80px bg-white text-black rounded-[30px] p-[10px]"
           />
         </div>
-        <div className="flex justify-evenly bg-gray6 rounded-[12px]">
+        <div className="flex justify-evenly items-center bg-gray6 rounded-[12px]">
           <MyFridgeInfo label="식자재" value="34개" />
+          <div className="w-[2px] h-[36px] bg-gray5" />
           <MyFridgeInfo label="나눔" value="3개" />
-          <MyFridgeInfo label="친구" value="5명" />
+          <div className="w-[2px] h-[36px] bg-gray5" />
+          <MyFridgeInfo label="친구" value="5명" isLast />
         </div>
         <NavWhiteBox label="일반" list={GENERAGE_NAV_LIST} />
         <NavWhiteBox label="기타" list={ETC_NAV_LIST} />
