@@ -16,7 +16,11 @@ import Image from 'next/image';
 
 const GENERAGE_NAV_LIST = [
   { name: '계정 설정', svgComponent: <SettingSVG />, linkTo: '' },
-  { name: '알림 설정', svgComponent: <NotificationSVG />, linkTo: '' },
+  {
+    name: '알림 설정',
+    svgComponent: <NotificationSVG />,
+    linkTo: '/mypage/notification',
+  },
   { name: '친구', svgComponent: <FriendsSVG />, linkTo: '' },
   { name: '나눔 내역', svgComponent: <CartSVG />, linkTo: '' },
 ];
