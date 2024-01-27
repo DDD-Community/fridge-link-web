@@ -18,7 +18,7 @@ interface NavWhiteBoxProps {
 const NavWhiteBox: React.FC<NavWhiteBoxProps> = ({ label, list }) => {
   return (
     <WhiteBox>
-      <label className="w-full text-gray6">{label}</label>
+      <label className="w-full text-gray6 body1-regular">{label}</label>
       {list.map((navItem) => (
         <Link
           href={navItem.linkTo}

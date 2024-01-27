@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           <SvgAndTextBox
             svgComponent={<MyFridgeImg />}
             text="내 냉장고"
-            linkTo="/myfridge"
+            linkTo="/fridge"
           />
           <SvgAndTextBox
             svgComponent={<FriendsFridgeImg />}

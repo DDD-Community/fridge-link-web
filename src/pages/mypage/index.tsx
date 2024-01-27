@@ -13,15 +13,20 @@ import Header from '@/components/organisms/Header';
 import { type NextPage } from 'next';
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const GENERAGE_NAV_LIST = [
-  { name: '계정 설정', svgComponent: <SettingSVG />, linkTo: '' },
+  {
+    name: '계정 설정',
+    svgComponent: <SettingSVG />,
+    linkTo: '/mypage/account',
+  },
   {
     name: '알림 설정',
     svgComponent: <NotificationSVG />,
     linkTo: '/mypage/notification',
   },
-  { name: '친구', svgComponent: <FriendsSVG />, linkTo: '' },
+  { name: '친구', svgComponent: <FriendsSVG />, linkTo: '/mypage/friendslist' },
   { name: '나눔 내역', svgComponent: <CartSVG />, linkTo: '' },
 ];
 
@@ -43,10 +48,12 @@ const Mypage: NextPage = () => {
             <Image src={ProfileImg} alt="프로필 예시" />
             <div className="heading2-semibold">닉네임</div>
           </div>
-          <Button
-            text="프로필 수정"
-            className="w-80px bg-white text-black rounded-[30px] p-[10px]"
-          />
+          <Link href="/mypage/profile">
+            <Button
+              text="프로필 수정"
+              className="body2-medium w-80px bg-white text-black rounded-[30px] p-[10px]"
+            />
+          </Link>
         </div>
         <div className="flex justify-evenly items-center bg-gray6 rounded-[12px]">
           <MyFridgeInfo label="식자재" value="34개" />
