@@ -40,14 +40,14 @@ const ShareListItem: React.FC<{
           />
           <p className="flex items-center mt-1 text-ellipsis whitespace-nowrap">
             {data.location}
-            <p>
+            <span>
               <Dot
                 width={3}
                 height={3}
                 fill="#9299AA"
                 className="mx-[4px] mb-1"
               />
-            </p>
+            </span>
             {dayjs(data.date).format('MM월 DD일 A HH:mm')}
           </p>
         </div>
