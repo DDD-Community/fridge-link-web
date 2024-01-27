@@ -87,3 +87,7 @@
 * {
   box-sizing: border-box;
 }
+
+input {
+  border: 0;
+}

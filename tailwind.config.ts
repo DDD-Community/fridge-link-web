@@ -16,6 +16,7 @@ const config: Config = {
         point1: '#FFE377',
         point2: '#FF8436',
         point3: '#CA3F13',
+        point4: '#FB2414',
         gray1: '#F1F2F4',
         gray2: '#E0E1E6',
         gray3: '#CCCFD7',
