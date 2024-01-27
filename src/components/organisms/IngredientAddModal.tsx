@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { BoxIcon, CalendarIcon, FreezerIcon, MemoIcon } from '@/assets/icons';
 import { Button, ModalBottom, Toggle } from '@/components/atoms';
-import { BoxSVG, CalendarSVG, FreezerSVG, MemoSVG } from '../atoms/Icon';
-import { AppleIcon } from '../atoms/IngredientIcons';
 import { Counter, IngredientAddItemContainer } from '../molecules';
+import React, { useState } from 'react';
+
+import { AppleIcon } from '../atoms/IngredientIcons';
 import useCount from '@/hooks/useCount';
 
 const IngredientAddModal: React.FC<{
@@ -34,7 +35,7 @@ const IngredientAddModal: React.FC<{
         <div className="flex flex-col gap-[10px] mb-[32px]">
           <IngredientAddItemContainer
             isRow={false}
-            svgComponent={<CalendarSVG />}
+            svgComponent={<CalendarIcon />}
             title="소비기한"
           >
             <div className="flex items-center w-full gap-20">
@@ -49,7 +50,7 @@ const IngredientAddModal: React.FC<{
           </IngredientAddItemContainer>
           <IngredientAddItemContainer
             isRow={true}
-            svgComponent={<BoxSVG />}
+            svgComponent={<BoxIcon />}
             title="수량"
           >
             <Counter
@@ -60,14 +61,14 @@ const IngredientAddModal: React.FC<{
           </IngredientAddItemContainer>
           <IngredientAddItemContainer
             isRow={true}
-            svgComponent={<FreezerSVG />}
+            svgComponent={<FreezerIcon />}
             title="냉동보관"
           >
             <Toggle isToggleOn={isInFreezer} toggleState={toggleIsInFreezer} />
           </IngredientAddItemContainer>
           <IngredientAddItemContainer
             isRow={false}
-            svgComponent={<MemoSVG />}
+            svgComponent={<MemoIcon />}
             title="메모"
           >
             <input

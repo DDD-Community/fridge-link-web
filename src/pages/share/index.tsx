@@ -1,5 +1,4 @@
 import { Radio, TabButton } from '@/components/atoms';
-import { Angle, PlusSVG } from '@/components/atoms/Icon';
 import Header from '@/components/organisms/Header';
 import ShareListItem from '@/components/organisms/ShareListItem';
 import { type NextPage } from 'next';
@@ -11,6 +10,7 @@ import {
   ModalContent,
   useDisclosure,
 } from '@chakra-ui/react';
+import { AngleIcon, PlusIcon } from '@/assets/icons';
 
 type TabValue = 'enroll' | 'proceeding' | 'complete';
 
@@ -88,7 +88,7 @@ const SharePage: NextPage = () => {
               className="flex justify-center items-center"
             >
               <span className="mr-[4px] text-gray5">{curSortType.label}</span>
-              <Angle
+              <AngleIcon
                 width={14}
                 height={14}
                 fill="#9299AA"
@@ -104,7 +104,7 @@ const SharePage: NextPage = () => {
           ))}
         </div>
         <button className="fixed bottom-[88px] right-[20px] flex justify-center items-center px-[16px] py-[12px] rounded-[50px] bg-primary1">
-          <PlusSVG fill="#FFFFFF" />
+          <PlusIcon fill="#FFFFFF" />
           <span className="ml-[4px] heading4-semibold text-white">글쓰기</span>
         </button>
         <Modal

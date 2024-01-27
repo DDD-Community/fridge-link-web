@@ -1,5 +1,5 @@
+import { AngleIcon } from '@/assets/icons';
 import React from 'react';
-import { Angle } from './Icon';
 
 interface GreenArrowButtonProps {
   text: string;
@@ -18,7 +18,12 @@ const GreenArrowButton: React.FC<GreenArrowButtonProps> = ({
       className={`flex items-center justify-center w-full bg-primary2 text-white p-18 gap-12 rounded-12 heading4-semibold ${className}`}
     >
       {text}
-      <Angle fill="#ffffff" width={16} height={16} transform="rotate(180)" />
+      <AngleIcon
+        fill="#ffffff"
+        width={16}
+        height={16}
+        transform="rotate(180)"
+      />
     </button>
   );
 };

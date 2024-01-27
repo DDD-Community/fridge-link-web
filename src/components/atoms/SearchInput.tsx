@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchSVG } from './Icon';
+import { SearchIcon } from '@/assets/icons';
 
 interface SearchInputProps {
   searchKeyword?: string;
@@ -26,7 +26,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         onChange={onChange}
         value={searchKeyword}
       />
-      <SearchSVG width={20} height={20} />
+      <SearchIcon />
     </div>
   );
 };

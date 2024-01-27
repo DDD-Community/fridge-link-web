@@ -1,27 +1,28 @@
-import React from 'react';
-import { Fridge, Home, Mypage, Share } from '../atoms/Icon';
-import { usePathname } from 'next/navigation';
+import { FridgeIcon, HomeIcon, MypageIcon, ShareIcon } from '@/assets/icons';
+
 import Link from 'next/link';
+import React from 'react';
+import { usePathname } from 'next/navigation';
 
 const BOTTOM_TABS = [
   {
     label: '홈',
-    icon: Home,
+    icon: HomeIcon,
     href: '/home',
   },
   {
     label: '내냉장고',
-    icon: Fridge,
+    icon: FridgeIcon,
     href: '/fridge',
   },
   {
     label: '나눔',
-    icon: Share,
+    icon: ShareIcon,
     href: '/share',
   },
   {
     label: 'My',
-    icon: Mypage,
+    icon: MypageIcon,
     href: '/mypage',
   },
 ];

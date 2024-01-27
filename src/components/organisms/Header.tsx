@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { Angle } from '@/components/atoms/Icon';
+
+import { AngleIcon } from '@/assets/icons';
 
 const Header: React.FC<{
   headerLeft?: React.ReactElement<
@@ -36,7 +37,7 @@ const Header: React.FC<{
             window.history.back();
           }}
         >
-          <Angle
+          <AngleIcon
             fill={backgroundColor === 'transparent' ? '#FFFFFF' : '#363A45'}
           />
         </div>

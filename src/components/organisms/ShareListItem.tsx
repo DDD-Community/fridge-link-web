@@ -1,8 +1,9 @@
-import dayjs from 'dayjs';
+import { DotIcon, LocationIcon } from '@/assets/icons';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { Dot, Location } from '../atoms/Icon';
+import dayjs from 'dayjs';
 
 const ShareListItem: React.FC<{
   data: {
@@ -32,7 +33,7 @@ const ShareListItem: React.FC<{
       <div className="ml-[12px]">
         <p className="heading3-bold">{data.title}</p>
         <div className="flex items-center mt-[6px] body2-medium ">
-          <Location
+          <LocationIcon
             width={14}
             height={14}
             fill="#B5B9C5"
@@ -41,7 +42,7 @@ const ShareListItem: React.FC<{
           <p className="flex items-center mt-1 text-ellipsis whitespace-nowrap">
             {data.location}
             <span>
-              <Dot
+              <DotIcon
                 width={3}
                 height={3}
                 fill="#9299AA"

@@ -1,5 +1,6 @@
 import React from 'react';
-import { ToggleOffSVG, ToggleOnSVG } from './Icon';
+import ToggleOffImg from '@/assets/images/img_toggleoff.svg';
+import ToggleOnImg from '@/assets/images/img_toggleon.svg';
 
 const Toggle: React.FC<{
   isToggleOn: boolean;
@@ -7,11 +8,11 @@ const Toggle: React.FC<{
 }> = ({ isToggleOn, toggleState }) => {
   return isToggleOn ? (
     <div className="mr-[-10px]" onClick={toggleState}>
-      <ToggleOnSVG />
+      <ToggleOnImg />
     </div>
   ) : (
     <div onClick={toggleState}>
-      <ToggleOffSVG />
+      <ToggleOffImg />
     </div>
   );
 };
