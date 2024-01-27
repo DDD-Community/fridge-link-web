@@ -9,7 +9,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ text, className, onClick }) => {
   return (
     <button
-      className={` text-white p-18 gap-12 rounded-12 heading4-semibold ${className}`}
+      className={`text-white p-18 gap-12 rounded-12 heading4-semibold ${className}`}
       onClick={onClick}
     >
       {text}

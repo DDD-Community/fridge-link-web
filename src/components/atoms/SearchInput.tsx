@@ -1,23 +1,32 @@
 import React from 'react';
+import { SearchSVG } from './Icon';
 
 interface SearchInputProps {
-  searchKeyword: string;
-  onChangeHandler: () => void;
-  onClickHandler: () => void;
-  className: string;
+  searchKeyword?: string;
+  onChange?: () => void;
+  onClick?: () => void;
+  className?: string;
+  placeholder?: string;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
   searchKeyword,
-  onClickHandler,
-  onChangeHandler,
+  onClick,
+  placeholder,
+  onChange,
   className,
 }) => {
   return (
     <div
-      className={`flex items-center justify-center w-full bg-primary2 text-white p-18 gap-12 rounded-12 heading4-semibold ${className}`}
+      className={`flex items-center justify-center w-full bg-gray1 text-white p-18 gap-12 rounded-12 heading4-semibold ${className}`}
     >
-      <input onChange={onChangeHandler} value={searchKeyword} />
+      <input
+        className="w-full bg-gray1 text"
+        placeholder={placeholder}
+        onChange={onChange}
+        value={searchKeyword}
+      />
+      <SearchSVG width={20} height={20} />
     </div>
   );
 };

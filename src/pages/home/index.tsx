@@ -34,7 +34,7 @@ const Home: NextPage = () => {
           <SvgAndTextBox
             svgComponent={<FriendsFridgeIconSvg width={97} height={72} />}
             text="친구 냉장고"
-            linkTo="/friendfridge"
+            linkTo="/friends"
           />
         </div>
         <div>
