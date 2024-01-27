@@ -18,7 +18,12 @@ const FriendsFridgeList: React.FC<{
           onClick={toggleIsOpenOrderListModal}
         >
           <div>등록순</div>
-          <AngleIcon width={14} height={14} fill='#9299AA' transform='rotate(-90)' />
+          <AngleIcon
+            width={14}
+            height={14}
+            fill="#9299AA"
+            transform="rotate(-90)"
+          />
         </div>
       </div>
       <WhiteBox>
