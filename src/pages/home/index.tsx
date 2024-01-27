@@ -1,6 +1,6 @@
 import { type NextPage } from 'next';
-import MyFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_my.svg';
-import FriendsFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_friend.svg';
+import MyFridgeIconSvg from '@/assets/images/img_home_my.svg';
+import FriendsFridgeIconSvg from '@/assets/images/img_home_friend.svg';
 import { GreenArrowButton } from '@/components/atoms';
 import { NearExpirationWarnBox, SvgAndTextBox } from '@/components/molecules';
 import { IngredientBoard } from '@/components/organisms';
