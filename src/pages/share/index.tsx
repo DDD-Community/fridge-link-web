@@ -11,28 +11,15 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { PlusIcon } from '@/assets/icons';
+import { type SortLabel, type TabLabel } from '@/types/common';
 
-type TabValue = 'enroll' | 'proceeding' | 'complete';
-
-interface Tab {
-  label: string;
-  value: TabValue;
-}
-
-type SortValue = 'latest' | 'earliest';
-
-interface Sort {
-  label: string;
-  value: SortValue;
-}
-
-const TABS: Tab[] = [
+export const TABS: TabLabel[] = [
   { label: '나눔 신청', value: 'enroll' },
   { label: '나눔 중', value: 'proceeding' },
   { label: '나눔 완료', value: 'complete' },
 ];
 
-const SORT_TYPES: Sort[] = [
+export const SORT_TYPES: SortLabel[] = [
   { label: '최신순', value: 'latest' },
   { label: '마감순', value: 'earliest' },
 ];
@@ -58,9 +45,8 @@ const MOCK_DATA = {
 };
 
 const SharePage: NextPage = () => {
-  const [curTab, setCurTab] = useState<Tab>(TABS[0]);
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const [curSortType, setCurSortType] = useState<Sort>(SORT_TYPES[0]);
+  const [curTab, setCurTab] = useState<TabLabel>(TABS[0]);
+  const [curSortType, setCurSortType] = useState<SortLabel>(SORT_TYPES[0]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -69,7 +55,7 @@ const SharePage: NextPage = () => {
         <Header headerTitle={'나눔'} backgroundColor="white" />
         <div className="fixed w-screen max-w-[480px]">
           <div className="flex px-[20px] bg-white">
-            {TABS.map((ele) => (
+            {TABS.map((ele: TabLabel) => (
               <TabButton
                 key={ele.value}
                 onClick={() => {
@@ -112,7 +98,7 @@ const SharePage: NextPage = () => {
             maxW="lg"
           >
             <ModalBody>
-              {SORT_TYPES.map((ele) => (
+              {SORT_TYPES.map((ele: SortLabel) => (
                 <RadioButtonField
                   key={ele.value}
                   label={ele.label}
