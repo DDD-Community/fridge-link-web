@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { AngleIcon } from '@/assets/icons';
+import { useRouter } from 'next/router';
 
 const Header: React.FC<{
   headerLeft?: React.ReactElement<
@@ -14,6 +15,8 @@ const Header: React.FC<{
   >;
   backgroundColor?: 'gray1' | 'white' | 'transparent';
 }> = ({ headerLeft, headerTitle, headerRight, backgroundColor }) => {
+  const router = useRouter();
+
   const background = useMemo(() => {
     switch (backgroundColor) {
       case 'gray1':
@@ -32,15 +35,15 @@ const Header: React.FC<{
       className={`flex justify-center items-center fixed top-0 w-screen max-w-[480px] py-[12px] px-[20px] z-[1000] ${background}`}
     >
       {headerLeft ?? (
-        <div
+        <button
           onClick={() => {
-            window.history.back();
+            router.back();
           }}
         >
           <AngleIcon
             fill={backgroundColor === 'transparent' ? '#FFFFFF' : '#363A45'}
           />
-        </div>
+        </button>
       )}
       <div className="flex justify-center text-center w-full">
         <p className="heading3-bold text-gray8 pt-1">
