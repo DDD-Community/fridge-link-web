@@ -1,4 +1,4 @@
-import { Radio, TabButton } from '@/components/atoms';
+import { RadioButtonField, SortButton, TabButton } from '@/components/atoms';
 import Header from '@/components/organisms/Header';
 import ShareListItem from '@/components/organisms/ShareListItem';
 import { type NextPage } from 'next';
@@ -10,7 +10,7 @@ import {
   ModalContent,
   useDisclosure,
 } from '@chakra-ui/react';
-import { AngleIcon, PlusIcon } from '@/assets/icons';
+import { PlusIcon } from '@/assets/icons';
 
 type TabValue = 'enroll' | 'proceeding' | 'complete';
 
@@ -83,18 +83,7 @@ const SharePage: NextPage = () => {
           <div className="h-[1px] mt-[-1px] bg-gray1" />
           <div className="flex justify-between px-[20px] py-[18px] bg-white body1-medium">
             <p className="body1-medium">총 {MOCK_DATA.count}건</p>
-            <button
-              onClick={onOpen}
-              className="flex justify-center items-center"
-            >
-              <span className="mr-[4px] text-gray5">{curSortType.label}</span>
-              <AngleIcon
-                width={14}
-                height={14}
-                fill="#9299AA"
-                transform="rotate(270)"
-              />
-            </button>
+            <SortButton label={curSortType.label} onClick={onOpen} />
           </div>
         </div>
 
@@ -124,17 +113,15 @@ const SharePage: NextPage = () => {
           >
             <ModalBody>
               {SORT_TYPES.map((ele) => (
-                <button
+                <RadioButtonField
                   key={ele.value}
+                  label={ele.label}
                   onClick={() => {
                     setCurSortType(ele);
                     onClose();
                   }}
-                  className="flex flex-1 w-screen px-[20px] py-[24px] justify-between"
-                >
-                  <p className="heading3-semibold">{ele.label}</p>
-                  <Radio checked={ele.value === curSortType.value} />
-                </button>
+                  checked={ele.value === curSortType.value}
+                />
               ))}
             </ModalBody>
           </ModalContent>
