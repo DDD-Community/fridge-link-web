@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { PlusIcon } from '@/assets/icons';
 import { type SortLabel, type TabLabel } from '@/types/common';
+import dayjs from 'dayjs';
 
 export const TABS: TabLabel[] = [
   { label: '나눔 신청', value: 'enroll' },
@@ -32,14 +33,14 @@ const MOCK_DATA = {
       thumbnail: null,
       title: '사과 받아갈 사람',
       location: '공덕역',
-      date: '2024-12-14 10:35',
+      date: dayjs('2024-12-14 10:35'),
     },
     {
       id: 2,
       thumbnail: null,
       title: '사과 받아갈 사람',
       location: '디지털미디어시티역',
-      date: '2024-12-14 10:35',
+      date: dayjs('2024-12-14 10:35'),
     },
   ],
 };

@@ -11,7 +11,7 @@ const ShareListItem: React.FC<{
     thumbnail: string | null;
     title: string;
     location: string;
-    date: string;
+    date: dayjs.Dayjs;
   };
 }> = ({ data }) => {
   return (
