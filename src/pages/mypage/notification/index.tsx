@@ -1,4 +1,4 @@
-import { Toggle, WhiteBox } from '@/components/atoms';
+import { Toggle } from '@/components/atoms';
 import Header from '@/components/organisms/Header';
 import { type NextPage } from 'next';
 
@@ -9,13 +9,13 @@ const NotificationPage: NextPage = () => {
       <section
         className={`flex flex-col gap-[20px] min-h-screen p-20 bg-gray1`}
       >
-        <WhiteBox className="p-[18px]">
+        <div className="flex flex-col justify-center items-center gap-22 p-32  w-full bg-white rounded-12 p-[18px]">
           <div className="w-full flex justify-between items-center">
             <div className="heading4-semibold">알림 허용</div>
             <Toggle />
           </div>
-        </WhiteBox>
-        <WhiteBox className="p-[18px]">
+        </div>
+        <div className="flex flex-col justify-center items-center gap-22 p-32  w-full bg-white rounded-12 p-[18px]">
           <label className="w-full text-gray6">알림</label>
           <div className="w-full flex justify-between items-center">
             <div className="flex flex-col gap-[10px]">
@@ -31,7 +31,7 @@ const NotificationPage: NextPage = () => {
             </div>
             <Toggle />
           </div>
-        </WhiteBox>
+        </div>
       </section>
     </div>
   );

@@ -1,19 +1,27 @@
 import React from 'react';
-import ToggleOffImg from '@/assets/images/img_toggleoff.svg';
-import ToggleOnImg from '@/assets/images/img_toggleon.svg';
+import { extendTheme, ThemeProvider, CSSReset, Switch } from '@chakra-ui/react';
+
+const customTheme = extendTheme({
+  colors: {
+    primary2: {
+      500: '#3CAA8D',
+    },
+  },
+});
 
 const Toggle: React.FC<{
   isToggleOn?: boolean;
-  toggleState?: (e: React.MouseEvent) => void;
+  toggleState?: () => void;
 }> = ({ isToggleOn, toggleState }) => {
-  return isToggleOn ? (
-    <div className="mr-[-10px]" onClick={toggleState}>
-      <ToggleOnImg />
-    </div>
-  ) : (
-    <div onClick={toggleState}>
-      <ToggleOffImg />
-    </div>
+  return (
+    <ThemeProvider theme={customTheme}>
+      <CSSReset />
+      <Switch
+        colorScheme="primary2"
+        isChecked={isToggleOn}
+        onChange={toggleState}
+      />
+    </ThemeProvider>
   );
 };
 
