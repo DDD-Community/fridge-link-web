@@ -14,8 +14,7 @@ const IngredientAddModal: React.FC<{
   const [memoContent, setMemoContent] = useState('');
   const { currentCount, handleIncreaseCount, handleDecreaseCount } = useCount();
 
-  const toggleIsInFreezer: (e: React.MouseEvent) => void = (e) => {
-    e.stopPropagation();
+  const toggleIsInFreezer: () => void = () => {
     setIsInFreezer((prev) => !prev);
   };
 
@@ -64,7 +63,7 @@ const IngredientAddModal: React.FC<{
             svgComponent={<FreezerIcon />}
             title="냉동보관"
           >
-            <Toggle isToggleOn={isInFreezer} toggleState={toggleIsInFreezer} />
+            <Toggle isToggleOn={isInFreezer} onClick={toggleIsInFreezer} />
           </IngredientAddItemContainer>
           <IngredientAddItemContainer
             isRow={false}
