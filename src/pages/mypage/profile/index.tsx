@@ -1,9 +1,9 @@
 import { type NextPage } from 'next';
 import Image from 'next/image';
-import ProfileImg from '@/assets/Property=1, State=nor.png';
-import ExclamationSVG from '@/assets/my/exclamation.svg';
+import ProfileImg from '@/assets/profile.png';
 import { Button } from '@/components/atoms';
 import React, { useEffect, useState } from 'react';
+import { ExclamationIcon } from '@/assets/icons';
 
 const FriendsListPage: NextPage = () => {
   const [selectedImageSrc, setSelectedImageSrc] = useState(ProfileImg);
@@ -102,7 +102,7 @@ const FriendsListPage: NextPage = () => {
                 </span>
               ) : (
                 <div className="flex items-center gap-[4px] text-point4 body1-medium">
-                  <ExclamationSVG />
+                  <ExclamationIcon />
                   중복되는 닉네임이에요. 다시 작성해주세요.
                 </div>
               ))}

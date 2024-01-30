@@ -1,39 +1,45 @@
 import { Button } from '@/components/atoms';
 import { MyFridgeInfo } from '@/components/molecules';
 import { NavWhiteBox } from '@/components/organisms';
-import SettingSVG from '@/assets/my/setting.svg';
-import NotificationSVG from '@/assets/my/notification (2).svg';
-import FriendsSVG from '@/assets/my/friends.svg';
-import CartSVG from '@/assets/my/cart.svg';
-import QuestionSVG from '@/assets/my/question.svg';
-import PolicySVG from '@/assets/my/POLICY.svg';
-import InfoSVG from '@/assets/my/INFO.svg';
-import ProfileImg from '@/assets/Property=1, State=nor.png';
+import ProfileImg from '@/assets/profile.png';
 import Header from '@/components/organisms/Header';
 import { type NextPage } from 'next';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import {
+  CartIcon,
+  FriendsIcon,
+  InfoIcon,
+  NotificationIcon,
+  PolicyIcon,
+  QuestionIcon,
+  SettingIcon,
+} from '@/assets/icons';
 
 const GENERAGE_NAV_LIST = [
   {
     name: '계정 설정',
-    svgComponent: <SettingSVG />,
+    svgComponent: <SettingIcon />,
     linkTo: '/mypage/account',
   },
   {
     name: '알림 설정',
-    svgComponent: <NotificationSVG />,
+    svgComponent: <NotificationIcon />,
     linkTo: '/mypage/notification',
   },
-  { name: '친구', svgComponent: <FriendsSVG />, linkTo: '/mypage/friendslist' },
-  { name: '나눔 내역', svgComponent: <CartSVG />, linkTo: '' },
+  {
+    name: '친구',
+    svgComponent: <FriendsIcon />,
+    linkTo: '/mypage/friendslist',
+  },
+  { name: '나눔 내역', svgComponent: <CartIcon />, linkTo: '' },
 ];
 
 const ETC_NAV_LIST = [
-  { name: '문의', svgComponent: <QuestionSVG />, linkTo: '' },
-  { name: '약관 및 정책', svgComponent: <PolicySVG />, linkTo: '' },
-  { name: '버전정보', svgComponent: <InfoSVG />, linkTo: '', text: '1.0.1' },
+  { name: '문의', svgComponent: <QuestionIcon />, linkTo: '#' },
+  { name: '약관 및 정책', svgComponent: <PolicyIcon />, linkTo: '#' },
+  { name: '버전정보', svgComponent: <InfoIcon />, linkTo: '', text: '1.0.1' },
 ];
 
 const Mypage: NextPage = () => {

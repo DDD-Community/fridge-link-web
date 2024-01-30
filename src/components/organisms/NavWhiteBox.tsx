@@ -1,7 +1,7 @@
 import React from 'react';
 import { WhiteBox } from '../atoms';
-import ArrowSVG from '@/assets/my/right_arrow.svg';
 import Link from 'next/link';
+import { AngleIcon } from '@/assets/icons';
 
 interface NavItem {
   name: string;
@@ -30,7 +30,12 @@ const NavWhiteBox: React.FC<NavWhiteBoxProps> = ({ label, list }) => {
           {navItem.text ? (
             <div className="text-gray4">{navItem.text}</div>
           ) : (
-            <ArrowSVG />
+            <AngleIcon
+              fill={'gray'}
+              width={16}
+              height={16}
+              transform="rotate(180)"
+            />
           )}
         </Link>
       ))}
