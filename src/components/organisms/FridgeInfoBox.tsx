@@ -1,6 +1,6 @@
-import React from 'react';
+import { AngleIcon } from '@/assets/icons';
 import { Button } from '../atoms';
-import { AllowBottom } from '../atoms/Icon';
+import React from 'react';
 
 const FridgeInfoBox: React.FC<{
   toggleIsOpenFridgeListModal: () => void;
@@ -15,7 +15,12 @@ const FridgeInfoBox: React.FC<{
           onClick={toggleIsOpenFridgeListModal}
         >
           <div className="heading1-bold">기본 냉장고</div>
-          <AllowBottom />
+          <AngleIcon
+            width={16}
+            height={16}
+            fill="#000000"
+            transform="rotate(-90)"
+          />
         </div>
       </div>
       {toggleIsOpenIngredientAddModal && (

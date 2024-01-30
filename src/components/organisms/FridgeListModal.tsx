@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
 import { Button, ModalBottom } from '../atoms';
+import { PlusIcon, TrashcanIcon } from '@/assets/icons';
+import React, { useState } from 'react';
+
 import { FridgeListItem } from '../molecules';
-import { PlusSVG, TrashcanSVG } from '../atoms/Icon';
 
 const FridgeListModal: React.FC<{
   isMyFridgeList?: boolean;
@@ -29,19 +30,15 @@ const FridgeListModal: React.FC<{
           />
         ))}
 
-        {!isMyFridgeList && (
-          <button className="flex justify-center items-center h-[64px] border-2 rounded-[12px] text-gray3">
-            <PlusSVG />
-            냉장고 추가
-          </button>
-        )}
+        <button className="flex justify-center items-center h-[64px] border-2 rounded-[12px] text-gray3">
+          <PlusIcon />
+          냉장고 추가
+        </button>
       </div>
       <div className="flex w-full gap-[8px]">
-        {!isMyFridgeList && (
-          <button className="p-[13px] border-2 border-2 rounded-[12px]">
-            <TrashcanSVG />
-          </button>
-        )}
+        <button className="p-[13px] border-2 rounded-[12px]">
+          <TrashcanIcon />
+        </button>
         <Button className="flex-grow bg-primary2" text="이동하기" />
       </div>
     </ModalBottom>

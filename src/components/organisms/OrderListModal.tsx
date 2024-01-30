@@ -1,6 +1,6 @@
+import { Button, ModalBottom, Radio } from '../atoms';
+
 import React from 'react';
-import { Button, ModalBottom } from '../atoms';
-import { EmptyRadioSVG, FullRadioSVG } from '../atoms/Icon';
 
 const OrderListModal: React.FC<{
   currentOrder: string;
@@ -13,17 +13,8 @@ const OrderListModal: React.FC<{
       <div className="w-full">
         {ORDER_LIST.map((order) => (
           <div className="flex flex-row items-center justify-between h-[70px]">
-            {currentOrder === order ? (
-              <>
-                <div className="heading3-semibold">{order}</div>
-                <FullRadioSVG />
-              </>
-            ) : (
-              <>
-                <div className="heading3-semibold text-gray5">{order}</div>
-                <EmptyRadioSVG />
-              </>
-            )}
+            <div className="heading3-semibold text-gray5">{order}</div>
+            <Radio checked={currentOrder === order} />
           </div>
         ))}
       </div>

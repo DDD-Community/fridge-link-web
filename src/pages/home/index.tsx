@@ -1,12 +1,12 @@
 import { type NextPage } from 'next';
-import MyFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_my.svg';
-import FriendsFridgeIconSvg from '@/assets/icons/IMG/Home/img_home_friend.svg';
+import MyFridgeImg from '@/assets/images/img_home_my.svg';
+import FriendsFridgeImg from '@/assets/images/img_home_friend.svg';
 import { GreenArrowButton } from '@/components/atoms';
 import { NearExpirationWarnBox, SvgAndTextBox } from '@/components/molecules';
 import { IngredientBoard } from '@/components/organisms';
 import Header from '@/components/organisms/Header';
-import AlarmIcon from '@/assets/icons/ICON/COMMON/ic_alert.svg';
 import Link from 'next/link';
+import { AlarmIcon } from '@/assets/icons';
 
 const Home: NextPage = () => {
   const isNearExpirationWarn = true;
@@ -27,12 +27,12 @@ const Home: NextPage = () => {
         )}
         <div className="flex gap-8.5 mt-12">
           <SvgAndTextBox
-            svgComponent={<MyFridgeIconSvg width={72} height={72} />}
+            svgComponent={<MyFridgeImg />}
             text="내 냉장고"
             linkTo="/myfridge"
           />
           <SvgAndTextBox
-            svgComponent={<FriendsFridgeIconSvg width={97} height={72} />}
+            svgComponent={<FriendsFridgeImg />}
             text="친구 냉장고"
             linkTo="/friends"
           />

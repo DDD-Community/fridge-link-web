@@ -1,7 +1,8 @@
-import React from 'react';
 import { SearchInput, WhiteBox } from '../atoms';
+
+import { AngleIcon } from '@/assets/icons';
 import { FriendsFridgeItem } from '../molecules';
-import { AllowBottom } from '../atoms/Icon';
+import React from 'react';
 
 const FriendsFridgeList: React.FC<{
   toggleIsOpenOrderListModal: () => void;
@@ -17,7 +18,12 @@ const FriendsFridgeList: React.FC<{
           onClick={toggleIsOpenOrderListModal}
         >
           <div>등록순</div>
-          <AllowBottom />
+          <AngleIcon
+            width={14}
+            height={14}
+            fill="#9299AA"
+            transform="rotate(-90)"
+          />
         </div>
       </div>
       <WhiteBox>

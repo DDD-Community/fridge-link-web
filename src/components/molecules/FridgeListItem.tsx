@@ -1,6 +1,7 @@
+import { GrayBox, Radio } from '../atoms';
+
+import { EditIcon } from '@/assets/icons';
 import React from 'react';
-import { GrayBox } from '../atoms';
-import { EditSVG, EmptyRadioSVG, FullRadioSVG } from '../atoms/Icon';
 
 interface FridgeListItemProps {
   isCurrentFridge: boolean;
@@ -21,10 +22,10 @@ const FridgeListItem: React.FC<FridgeListItemProps> = ({
       <div className="flex gap-[9px] items-center">
         <div className="heading3-semibold">{fridgeName}</div>
         <div>
-          <EditSVG />
+          <EditIcon />
         </div>
       </div>
-      {isCurrentFridge ? <FullRadioSVG /> : <EmptyRadioSVG />}
+      <Radio checked={isCurrentFridge} />
     </GrayBox>
   );
 };

@@ -1,8 +1,8 @@
+import { AngleIcon } from '@/assets/icons';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import profileImg from '@/assets/profile.png';
-import Image from 'next/image';
-import { ArrowRightGray } from '../atoms/Icon';
 
 interface FriendsFridgeItemProps {
   name: string;
@@ -29,7 +29,7 @@ const FriendsFridgeItem: React.FC<FriendsFridgeItemProps> = ({
         </div>
       </div>
       <Link href={`${linkTo}`}>
-        <ArrowRightGray />
+        <AngleIcon width={16} height={16} transform="rotate(180)" />
       </Link>
     </div>
   );
