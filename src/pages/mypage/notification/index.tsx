@@ -29,7 +29,11 @@ const NotificationPage: NextPage = () => {
               <div className="heading4-semibold text-gray7">나눔 알림</div>
               <div className="body2-medium text-gray5">나눔 현황 알림</div>
             </div>
-            <Toggle />
+            <Toggle
+              onClick={() => {
+                console.log('나눔현황알림');
+              }}
+            />
           </div>
         </div>
       </section>

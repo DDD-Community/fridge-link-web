@@ -11,15 +11,15 @@ const customTheme = extendTheme({
 
 const Toggle: React.FC<{
   isToggleOn?: boolean;
-  toggleState?: () => void;
-}> = ({ isToggleOn, toggleState }) => {
+  onClick?: () => void;
+}> = ({ isToggleOn, onClick }) => {
   return (
     <ThemeProvider theme={customTheme}>
       <CSSReset />
       <Switch
         colorScheme="primary2"
         isChecked={isToggleOn}
-        onChange={toggleState}
+        onChange={onClick}
       />
     </ThemeProvider>
   );
