@@ -33,7 +33,7 @@ const FriendsListPage: NextPage = () => {
       if (nickname && !isNicknameChecked) {
         console.log('변경할 닉네임', nickname);
         setIsNicknameChecked(true);
-        setIsNicknameAvailable(true);
+        setIsNicknameAvailable(false);
       }
     }, 500);
 
@@ -65,10 +65,15 @@ const FriendsListPage: NextPage = () => {
           <div className={`flex flex-col`}>
             <label className="body1-medium mb-[20px]">닉네임</label>
             <input
-              className="mb-[11px]"
               placeholder="닉네임을 입력해주세요"
               value={nickname}
               onChange={handleNicknameChange}
+            />
+            <div
+              className={`w-full h-[2px] bg-gray2 mb-[11px] ${
+                isNicknameChecked &&
+                (isNicknameAvailable ? 'bg-primary2' : 'bg-point4')
+              }`}
             />
             {isNicknameChecked &&
               (isNicknameAvailable ? (
