@@ -43,7 +43,7 @@ const Home: NextPage = () => {
           </div>
           <IngredientBoard />
         </div>
-        <Link href="myfridge">
+        <Link href="/fridge">
           <GreenArrowButton className="mt-14" text="내 냉장고 확인하기" />
         </Link>
       </section>
