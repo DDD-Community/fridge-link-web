@@ -8,3 +8,4 @@ export { default as IngredientAddItemContainer } from './IngredientAddItemContai
 export { default as FridgeListItem } from './FridgeListItem';
 export { default as FriendsFridgeItem } from './FriendsFridgeItem';
 export { default as MyFridgeInfo } from './MyFridgeInfo';
+export { default as NavWhiteBoxItem } from './NavWhiteBoxItem';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { WhiteContainer } from '../atoms';
-import Link from 'next/link';
-import { AngleIcon } from '@/assets/icons';
+import { NavWhiteBoxItem } from '../molecules';
 
 interface NavItem {
   name: string;
@@ -19,25 +18,8 @@ const NavWhiteBox: React.FC<NavWhiteBoxProps> = ({ label, list }) => {
   return (
     <WhiteContainer>
       <label className="w-full text-gray6 body1-regular">{label}</label>
-      {list.map((navItem) => (
-        <Link
-          href={navItem.linkTo}
-          className="w-full flex justify-between items-center"
-        >
-          <div className="flex items-center gap-[12px]">
-            {navItem.svgComponent} {navItem.name}
-          </div>
-          {navItem.text ? (
-            <div className="text-gray4">{navItem.text}</div>
-          ) : (
-            <AngleIcon
-              fill={'gray'}
-              width={16}
-              height={16}
-              transform="rotate(180)"
-            />
-          )}
-        </Link>
+      {list.map((navItem, index) => (
+        <NavWhiteBoxItem key={index} {...navItem} />
       ))}
     </WhiteContainer>
   );
