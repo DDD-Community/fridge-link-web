@@ -1,11 +1,14 @@
 import React from 'react';
 
-interface WhiteBoxProps {
+interface WhiteContainerProps {
   children: React.ReactNode;
   className?: string;
 }
 
-const WhiteBox: React.FC<WhiteBoxProps> = ({ children, className }) => {
+const WhiteContainer: React.FC<WhiteContainerProps> = ({
+  children,
+  className,
+}) => {
   return (
     <div
       className={`flex flex-col justify-center items-center gap-22 p-32  w-full bg-white rounded-12 ${className}`}
@@ -15,4 +18,4 @@ const WhiteBox: React.FC<WhiteBoxProps> = ({ children, className }) => {
   );
 };
 
-export default WhiteBox;
+export default WhiteContainer;

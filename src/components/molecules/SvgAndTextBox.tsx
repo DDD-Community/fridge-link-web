@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { WhiteBox } from '@/components/atoms';
+import { WhiteContainer } from '@/components/atoms';
 
 interface SvgAndTextBoxProps {
   svgComponent: React.ReactNode;
@@ -15,10 +15,10 @@ const SvgAndTextBox: React.FC<SvgAndTextBoxProps> = ({
 }) => {
   return (
     <Link className="w-full" href={linkTo}>
-      <WhiteBox>
+      <WhiteContainer>
         {svgComponent}
         <p className="heading4-semibold text-gray6">{text}</p>
-      </WhiteBox>
+      </WhiteContainer>
     </Link>
   );
 };

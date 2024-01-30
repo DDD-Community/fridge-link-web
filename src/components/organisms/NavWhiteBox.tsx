@@ -1,5 +1,5 @@
 import React from 'react';
-import { WhiteBox } from '../atoms';
+import { WhiteContainer } from '../atoms';
 import Link from 'next/link';
 import { AngleIcon } from '@/assets/icons';
 
@@ -17,7 +17,7 @@ interface NavWhiteBoxProps {
 
 const NavWhiteBox: React.FC<NavWhiteBoxProps> = ({ label, list }) => {
   return (
-    <WhiteBox>
+    <WhiteContainer>
       <label className="w-full text-gray6 body1-regular">{label}</label>
       {list.map((navItem) => (
         <Link
@@ -39,7 +39,7 @@ const NavWhiteBox: React.FC<NavWhiteBoxProps> = ({ label, list }) => {
           )}
         </Link>
       ))}
-    </WhiteBox>
+    </WhiteContainer>
   );
 };
 

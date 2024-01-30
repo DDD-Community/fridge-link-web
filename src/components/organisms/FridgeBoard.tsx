@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WhiteBox } from '@/components/atoms';
+import { WhiteContainer } from '@/components/atoms';
 import {
   EmptyIngredient,
   FridgeTab,
@@ -16,7 +16,7 @@ const FridgeBoard: React.FC = () => {
   const datas = ['d'];
 
   return (
-    <WhiteBox className="p-[20px]">
+    <WhiteContainer className="p-[20px]">
       <FridgeTab
         currentTabName={currentTabName}
         handleTabNameChange={handleTabNameChange}
@@ -34,7 +34,7 @@ const FridgeBoard: React.FC = () => {
           />
         </div>
       )}
-    </WhiteBox>
+    </WhiteContainer>
   );
 };
 
