@@ -10,8 +10,8 @@ const NotificationIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
         fill={props.fill ? 'current' : '#9299AA'}
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M6.75964 18.8564C7.22461 20.6642 8.86544 21.9999 10.8183 21.9999C12.7711 21.9999 14.4119 20.6642 14.8769 18.8564H6.75964Z"
         fill={props.fill ? 'current' : '#9299AA'}
       />

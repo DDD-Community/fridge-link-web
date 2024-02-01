@@ -1,4 +1,4 @@
-import { ChakraProvider, CSSReset, extendTheme } from '@chakra-ui/react';
+import { ThemeProvider, CSSReset, extendTheme } from '@chakra-ui/react';
 import Layout from '@/components/templates/Layout';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
@@ -16,12 +16,12 @@ const theme = extendTheme({
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <RecoilRoot>
-      <ChakraProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <CSSReset />
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </ChakraProvider>
+      </ThemeProvider>
     </RecoilRoot>
   );
 }
