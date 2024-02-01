@@ -1,4 +1,4 @@
-import { SearchInput, WhiteContainer } from '../atoms';
+import { SearchInput, Container } from '../atoms';
 
 import { AngleIcon } from '@/assets/icons';
 import { FriendsFridgeItem } from '../molecules';
@@ -26,14 +26,14 @@ const FriendsFridgeList: React.FC<{
           />
         </div>
       </div>
-      <WhiteContainer>
+      <Container className="bg-white">
         <SearchInput placeholder="친구의 이름을 입력하세요" />
         <div className="w-full flex flex-col gap-[24px]">
           <FriendsFridgeItem name="김지수" ingredientCount={13} linkTo="#" />
           <FriendsFridgeItem name="김지수" ingredientCount={13} linkTo="#" />
           <FriendsFridgeItem name="김지수" ingredientCount={13} linkTo="#" />
         </div>
-      </WhiteContainer>
+      </Container>
     </div>
   );
 };

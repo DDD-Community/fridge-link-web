@@ -1,12 +1,12 @@
 import React from 'react';
-import { WhiteContainer } from '@/components/atoms';
+import { Container } from '@/components/atoms';
 import { EmptyIngredient, IngredientItemBox } from '@/components/molecules';
 
 const TermBoard: React.FC = () => {
   const isIngredientItem = true;
 
   return (
-    <WhiteContainer>
+    <Container className="bg-white">
       {isIngredientItem ? (
         <div className={`flex flex-col w-full gap-25`}>
           <IngredientItemBox />
@@ -17,7 +17,7 @@ const TermBoard: React.FC = () => {
           <EmptyIngredient text="현재 냉장고에 추가된 식자재가 없어요!" />
         </div>
       )}
-    </WhiteContainer>
+    </Container>
   );
 };
 
