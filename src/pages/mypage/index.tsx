@@ -49,7 +49,7 @@ const Mypage: NextPage = () => {
       <main className={`flex flex-col gap-[20px] min-h-screen p-20 bg-gray1`}>
         <div className="flex justify-between items-center">
           <div className="flex gap-[15px] items-center">
-            <Image src={ProfileImg} alt="프로필 예시" />
+            <Image src={ProfileImg} alt="프로필 예시" width={52} height={52} />
             <span className="heading2-semibold">닉네임</span>
           </div>
           <Link href="/mypage/profile">
