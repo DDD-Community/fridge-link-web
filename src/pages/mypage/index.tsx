@@ -46,13 +46,11 @@ const Mypage: NextPage = () => {
   return (
     <div className={'pt-[52px] min-h-screen'}>
       <Header headerTitle={'My'} />
-      <section
-        className={`flex flex-col gap-[20px] min-h-screen p-20 bg-gray1`}
-      >
+      <main className={`flex flex-col gap-[20px] min-h-screen p-20 bg-gray1`}>
         <div className="flex justify-between items-center">
           <div className="flex gap-[15px] items-center">
             <Image src={ProfileImg} alt="프로필 예시" />
-            <div className="heading2-semibold">닉네임</div>
+            <span className="heading2-semibold">닉네임</span>
           </div>
           <Link href="/mypage/profile">
             <Button
@@ -70,7 +68,7 @@ const Mypage: NextPage = () => {
         </div>
         <NavWhiteBox label="일반" list={GENERAGE_NAV_LIST} />
         <NavWhiteBox label="기타" list={ETC_NAV_LIST} />
-      </section>
+      </main>
     </div>
   );
 };
