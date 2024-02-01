@@ -2,16 +2,16 @@ import { type NextPage } from 'next';
 import Image from 'next/image';
 import ProfileImg from '@/assets/profile.png';
 import { Button } from '@/components/atoms';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ExclamationIcon } from '@/assets/icons';
 import Header from '@/components/organisms/Header';
+import { debounceFunction } from '@/utils/debounceUtil';
 
 const FriendsListPage: NextPage = () => {
   const [selectedImageSrc, setSelectedImageSrc] = useState(ProfileImg);
   const [nickname, setNickname] = useState('');
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
-  const [delayedRequest, setDelayedRequest] = useState<any>(undefined); // NodeJS.Timeout..
 
   const handleImageClick: (src: string) => void = (src) => {
     // imgURL로 변경
@@ -25,28 +25,17 @@ const FriendsListPage: NextPage = () => {
     setNickname(e.target.value);
     setIsNicknameChecked(false);
 
-    if (delayedRequest) {
-      clearTimeout(delayedRequest);
-    }
-
-    const timeoutId = setTimeout(() => {
-      if (nickname && !isNicknameChecked) {
-        console.log('변경할 닉네임', nickname);
-        setIsNicknameChecked(true);
-        setIsNicknameAvailable(false);
-      }
-    }, 500);
-
-    setDelayedRequest(timeoutId);
+    void debouncedHandleNicknameChange(e.target.value);
   };
 
-  useEffect(() => {
-    return () => {
-      if (delayedRequest) {
-        clearTimeout(delayedRequest);
-      }
-    };
-  }, [delayedRequest]);
+  const debouncedHandleNicknameChange = useCallback(
+    debounceFunction((currentNickname: string) => {
+      console.log('변경할 닉네임', currentNickname);
+      setIsNicknameChecked(true);
+      setIsNicknameAvailable(false);
+    }, 1000),
+    [],
+  );
 
   return (
     <div className={'bg-white pt-[52px] min-h-screen'}>
