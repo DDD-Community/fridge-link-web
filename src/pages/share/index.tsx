@@ -94,7 +94,6 @@ const SharePage: NextPage = () => {
             className=" bg-white"
             position="fixed"
             bottom="0"
-            mb="72"
             borderRadius="24px 24px 0px 0px"
             maxW="lg"
           >
