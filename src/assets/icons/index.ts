@@ -23,3 +23,5 @@ export { default as NotificationIcon } from './NotificationIcon';
 export { default as PolicyIcon } from './PolicyIcon';
 export { default as QuestionIcon } from './QuestionIcon';
 export { default as SettingIcon } from './SettingIcon';
+export { default as DateIcon } from './DateIcon';
+export { default as ClockIcon } from './ClockIcon';
