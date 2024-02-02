@@ -5,11 +5,14 @@ import React, { useState } from 'react';
 
 import { AppleIcon } from '../atoms/IngredientIcons';
 import useCount from '@/hooks/useCount';
+import { toastState } from '@/stores/toastState';
+import { useRecoilState } from 'recoil';
 
 const IngredientAddModal: React.FC<{
   toggleIsOpenIngredientAddModal: () => void;
-  toggleIsOppenToastMessage: () => void;
-}> = ({ toggleIsOpenIngredientAddModal, toggleIsOppenToastMessage }) => {
+}> = ({ toggleIsOpenIngredientAddModal }) => {
+  const [, setToast] = useRecoilState(toastState);
+
   const [isInFreezer, setIsInFreezer] = useState(false);
   const [memoContent, setMemoContent] = useState('');
   const { currentCount, handleIncreaseCount, handleDecreaseCount } = useCount();
@@ -21,7 +24,11 @@ const IngredientAddModal: React.FC<{
   const handleSubmit: () => void = () => {
     console.log({ currentCount, isInFreezer, memoContent });
     toggleIsOpenIngredientAddModal();
-    toggleIsOppenToastMessage();
+    setToast((prev) => ({
+      ...prev,
+      message: ' 식자재 추가가 완료되었습니다.',
+      isOpen: true,
+    }));
   };
 
   return (
