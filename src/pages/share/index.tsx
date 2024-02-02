@@ -96,8 +96,9 @@ const SharePage: NextPage = () => {
             bottom="0"
             borderRadius="24px 24px 0px 0px"
             maxW="lg"
+            margin={0}
           >
-            <ModalBody>
+            <ModalBody padding={0}>
               {SORT_TYPES.map((ele: SortLabel) => (
                 <RadioButtonField
                   key={ele.value}

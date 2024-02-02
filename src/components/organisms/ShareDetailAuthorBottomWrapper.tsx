@@ -77,10 +77,11 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
           className=" bg-white"
           position="fixed"
           bottom="0"
+          margin={0}
           borderRadius="24px 24px 0px 0px"
           maxW="lg"
         >
-          <ModalBody>
+          <ModalBody padding={0}>
             {SHARE_STATUSES.map((ele) => (
               <RadioButtonField
                 key={ele.value}
@@ -103,7 +104,7 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
       </Modal>
 
       <Modal
-        onClose={onStatusModalClose}
+        onClose={onParticipantsModalClose}
         isOpen={isParticipantsModalOpen}
         motionPreset="slideInBottom"
         trapFocus={false}
@@ -113,16 +114,17 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
           className=" bg-white"
           position="fixed"
           bottom="0"
+          margin={0}
           borderRadius="24px 24px 0px 0px"
           maxW="lg"
         >
           <ModalBody>
             <div className="max-h-[300px] overflow-scroll px-[20px] py-[40px]">
-              {MOCK_DATA_PARTICIPANTS.map((ele) => (
-                <div>{ele}</div>
+              {MOCK_DATA_PARTICIPANTS.map((ele, idx) => (
+                <div key={idx}>{ele}</div>
               ))}
             </div>
-            <div className="p-[20px] pb-[32px]">
+            <div className="pt-[20px] pb-[32px]">
               <Button
                 className="block w-full bg-primary2"
                 text={'확인'}
