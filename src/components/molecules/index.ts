@@ -7,3 +7,5 @@ export { default as Counter } from './Counter';
 export { default as IngredientAddItemContainer } from './IngredientAddItemContainer';
 export { default as FridgeListItem } from './FridgeListItem';
 export { default as FriendsFridgeItem } from './FriendsFridgeItem';
+export { default as MyFridgeInfo } from './MyFridgeInfo';
+export { default as NavWhiteBoxItem } from './NavWhiteBoxItem';

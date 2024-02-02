@@ -1,5 +1,5 @@
 import React from 'react';
-import { GreenArrowButton, WhiteBox } from '../atoms';
+import { GreenArrowButton, Container } from '../atoms';
 import { AppleIcon } from '@/components/atoms/IngredientIcons';
 import Link from 'next/link';
 
@@ -10,7 +10,7 @@ const FriendsRecentBoard: React.FC = () => {
     { isToday: false },
   ];
   return (
-    <WhiteBox className="flex">
+    <Container className="flex bg-white">
       <div className="text-primary2 body2-semibold">최신근황</div>
       <div className="text-center text-gray8">
         김지수님이
@@ -37,7 +37,7 @@ const FriendsRecentBoard: React.FC = () => {
       <Link className="w-full" href="/friend/12">
         <GreenArrowButton className="bg-primary2" text="친구 냉장고 보러가기" />
       </Link>
-    </WhiteBox>
+    </Container>
   );
 };
 

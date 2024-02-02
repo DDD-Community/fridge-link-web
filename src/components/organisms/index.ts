@@ -6,3 +6,4 @@ export { default as FridgeListModal } from './FridgeListModal';
 export { default as FriendsRecentBoard } from './FriendsRecentBoard';
 export { default as FriendsFridgeList } from './FriendsFridgeList';
 export { default as OrderListModal } from './OrderListModal';
+export { default as NavWhiteBox } from './NavWhiteBox';

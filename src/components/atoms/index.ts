@@ -1,6 +1,6 @@
 export { default as Button } from './Button';
 export { default as GreenArrowButton } from './GreenArrowButton';
-export { default as WhiteBox } from './WhiteBox';
+export { default as Container } from './Container';
 export { default as GrayBox } from './GrayBox';
 export { default as IngredientDateTag } from './IngredientDateTag';
 export { default as BorderTab } from './BorderTab';
