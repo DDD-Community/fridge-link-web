@@ -3,7 +3,7 @@ import BottomNavigation from '../organisms/BottomNavigation';
 import { usePathname } from 'next/navigation';
 import { ToastMessage } from '../atoms';
 import { useRecoilValue } from 'recoil';
-import { toastState } from '@/stores/toastAtom';
+import { toastState } from '@/stores/toastState';
 
 const MAIN_PAGE_PATHS = ['/home', '/fridge', '/share', '/mypage'];
 

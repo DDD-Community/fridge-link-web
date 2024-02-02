@@ -1,6 +1,6 @@
 import React from 'react';
-import type { ToastType } from '../stores/toastAtom';
-import { toastState } from '../stores/toastAtom';
+import type { ToastType } from '../stores/toastState';
+import { toastState } from '../stores/toastState';
 import { ToastMessage } from '../components/atoms';
 import { RecoilRoot, useRecoilState } from 'recoil';
 

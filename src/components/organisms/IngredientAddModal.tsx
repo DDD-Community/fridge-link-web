@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import { AppleIcon } from '../atoms/IngredientIcons';
 import useCount from '@/hooks/useCount';
-import { toastState } from '@/stores/toastAtom';
+import { toastState } from '@/stores/toastState';
 import { useRecoilState } from 'recoil';
 
 const IngredientAddModal: React.FC<{

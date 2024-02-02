@@ -1,5 +1,5 @@
-import { toastState } from '@/stores/toastAtom';
-import type { ToastType } from '@/stores/toastAtom';
+import { toastState } from '@/stores/toastState';
+import type { ToastType } from '@/stores/toastState';
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
