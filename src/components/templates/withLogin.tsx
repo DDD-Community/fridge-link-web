@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { emailState } from '@/stores/userState';
-import { useRecoilValue } from 'recoil';
 
 const withLogin = (InnerComponent: React.FC) => {
   return () => {
     const router = useRouter();
-    const userEmail = useRecoilValue(emailState);
+    const token = localStorage.getItem('token');
 
     const redirectToLogin: () => Promise<void> = async () => {
-      if (!userEmail) {
+      if (!token) {
         alert('로그인이 필요합니다.');
         try {
           await router.push('/login');
@@ -21,9 +19,9 @@ const withLogin = (InnerComponent: React.FC) => {
 
     useEffect(() => {
       void redirectToLogin();
-    }, [userEmail]);
+    }, [token]);
 
-    return userEmail ? <InnerComponent /> : null;
+    return token ? <InnerComponent /> : null;
   };
 };
 
