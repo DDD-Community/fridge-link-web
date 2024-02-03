@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 const useToast: () => {
   showToast: (message: string, type: ToastType) => void;
-  hideToast: () => void;
+  hideToast: (id: string) => void;
 } = () => {
   const [, setToast] = useRecoilState(toastState);
 
@@ -26,11 +26,13 @@ const useToast: () => {
     }, 2000);
   };
 
+  const hideToast: (id: string) => void = (id) => {
+    setToast((prev) => (prev.id === id ? { ...prev, isOpen: false } : prev));
+  };
+
   return {
     showToast,
-    hideToast: () => {
-      setToast((prevToast) => ({ ...prevToast, isOpen: false }));
-    },
+    hideToast,
   };
 };
 
