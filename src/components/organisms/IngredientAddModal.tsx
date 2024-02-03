@@ -5,13 +5,12 @@ import React, { useState } from 'react';
 
 import { AppleIcon } from '../atoms/IngredientIcons';
 import useCount from '@/hooks/useCount';
-import { toastState } from '@/stores/toastState';
-import { useRecoilState } from 'recoil';
+import useToast from '@/hooks/useToast';
 
 const IngredientAddModal: React.FC<{
   toggleIsOpenIngredientAddModal: () => void;
 }> = ({ toggleIsOpenIngredientAddModal }) => {
-  const [, setToast] = useRecoilState(toastState);
+  const { showToast } = useToast();
 
   const [isInFreezer, setIsInFreezer] = useState(false);
   const [memoContent, setMemoContent] = useState('');
@@ -24,11 +23,7 @@ const IngredientAddModal: React.FC<{
   const handleSubmit: () => void = () => {
     console.log({ currentCount, isInFreezer, memoContent });
     toggleIsOpenIngredientAddModal();
-    setToast((prev) => ({
-      ...prev,
-      message: ' 식자재 추가가 완료되었습니다.',
-      isOpen: true,
-    }));
+    showToast('식자재 추가가 완료되었습니다.', 'success');
   };
 
   return (
