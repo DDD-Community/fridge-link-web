@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 import 'dayjs/locale/ko';
 import dayjs from 'dayjs';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 dayjs.locale('ko');
 
 const theme = extendTheme({
@@ -13,15 +14,26 @@ const theme = extendTheme({
   },
 });
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <CSSReset />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <CSSReset />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </QueryClientProvider>
     </RecoilRoot>
   );
 }
