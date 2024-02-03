@@ -14,4 +14,16 @@ const axiosInstance = axios.create({
   },
 });
 
+const getAccessTokenLocalStorage: () => string = () => {
+  const accessToken = localStorage.getItem('token');
+
+  return accessToken ? `Bearer ${accessToken}` : '';
+};
+
+axiosInstance.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${getAccessTokenLocalStorage()}`;
+
+  return config;
+});
+
 export default axiosInstance;
