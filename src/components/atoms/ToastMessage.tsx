@@ -1,10 +1,10 @@
 import { toastState } from '@/stores/toastState';
 import type { ToastType } from '@/stores/toastState';
-import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
 
 const ToastMessage: React.FC = () => {
-  const [toast, setToast] = useRecoilState(toastState);
+  const toast = useRecoilValue(toastState);
 
   const getBackgroundColor = (type: ToastType): string => {
     switch (type) {
@@ -18,20 +18,6 @@ const ToastMessage: React.FC = () => {
         return 'bg-black bg-opacity-70';
     }
   };
-
-  const closeToast: () => void = () => {
-    setToast((prevToast) => ({ ...prevToast, isOpen: false }));
-  };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      closeToast();
-    }, 1000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
 
   return (
     <div
