@@ -14,13 +14,13 @@ import { PlusIcon } from '@/assets/icons';
 import { type SortLabel, type TabLabel } from '@/types/common';
 import dayjs from 'dayjs';
 
-export const TABS: TabLabel[] = [
+const TABS: TabLabel[] = [
   { label: '나눔 신청', value: 'enroll' },
   { label: '나눔 중', value: 'proceeding' },
   { label: '나눔 완료', value: 'complete' },
 ];
 
-export const SORT_TYPES: SortLabel[] = [
+const SORT_TYPES: SortLabel[] = [
   { label: '최신순', value: 'latest' },
   { label: '마감순', value: 'earliest' },
 ];
