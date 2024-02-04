@@ -8,3 +8,4 @@ export { default as FriendsFridgeList } from './FriendsFridgeList';
 export { default as OrderListModal } from './OrderListModal';
 export { default as NavWhiteBox } from './NavWhiteBox';
 export { default as FriendListItem } from './FriendListItem';
+export { default as BulletNoticeBox } from './BulletNoticeBox';

@@ -1,7 +1,7 @@
 import { SettingIcon } from '@/assets/icons';
 import { TabButton } from '@/components/atoms';
 import Header from '@/components/organisms/Header';
-import { FriendListTemplate } from '@/components/templates';
+import { AddFriendTemplate, FriendListTemplate } from '@/components/templates';
 import { type TabLabel } from '@/types/common';
 
 import { type NextPage } from 'next';
@@ -37,7 +37,7 @@ const FriendsListPage: NextPage = () => {
         </div>
       </div>
 
-      {curTab.value === 'list' ? <FriendListTemplate /> : null}
+      {curTab.value === 'list' ? <FriendListTemplate /> : <AddFriendTemplate />}
     </div>
   );
 };
