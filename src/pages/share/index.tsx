@@ -13,6 +13,7 @@ import {
 import { PlusIcon } from '@/assets/icons';
 import { type SortLabel, type TabLabel } from '@/types/common';
 import dayjs from 'dayjs';
+import Link from 'next/link';
 
 export const TABS: TabLabel[] = [
   { label: '나눔 신청', value: 'enroll' },
@@ -79,10 +80,13 @@ const SharePage: NextPage = () => {
             <ShareListItem key={ele.id} data={ele} />
           ))}
         </div>
-        <button className="fixed bottom-[88px] right-[20px] flex justify-center items-center px-[16px] py-[12px] rounded-[50px] bg-primary1">
+        <Link
+          href={'/add-share'}
+          className="fixed bottom-[88px] right-[20px] flex justify-center items-center px-[16px] py-[12px] rounded-[50px] bg-primary1"
+        >
           <PlusIcon fill="#FFFFFF" />
           <span className="ml-[4px] heading4-semibold text-white">글쓰기</span>
-        </button>
+        </Link>
         <Modal
           onClose={onClose}
           isOpen={isOpen}

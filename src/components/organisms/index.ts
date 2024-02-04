@@ -9,3 +9,5 @@ export { default as OrderListModal } from './OrderListModal';
 export { default as NavWhiteBox } from './NavWhiteBox';
 export { default as Header } from './Header';
 export { default as ShareDetailAuthorBottomWrapper } from './ShareDetailAuthorBottomWrapper';
+export { default as InputLabelContainer } from './InputLabelContainer';
+export { default as InputSectionContainer } from './InputSectionContainer';
