@@ -88,10 +88,6 @@
   box-sizing: border-box;
 }
 
-input {
-  border: 0;
-}
-
 .overflow-scroll::-webkit-scrollbar {
   display: none;
 }
