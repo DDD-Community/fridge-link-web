@@ -85,6 +85,7 @@ const AddSharePage: NextPage = () => {
           <textarea
             placeholder="나눔할 식자재에 대한 내용을 작성해 주세요."
             className="w-full h-[138px] mt-[14px] px-[20px] py-[14px] border border-gray3 outline-none rounded-[6px] text-gray4 body1-medium"
+            maxLength={60}
           ></textarea>
         </InputSectionContainer>
 
