@@ -83,7 +83,7 @@ const IngredientAddModal: React.FC<{
           </IngredientAddItemContainer>
         </div>
         <Button
-          className="w-full bg-primary2"
+          className="w-full bg-primary2 text-white"
           text="추가완료"
           onClick={handleSubmit}
         />
