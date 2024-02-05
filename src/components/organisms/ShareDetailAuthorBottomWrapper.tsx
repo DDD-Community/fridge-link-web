@@ -6,7 +6,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import { Button, RadioButtonField } from '../atoms';
+import { Button, RadioButtonField } from '@/components/atoms';
 import React from 'react';
 import { type SortLabel } from '@/types/common';
 
@@ -52,18 +52,16 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
   return (
     <>
       <div className="fixed flex gap-[11px] w-full max-w-[480px] bottom-0 p-[20px] pb-[32px] bg-gray1">
-        <button
+        <Button
           onClick={onStatusModalOpen}
-          className="w-full text-center py-[16px] rounded-[12px] text-gray6 bg-gray2 heading4-semibold"
-        >
-          상태 변경
-        </button>
-        <button
+          className="w-full py-[16px] text-gray6 bg-gray2"
+          text={'상태 변경'}
+        />
+        <Button
           onClick={onParticipantsModalOpen}
-          className="w-full text-center py-[16px] rounded-[12px] text-white bg-primary2 heading4-semibold"
-        >
-          신청인원 확인
-        </button>
+          className="w-full py-[16px] text-white bg-primary2"
+          text="신청인원 확인"
+        />
       </div>
 
       <Modal
