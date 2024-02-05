@@ -31,7 +31,7 @@ const BottomNavigation: React.FC = () => {
   const pathname = usePathname();
   return (
     <div className="min-h-[72px]">
-      <div className="flex fixed h-[72px] justify-between px-[27px]  bottom-0 w-full bg-white z-30 max-w-[480px] ">
+      <div className="flex fixed h-[72px] justify-between px-[27px]  bottom-0 w-full bg-white max-w-[480px] ">
         {BOTTOM_TABS.map((ele) => (
           <Link
             key={ele.label}

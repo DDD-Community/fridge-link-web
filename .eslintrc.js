@@ -18,6 +18,7 @@ module.exports = {
   ignorePatterns: ['/src/assets/**', '/src/styles/**'],
   rules: {
     '@typescript-eslint/strict-boolean-expressions': 'off',
-    'prettier/prettier': ["error", { "endOfLine": "auto" }]
+    'prettier/prettier': ["error", { "endOfLine": "auto" }],
+    '@typescript-eslint/explicit-function-return-type': 'off'
   },
 };

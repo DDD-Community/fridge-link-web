@@ -13,6 +13,7 @@ import {
 import { PlusIcon } from '@/assets/icons';
 import { type SortLabel, type TabLabel } from '@/types/common';
 import dayjs from 'dayjs';
+import Link from 'next/link';
 
 const TABS: TabLabel[] = [
   { label: '나눔 신청', value: 'enroll' },
@@ -79,10 +80,17 @@ const SharePage: NextPage = () => {
             <ShareListItem key={ele.id} data={ele} />
           ))}
         </div>
-        <button className="fixed bottom-[88px] right-[20px] flex justify-center items-center px-[16px] py-[12px] rounded-[50px] bg-primary1">
-          <PlusIcon fill="#FFFFFF" />
-          <span className="ml-[4px] heading4-semibold text-white">글쓰기</span>
-        </button>
+        <div className="flex justify-end pr-[20px]">
+          <Link
+            href={'/add-share'}
+            className="fixed bottom-[88px] flex justify-center items-center px-[16px] py-[12px] rounded-[50px] bg-primary1"
+          >
+            <PlusIcon fill="#FFFFFF" />
+            <span className="ml-[4px] heading4-semibold text-white">
+              글쓰기
+            </span>
+          </Link>
+        </div>
         <Modal
           onClose={onClose}
           isOpen={isOpen}
@@ -94,11 +102,11 @@ const SharePage: NextPage = () => {
             className=" bg-white"
             position="fixed"
             bottom="0"
-            mb="72"
             borderRadius="24px 24px 0px 0px"
             maxW="lg"
+            margin={0}
           >
-            <ModalBody>
+            <ModalBody padding={0}>
               {SORT_TYPES.map((ele: SortLabel) => (
                 <RadioButtonField
                   key={ele.value}
