@@ -25,7 +25,7 @@ const FridgeInfoBox: React.FC<{
       </div>
       {toggleIsOpenIngredientAddModal && (
         <Button
-          className="rounded-6 w-[100px] p-[10px] body1-semibold bg-primary2"
+          className="rounded-6 w-[100px] p-[10px] body1-semibold bg-primary2 text-white"
           text="식자재 추가"
           onClick={toggleIsOpenIngredientAddModal}
         />
