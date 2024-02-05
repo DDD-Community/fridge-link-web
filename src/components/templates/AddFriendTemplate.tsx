@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { BulletNoticeBox } from '../organisms';
+import { MiniButton } from '@/components/atoms';
 
 const MY_INVITATION_CODE = 'AB12CD3EF';
 
@@ -27,12 +28,7 @@ const AddFriendTemplate: React.FC = () => {
             {myCode}
           </span>
 
-          <button
-            onClick={onCopy}
-            className="px-[16px] p-[10px] bg-primary2 rounded-[6px] text-white"
-          >
-            복사
-          </button>
+          <MiniButton label="복사" onClick={onCopy} variant="active" />
         </div>
       </div>
 
@@ -45,9 +41,7 @@ const AddFriendTemplate: React.FC = () => {
             placeholder="상대 초대 코드를 입력해주세요."
             className="flex-1 outline-none mr-[10px] border-none p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium"
           />
-          <button className="px-[16px] py-[10px] bg-white rounded-[6px] border border-gray3 text-gray3">
-            추가
-          </button>
+          <MiniButton label="추가" onClick={onCopy} variant="clickable" />
         </div>
       </div>
 

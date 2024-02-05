@@ -13,3 +13,4 @@ export { default as TabButton } from './TabButton';
 export { default as Radio } from './Radio';
 export { default as SortButton } from './SortButton';
 export { default as RadioButtonField } from './RadioButtonField';
+export { default as MiniButton } from './MiniButton';
