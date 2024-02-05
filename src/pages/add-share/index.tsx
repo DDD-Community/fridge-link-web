@@ -57,6 +57,7 @@ const AddSharePage: NextPage = () => {
             <Input
               placeholder="냉장고에서 식자재 가져오기"
               className="w-full mt-[14px] text-right"
+              type="date"
             />
           </InputLabelContainer>
           <InputLabelContainer label="시간">
