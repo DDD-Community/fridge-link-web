@@ -1,4 +1,4 @@
-import { CameraIcon, CircleClose } from '@/assets/icons';
+import { CameraIcon, CircleCloseIcon } from '@/assets/icons';
 import { Button, Input } from '@/components/atoms';
 import { Counter } from '@/components/molecules';
 import {
@@ -92,7 +92,7 @@ const AddSharePage: NextPage = () => {
           title={'사진 등록'}
           className="mt-[40px] mb-[14px]"
         >
-          <div className="flex">
+          <div className="flex mt-[12px]">
             <label
               htmlFor="file"
               className="flex justify-center items-center w-[70px] aspect-square border rounded-[6px] "
@@ -125,7 +125,7 @@ const AddSharePage: NextPage = () => {
                   className="absolute top-[-8px] right-[-9px]"
                   onClick={onRemoveImage}
                 >
-                  <CircleClose />
+                  <CircleCloseIcon />
                 </button>
               </div>
             ) : null}

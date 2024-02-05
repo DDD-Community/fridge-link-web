@@ -26,4 +26,4 @@ export { default as SettingIcon } from './SettingIcon';
 export { default as DateIcon } from './DateIcon';
 export { default as ClockIcon } from './ClockIcon';
 export { default as CameraIcon } from './CameraIcon';
-export { default as CircleClose } from './CircleClose';
+export { default as CircleCloseIcon } from './CircleCloseIcon';
