@@ -10,17 +10,19 @@ const LoginPage: NextPage = () => {
   const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&response_type=code&scope=email&access_type=offline`;
 
   const handleKaKaoClick: () => void = () => {
-    window.location.href = kakaoURL;
+    window.location.href = `${kakaoURL}&type=kakao`;
   };
 
   const handleGoogleClick: () => void = () => {
-    window.location.href = googleURL;
+    window.location.href = `${googleURL}&type=google`;
   };
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
+      // const type = urlParams.get('type');
+      // 구글 추가시 타입 redirect_uri 변경
 
       if (code) {
         await getKaKaoToken(code);
