@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { type NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const MOCK_DATA = {
   shareerName: '김지수',
@@ -31,17 +31,30 @@ const ShareDetailPage: NextPage = () => {
   const { id } = router.query;
   const [curStatus, setCurStatus] = useState<SortLabel>(MOCK_DATA_SHARE_STATUS);
 
+  useEffect(() => {
+    if (window) {
+      console.log(window.innerWidth);
+    }
+  }, []);
+
   return (
     <>
       <div className={'min-h-screen mb-[110px]'}>
         <Header backgroundColor="transparent" />
         {MOCK_DATA.image ? (
-          <Image alt="detailImage" src={''} fill sizes="100vw" />
+          <Image
+            alt="detailImage"
+            src={''}
+            sizes="100vw"
+            width={0}
+            height={0}
+            className="w-full aspect-[375/309]"
+          />
         ) : (
           <div className=" w-full aspect-[375/309] bg-gray3" />
         )}
 
-        <div className="mt-[-13px] mx-[20px] px-[16px] py-[24px] bg-white rounded-[12px]">
+        <div className="relative mt-[-13px] mx-[20px] px-[16px] py-[24px] bg-white rounded-[12px]">
           <p className="text-center body1-semibold text-gray7">
             {MOCK_DATA_IS_AUTHOR ? '나의 나눔' : MOCK_DATA.shareerName}
           </p>
