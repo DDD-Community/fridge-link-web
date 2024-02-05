@@ -1,5 +1,6 @@
 import type { ToastType } from '@/stores/toastState';
 import { toastState } from '@/stores/toastState';
+import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { v4 as uuid } from 'uuid';
 
@@ -9,26 +10,26 @@ const useToast: () => {
 } = () => {
   const [, setToast] = useRecoilState(toastState);
 
-  const showToast: (message: string, type: ToastType) => void = (
-    message,
-    type,
-  ) => {
-    const id = uuid();
-    setToast({
-      id,
-      message,
-      isOpen: true,
-      type,
-    });
+  const showToast: (message: string, type: ToastType) => void = useCallback(
+    (message, type) => {
+      const id = uuid();
+      setToast({
+        id,
+        message,
+        isOpen: true,
+        type,
+      });
 
-    setTimeout(() => {
-      hideToast(id);
-    }, 2000);
-  };
+      setTimeout(() => {
+        hideToast(id);
+      }, 2000);
+    },
+    [],
+  );
 
-  const hideToast: (id: string) => void = (id) => {
+  const hideToast: (id: string) => void = useCallback((id) => {
     setToast((prev) => (prev.id === id ? { ...prev, isOpen: false } : prev));
-  };
+  }, []);
 
   return {
     showToast,
