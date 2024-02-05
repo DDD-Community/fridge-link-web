@@ -22,7 +22,7 @@ const useToast: () => {
     });
 
     setTimeout(() => {
-      setToast((prev) => (prev.id === id ? { ...prev, isOpen: false } : prev));
+      hideToast(id);
     }, 2000);
   };
 
