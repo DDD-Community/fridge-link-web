@@ -4,11 +4,16 @@ import GoogleImg from '@/assets/images/img_login_google.svg';
 import { type NextPage } from 'next';
 import { useEffect } from 'react';
 
-const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
-
 const LoginPage: NextPage = () => {
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
+  const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&response_type=code&scope=email&access_type=offline`;
+
   const handleKaKaoClick: () => void = () => {
     window.location.href = kakaoURL;
+  };
+
+  const handleGoogleClick: () => void = () => {
+    window.location.href = googleURL;
   };
 
   useEffect(() => {
@@ -38,7 +43,7 @@ const LoginPage: NextPage = () => {
         </div>
         <div className="flex gap-[20px]">
           <KaKaoImg onClick={handleKaKaoClick} />
-          <GoogleImg />
+          <GoogleImg onClick={handleGoogleClick} />
         </div>
       </div>
     </section>
