@@ -6,9 +6,9 @@ on:
     branches: [main]
 
 env:
-  S3_BUCKET_NAME: ddd-mara
-  CODE_DEPLOY_APPLICATION_NAME: ddd-code-deploy
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ddd-deploy-group
+  S3_BUCKET_NAME: fridge-link
+  CODE_DEPLOY_APPLICATION_NAME: fridge-link
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: fridge-link-group
 
 jobs:
   build:

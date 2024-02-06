@@ -3,10 +3,10 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/mara-deploy
+    destination: /home/ubuntu/fridge-link-deploy
     overwrite: yes
 permissions:
-  - object: /home/ubuntu/mara-deploy
+  - object: /home/ubuntu/fridge-link-deploy
     owner: ubuntu
     group: ubuntu
     mode: 755
