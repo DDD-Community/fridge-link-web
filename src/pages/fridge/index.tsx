@@ -7,7 +7,7 @@ import {
 } from '@/components/organisms';
 import { type NextPage } from 'next';
 import { useState } from 'react';
-import { useGetIngredientList } from '@/hooks/queries/fridge/useGetIngredientList';
+import { useGetIngredientList } from '@/hooks/queries/fridge';
 
 const FridgePage: NextPage = () => {
   const [isOpenIngredientAddModal, setIsOpenIngredientAddModal] =
