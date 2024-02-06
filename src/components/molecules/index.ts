@@ -11,3 +11,4 @@ export { default as MyFridgeInfo } from './MyFridgeInfo';
 export { default as NavWhiteBoxItem } from './NavWhiteBoxItem';
 export { default as VerticalLabelValue } from './VerticalLabelValue';
 export { default as ShareInfoRowItem } from './ShareInfoRowItem';
+export { default as LabelRoundBox } from './LabelRoundBox';

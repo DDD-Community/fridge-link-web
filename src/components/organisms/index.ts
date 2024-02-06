@@ -11,3 +11,5 @@ export { default as Header } from './Header';
 export { default as ShareDetailAuthorBottomWrapper } from './ShareDetailAuthorBottomWrapper';
 export { default as InputLabelContainer } from './InputLabelContainer';
 export { default as InputSectionContainer } from './InputSectionContainer';
+export { default as FriendListItem } from './FriendListItem';
+export { default as BulletNoticeBox } from './BulletNoticeBox';
