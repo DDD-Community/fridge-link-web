@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { BulletNoticeBox } from '../organisms';
+import { LabelRoundBox } from '../molecules';
 import { MiniButton } from '@/components/atoms';
 
 const MY_INVITATION_CODE = 'AB12CD3EF';
@@ -21,29 +22,29 @@ const AddFriendTemplate: React.FC = () => {
 
   return (
     <div className="pt-[72px] px-[20px]">
-      <div className="mb-[20px] px-[20px] py-[16px] bg-white rounded-[12px]">
-        <p className="mb-[12px] body1-semibold text-gray8">내 초대 코드</p>
-        <div className="flex">
-          <span className="flex-1 outline-none mr-[10px] border-none p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium">
-            {myCode}
-          </span>
-
-          <MiniButton label="복사" onClick={onCopy} variant="active" />
-        </div>
-      </div>
-
-      <div className="mb-[20px] px-[20px] py-[16px] bg-white rounded-[12px]">
-        <p className="mb-[12px] body1-semibold text-gray8">
-          상대 초대 코드 입력
-        </p>
-        <div className="flex">
-          <input
-            placeholder="상대 초대 코드를 입력해주세요."
-            className="flex-1 outline-none mr-[10px] border-none p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium"
-          />
-          <MiniButton label="추가" onClick={onCopy} variant="clickable" />
-        </div>
-      </div>
+      <LabelRoundBox
+        label="내 초대 코드"
+        content={
+          <>
+            <span className="flex-1 outline-none mr-[10px] border-none p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium">
+              {myCode}
+            </span>
+            <MiniButton label="복사" onClick={onCopy} variant="active" />
+          </>
+        }
+      />
+      <LabelRoundBox
+        label="상대 초대 코드 입력"
+        content={
+          <>
+            <input
+              placeholder="상대 초대 코드를 입력해주세요."
+              className="flex-1 outline-none mr-[10px] border-none p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium"
+            />
+            <MiniButton label="추가" onClick={onCopy} variant="clickable" />
+          </>
+        }
+      />
 
       <BulletNoticeBox
         title={'친구 추가 및 입력 방법'}
