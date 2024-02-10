@@ -1,9 +1,8 @@
 import { type NextPage } from 'next';
 import Image from 'next/image';
 import ProfileImg from '@/assets/profile.png';
-import { Button } from '@/components/atoms';
+import { Button, ExclamationAlertSpan } from '@/components/atoms';
 import React, { useCallback, useState } from 'react';
-import { ExclamationIcon } from '@/assets/icons';
 import Header from '@/components/organisms/Header';
 import { debounceFunction } from '@/utils/debounceUtil';
 
@@ -70,10 +69,9 @@ const FriendsListPage: NextPage = () => {
                   사용가능한 닉네임입니다.
                 </span>
               ) : (
-                <div className="flex items-center gap-[4px] text-point4 body1-medium">
-                  <ExclamationIcon />
-                  중복되는 닉네임이에요. 다시 작성해주세요.
-                </div>
+                <ExclamationAlertSpan
+                  message={'중복되는 닉네임이에요. 다시 작성해주세요.'}
+                />
               ))}
             <label className="mt-[60px] mb-[20px]">프로필 이미지 선택</label>
             <div className="flex gap-[12px]">
