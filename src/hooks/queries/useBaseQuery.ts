@@ -9,6 +9,6 @@ export const fetchData = async <T>(url: string) => {
 export const useBaseQuery = <T>(queryKey: any, url: string) => {
   return useSuspenseQuery({
     queryKey,
-    queryFn: async () => await fetchData<T>(url).then((res) => res.data).catch((error) => { console.log(error),
+    queryFn: async () => await fetchData<T>(url).then((res) => res.data).catch((error) => { console.log(error)
   });
 };
