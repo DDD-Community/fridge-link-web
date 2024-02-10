@@ -2,7 +2,6 @@ import MonstersImg from '@/assets/images/img_login_monsters.svg';
 import KaKaoImg from '@/assets/images/img_login_kakao.svg';
 import GoogleImg from '@/assets/images/img_login_google.svg';
 import { type NextPage } from 'next';
-import { useGetKakaoLogin } from '@/hooks/queries/login';
 
 const LoginPage: NextPage = () => {
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
@@ -23,7 +22,8 @@ const LoginPage: NextPage = () => {
     // 구글 추가시 타입 redirect_uri 변경
 
     if (code) {
-      useGetKakaoLogin(code);
+      console.log(code);
+      // useGetKakaoLogin(code);
     }
   }
   return (
