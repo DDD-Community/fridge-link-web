@@ -27,9 +27,6 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
     },
   },
-  onError: (error: Error) => {
-    console.error(error);
-  },
 });
 
 interface ErrorFallbackProps {
