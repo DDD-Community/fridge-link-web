@@ -12,7 +12,7 @@ import React from 'react';
 import 'dayjs/locale/ko';
 import dayjs from 'dayjs';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallback } from '@/components/templates';
+import { ErrorFallback, SuspenseFallback } from '@/components/templates';
 dayjs.locale('ko');
 
 const theme = extendTheme({
@@ -41,7 +41,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
               <ErrorFallback resetErrorBoundary={resetErrorBoundary} />
             )}
           >
-            <React.Suspense fallback={<h1>로딩중</h1>}>
+            <React.Suspense fallback={<SuspenseFallback />}>
               <RecoilRoot>
                 <ThemeProvider theme={theme}>
                   <CSSReset />
