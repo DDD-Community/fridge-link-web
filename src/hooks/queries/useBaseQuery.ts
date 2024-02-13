@@ -1,5 +1,5 @@
 import axiosInstance from '@/api/axiosInstance';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const fetchData = async <T>(url: string) => {
   const response = await axiosInstance.get<{ data: T }>(url);
@@ -7,7 +7,7 @@ export const fetchData = async <T>(url: string) => {
 };
 
 export const useBaseQuery = <T>(queryKey: any, url: string) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey,
     queryFn: async () => await fetchData<T>(url).then((res) => res.data),
   });
