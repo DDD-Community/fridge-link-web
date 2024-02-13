@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import useToast from '@/hooks/useToast';
 
 const withLogin = (InnerComponent: React.FC) => {
   return () => {
     const router = useRouter();
     const token = localStorage.getItem('token');
+    const { showToast } = useToast();
 
     const redirectToLogin: () => Promise<void> = async () => {
       if (!token) {
-        alert('로그인이 필요합니다.');
+        showToast('로그인이 필요합니다.', 'info');
         try {
           await router.push('/login');
         } catch (error) {
