@@ -9,11 +9,6 @@ export const fetchData = async <T>(url: string) => {
 export const useBaseQuery = <T>(queryKey: any, url: string) => {
   return useQuery({
     queryKey,
-    queryFn: async () =>
-      await fetchData<T>(url)
-        .then((res) => res.data)
-        .catch((error) => {
-          console.error(error);
-        }),
+    queryFn: async () => await fetchData<T>(url).then((res) => res.data),
   });
 };
