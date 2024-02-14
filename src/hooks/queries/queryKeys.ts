@@ -1,5 +1,5 @@
 export const queryKeys = {
-  INGREDIENT: (id?: number) => ['ingredient', id] as const,
+  INGREDIENT: (id?: number) => (id ? ['ingredient', id] : ['ingredient']),
   KAKAO: () => ['kakao'],
 } as const;
 

@@ -7,15 +7,15 @@ import {
 } from '@/components/organisms';
 import { type NextPage } from 'next';
 import { useState } from 'react';
-// import { useGetIngredientList } from '@/hooks/queries/fridge';
+import { useGetIngredientList } from '@/hooks/queries/fridge';
 
 const FridgePage: NextPage = () => {
   const [isOpenIngredientAddModal, setIsOpenIngredientAddModal] =
     useState(false);
   const [isOpenFridgeListModal, setIsOpenFridgeListModal] = useState(false);
 
-  // const data = useGetIngredientList();
-  // console.log('받아올 데이터', data);
+  const data = useGetIngredientList();
+  console.log('받아올 데이터', data);
 
   const toggleIsOpenIngredientAddModal: () => void = () => {
     setIsOpenIngredientAddModal((prev) => !prev);
