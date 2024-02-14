@@ -35,12 +35,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
     <QueryClientProvider client={queryClient}>
       <QueryErrorResetBoundary>
         {({ reset }) => (
-          <ErrorBoundary
-            onReset={reset}
-            fallbackRender={({ resetErrorBoundary }) => (
-              <ErrorFallback resetErrorBoundary={resetErrorBoundary} />
-            )}
-          >
+          <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
             <React.Suspense fallback={<SuspenseFallback />}>
               <RecoilRoot>
                 <ThemeProvider theme={theme}>
