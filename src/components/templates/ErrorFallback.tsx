@@ -1,5 +1,4 @@
 import React from 'react';
-import { Header } from '../organisms';
 import { Button } from '../atoms';
 
 const ErrorFallback: React.FC = ({
@@ -14,20 +13,17 @@ const ErrorFallback: React.FC = ({
   };
   return (
     <div className="flex justify-center items-center bg-gray2">
-      <div className="flex-col w-[100vw] max-w-[480px] min-h-[100vh] bg-gray1">
-        <div className="pt-[52px]">
-          <Header headerTitle={''} />
-          <section
-            className={`flex flex-col justify-center gap-[50px] p-[20px]`}
-          >
-            <div className="text-center">에러 발생!</div>
-            <Button
-              className="bg-primary2 text-white"
-              text={'다시 요청하기'}
-              onClick={handleRefresh}
-            />
-          </section>
-        </div>
+      <div className="flex flex-col w-[100vw] max-w-[480px] min-h-[100vh] bg-white">
+        <section
+          className={`flex flex-col justify-center gap-[50px] p-[20px] flex-1`}
+        >
+          <div className="text-center">에러 발생!</div>
+          <Button
+            className="bg-primary2 text-white"
+            text={'다시 요청하기'}
+            onClick={handleRefresh}
+          />
+        </section>
       </div>
     </div>
   );
