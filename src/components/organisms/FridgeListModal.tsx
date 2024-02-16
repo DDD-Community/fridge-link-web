@@ -1,4 +1,4 @@
-import { Button } from '../atoms';
+import { Button, ModalContainer } from '../atoms';
 import { PlusIcon, TrashcanIcon } from '@/assets/icons';
 import React, { useState } from 'react';
 
@@ -6,13 +6,12 @@ import { FridgeListItem } from '../molecules';
 
 const FridgeListModal: React.FC<{
   isMyFridgeList?: boolean;
-  toggleIsOpenFridgeListModal: () => void;
-}> = ({ toggleIsOpenFridgeListModal, isMyFridgeList }) => {
+}> = ({ isMyFridgeList }) => {
   const [currentFridgeName, setCurrentFridgeName] = useState('기본 냉장고');
   const FRIDGE_NAME_LIST = ['기본 냉장고', '김치 냉장고', '주류 냉장고'];
 
   return (
-    <>
+    <ModalContainer>
       <div>
         <div className="heading2-bold">냉장고 목록</div>
         <div className="body2-medium text-gray5">
@@ -41,7 +40,7 @@ const FridgeListModal: React.FC<{
         </button>
         <Button className="flex-grow bg-primary2 text-white" text="이동하기" />
       </div>
-    </>
+    </ModalContainer>
   );
 };
 

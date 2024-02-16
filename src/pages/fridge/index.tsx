@@ -40,7 +40,7 @@ const FridgePage: NextPage = () => {
       >
         <ModalOverlay height="100vh" onClick={onCloseFridgeListModal} />
         <ModalContent
-          className="bg-white p-[20px]"
+          className="bg-white"
           position="fixed"
           bottom="0"
           borderRadius="24px 24px 0px 0px"
@@ -48,9 +48,7 @@ const FridgePage: NextPage = () => {
           margin={0}
         >
           <ModalBody padding={0}>
-            <FridgeListModal
-              toggleIsOpenFridgeListModal={onCloseFridgeListModal}
-            />
+            <FridgeListModal />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -62,7 +60,7 @@ const FridgePage: NextPage = () => {
       >
         <ModalOverlay height="100vh" onClick={onCloseIngredientAddModal} />
         <ModalContent
-          className="bg-white p-[20px]"
+          className="bg-white"
           position="fixed"
           bottom="0"
           borderRadius="24px 24px 0px 0px"
