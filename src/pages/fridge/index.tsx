@@ -6,7 +6,6 @@ import {
   IngredientAddModal,
 } from '@/components/organisms';
 import { type NextPage } from 'next';
-import { useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -17,8 +16,11 @@ import {
 // import { useGetIngredientList } from '@/hooks/queries/fridge';
 
 const FridgePage: NextPage = () => {
-  const [isOpenIngredientAddModal, setIsOpenIngredientAddModal] =
-    useState(false);
+  const {
+    isOpen: isOpenIngredientAddModal,
+    onOpen: onOpenIngredientAddModal,
+    onClose: onCloseIngredientAddModal,
+  } = useDisclosure();
 
   const {
     isOpen: isOpenFridgeListModal,
@@ -27,10 +29,6 @@ const FridgePage: NextPage = () => {
   } = useDisclosure();
   // const data = useGetIngredientList();
   // console.log('받아올 데이터', data);
-
-  const toggleIsOpenIngredientAddModal: () => void = () => {
-    setIsOpenIngredientAddModal((prev) => !prev);
-  };
 
   return (
     <>
@@ -56,18 +54,34 @@ const FridgePage: NextPage = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-
-      {isOpenIngredientAddModal && (
-        <IngredientAddModal
-          toggleIsOpenIngredientAddModal={toggleIsOpenIngredientAddModal}
-        />
-      )}
+      <Modal
+        onClose={onCloseIngredientAddModal}
+        isOpen={isOpenIngredientAddModal}
+        motionPreset="slideInBottom"
+        trapFocus={false}
+      >
+        <ModalOverlay height="100vh" onClick={onCloseIngredientAddModal} />
+        <ModalContent
+          className="bg-white p-[20px]"
+          position="fixed"
+          bottom="0"
+          borderRadius="24px 24px 0px 0px"
+          maxW="lg"
+          margin={0}
+        >
+          <ModalBody padding={0}>
+            <IngredientAddModal
+              toggleIsOpenIngredientAddModal={onCloseIngredientAddModal}
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'내 냉장고'} />
         <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
           <FridgeInfoBox
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
-            toggleIsOpenIngredientAddModal={toggleIsOpenIngredientAddModal}
+            toggleIsOpenIngredientAddModal={onOpenIngredientAddModal}
           />
           <FridgeBoard />
         </section>
