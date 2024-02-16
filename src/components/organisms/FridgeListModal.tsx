@@ -1,4 +1,4 @@
-import { Button, ModalBottom } from '../atoms';
+import { Button } from '../atoms';
 import { PlusIcon, TrashcanIcon } from '@/assets/icons';
 import React, { useState } from 'react';
 
@@ -12,7 +12,7 @@ const FridgeListModal: React.FC<{
   const FRIDGE_NAME_LIST = ['기본 냉장고', '김치 냉장고', '주류 냉장고'];
 
   return (
-    <ModalBottom blackClickHandler={toggleIsOpenFridgeListModal}>
+    <>
       <div>
         <div className="heading2-bold">냉장고 목록</div>
         <div className="body2-medium text-gray5">
@@ -41,7 +41,7 @@ const FridgeListModal: React.FC<{
         </button>
         <Button className="flex-grow bg-primary2 text-white" text="이동하기" />
       </div>
-    </ModalBottom>
+    </>
   );
 };
 
