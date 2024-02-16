@@ -1,5 +1,6 @@
 import { type NextPage } from 'next';
 import MyFridgeImg from '@/assets/images/img_home_my.svg';
+import LogoTextImg from '@/assets/logos/text_logo_m.svg';
 import FriendsFridgeImg from '@/assets/images/img_home_friend.svg';
 import { GreenArrowButton } from '@/components/atoms';
 import { NearExpirationWarnBox, SvgAndTextBox } from '@/components/molecules';
@@ -14,7 +15,7 @@ const Home: NextPage = () => {
     <div className="pt-[52px]">
       <Header
         headerTitle={''}
-        headerLeft={<div className="w-[100px] h-3 bg-point2" />}
+        headerLeft={<LogoTextImg />}
         headerRight={
           <div>
             <AlarmIcon />

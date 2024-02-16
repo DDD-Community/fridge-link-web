@@ -1,6 +1,7 @@
 import MonstersImg from '@/assets/images/img_login_monsters.svg';
 import KaKaoImg from '@/assets/images/img_login_kakao.svg';
 import GoogleImg from '@/assets/images/img_login_google.svg';
+import LogoTextImg from '@/assets/logos/text_logo_l.svg';
 import { type NextPage } from 'next';
 import { useGetKakaoToken } from '@/hooks/queries/login';
 
@@ -35,7 +36,7 @@ const LoginPage: NextPage = () => {
         <div className="heading4-semibold text-gray8 mt-[18px] mb-[6px]">
           냉장고 관리, 얼른 시작해봐요
         </div>
-        <div>로고</div>
+        <LogoTextImg />
       </div>
       <div className="flex flex-col items-center gap-[24px]">
         <div className="flex items-center">
@@ -44,8 +45,8 @@ const LoginPage: NextPage = () => {
           <div className="flex-1 w-[96px] h-[1px] bg-gray6"></div>
         </div>
         <div className="flex gap-[20px]">
-          <KaKaoImg onClick={handleKaKaoClick} />
           <GoogleImg onClick={handleGoogleClick} />
+          <KaKaoImg onClick={handleKaKaoClick} />
         </div>
       </div>
     </section>
