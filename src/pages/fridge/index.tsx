@@ -13,7 +13,7 @@ import {
   ModalContent,
   useDisclosure,
 } from '@chakra-ui/react';
-// import { useGetIngredientList } from '@/hooks/queries/fridge';
+import { useGetIngredientList } from '@/hooks/queries/fridge';
 
 const FridgePage: NextPage = () => {
   const {
@@ -27,8 +27,8 @@ const FridgePage: NextPage = () => {
     onOpen: onOpenFridgeListModal,
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
-  // const data = useGetIngredientList();
-  // console.log('받아올 데이터', data);
+  const data = useGetIngredientList();
+  console.log('받아올 데이터', data);
 
   return (
     <>
