@@ -27,8 +27,8 @@ const FridgePage: NextPage = () => {
     onOpen: onOpenFridgeListModal,
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
-  const data = useGetIngredientList();
-  console.log('받아올 데이터', data);
+
+  const { data } = useGetIngredientList();
 
   return (
     <>
@@ -81,7 +81,7 @@ const FridgePage: NextPage = () => {
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
             toggleIsOpenIngredientAddModal={onOpenIngredientAddModal}
           />
-          <FridgeBoard />
+          <FridgeBoard data={data?.data} />
         </section>
       </div>
     </>
