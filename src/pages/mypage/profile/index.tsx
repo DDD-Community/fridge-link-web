@@ -5,12 +5,15 @@ import { Button, ExclamationAlertSpan } from '@/components/atoms';
 import React, { useCallback, useState } from 'react';
 import Header from '@/components/organisms/Header';
 import { debounceFunction } from '@/utils/debounceUtil';
+import usePostUser from '@/hooks/queries/login/usePostUser';
 
 const FriendsListPage: NextPage = () => {
   const [selectedImageSrc, setSelectedImageSrc] = useState(ProfileImg);
   const [nickname, setNickname] = useState('');
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
+
+  const postUser = usePostUser();
 
   const handleImageClick: (src: string) => void = (src) => {
     // imgURL로 변경
@@ -35,6 +38,25 @@ const FriendsListPage: NextPage = () => {
     }, 1000),
     [],
   );
+
+  const handleSumbit = () => {
+    const urlParams =
+      typeof window !== 'undefined'
+        ? new URLSearchParams(window.location.search)
+        : null;
+    const kakaoId = Number(urlParams?.get('kakaoId'));
+    const kakaoEmail = urlParams?.get('kakaoEmail');
+
+    if (!kakaoId || !kakaoEmail) return;
+
+    postUser.mutate({
+      nickName: nickname,
+      kakaoId,
+      kakaoEmail,
+      googleEmail: '',
+      profileImage: 'BLUE',
+    });
+  };
 
   return (
     <div className={'bg-white pt-[52px] min-h-screen'}>
@@ -117,11 +139,12 @@ const FriendsListPage: NextPage = () => {
               />
             </div>
           </div>
-          <Button
-            className={`${nickname && isNicknameAvailable && selectedImageSrc ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
-            text="편집 완료"
-          />
         </form>
+        <Button
+          onClick={handleSumbit}
+          className={`${nickname && isNicknameAvailable && selectedImageSrc ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
+          text="편집 완료"
+        />
       </section>
     </div>
   );
