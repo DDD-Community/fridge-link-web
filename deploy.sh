@@ -2,5 +2,5 @@
 
 echo "> FE 배포"
 
-nohup PORT=80 yarn start &
+nohup yarn start &
 
