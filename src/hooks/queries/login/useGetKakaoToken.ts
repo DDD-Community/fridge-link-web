@@ -9,17 +9,18 @@ const useGetKakaoToken = (code: string | null = '') => {
     refreshToken: string;
     kakaoId: number;
     kakaoEmail: string;
-  }>(queryKeys.KAKAO(), `/users/kakao-login?code=${code}`);
+  }>(queryKeys.KAKAO(), `/users/kakao-login?code=${code}`, true);
 
-  if (data.data.accessToken === undefined) {
+  if (data?.data?.accessToken === undefined) {
     void router.push(
-      `/mypage/profile?kakaoId=${data.data.kakaoId}&kakaoEmail=${data.data.kakaoEmail}`,
+      `/mypage/profile?kakaoId=${data?.data?.kakaoId}&kakaoEmail=${data?.data?.kakaoEmail}`,
     );
   }
-
-  localStorage.setItem('accessToken', data.data.accessToken);
-  localStorage.setItem('refreshToken', data.data.refreshToken);
-  void router.push('/home');
+  if (data?.data) {
+    localStorage.setItem('accessToken', data.data.accessToken);
+    localStorage.setItem('refreshToken', data.data.refreshToken);
+    void router.push('/home');
+  }
 };
 
 export default useGetKakaoToken;
