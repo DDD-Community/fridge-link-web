@@ -13,9 +13,46 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   config.headers['Content-Type'] = 'application/json';
-  config.headers.Authorization = `Bearer ${typeof window !== 'undefined' && localStorage.getItem('accessToken')}`;
+
+  if (typeof window !== 'undefined') {
+    config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+  }
 
   return config;
 });
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      const refreshToken =
+        typeof window !== 'undefined'
+          ? localStorage.getItem('refreshToken')
+          : null;
+
+      try {
+        const refreshResponse = await axios.post('/users/kakao-login', {
+          refreshToken,
+        });
+
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('accessToken', refreshResponse.data.accessToken);
+        }
+
+        originalRequest.headers.Authorization = `Bearer ${refreshResponse.data.accessToken}`;
+        return await axiosInstance(originalRequest);
+      } catch (refreshError) {
+        console.error('Error refreshing token:', refreshError);
+        throw refreshError;
+      }
+    }
+
+    return await Promise.reject(error);
+  },
+);
 
 export default axiosInstance;

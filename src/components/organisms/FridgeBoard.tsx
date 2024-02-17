@@ -6,7 +6,7 @@ import {
   IngredientItemBox,
 } from '@/components/molecules';
 
-const FridgeBoard: React.FC = ({ data }: { data?: any }) => {
+const FridgeBoard: React.FC<{ data?: any | null }> = ({ data }) => {
   const [currentTabName, setCurrentTabName] = useState<'냉장' | '냉동'>('냉장');
 
   const handleTabNameChange: (tabName: '냉장' | '냉동') => void = (tabName) => {

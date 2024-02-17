@@ -21,6 +21,7 @@ const FridgeListModal: React.FC<{
       <div className="flex flex-col gap-[10px] mt-[25px] mb-[32px]">
         {FRIDGE_NAME_LIST.map((fridgeName) => (
           <FridgeListItem
+            key={fridgeName}
             isCurrentFridge={currentFridgeName === fridgeName}
             fridgeName={fridgeName}
             onClick={() => {
