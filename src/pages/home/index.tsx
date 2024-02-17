@@ -24,7 +24,7 @@ const Home: NextPage = () => {
       />
       <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
         {isNearExpirationWarn && (
-          <NearExpirationWarnBox className="mt-12" count={4} />
+          <NearExpirationWarnBox className="mt-12" count={5} />
         )}
         <div className="flex gap-8.5 mt-12">
           <SvgAndTextBox
