@@ -7,6 +7,29 @@ import Header from '@/components/organisms/Header';
 import { debounceFunction } from '@/utils/debounceUtil';
 import usePostUser from '@/hooks/queries/login/usePostUser';
 
+const PROPILES = [
+  {
+    string: 'GREEN',
+    imgUrl:
+      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/green-nor.svg',
+  },
+  {
+    string: 'RED',
+    imgUrl:
+      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/red-nor.svg',
+  },
+  {
+    string: 'BLUE',
+    imgUrl:
+      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/blue-nor.svg',
+  },
+  {
+    string: 'YELLOW',
+    imgUrl:
+      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/yellow-nor.svg',
+  },
+];
+
 const FriendsListPage: NextPage = () => {
   const [selectedImageSrc, setSelectedImageSrc] = useState(ProfileImg);
   const [nickname, setNickname] = useState('');
@@ -32,7 +55,6 @@ const FriendsListPage: NextPage = () => {
 
   const debouncedHandleNicknameChange = useCallback(
     debounceFunction((currentNickname: string) => {
-      console.log('변경할 닉네임', currentNickname);
       setIsNicknameChecked(true);
       setIsNicknameAvailable(false);
     }, 1000),
@@ -97,46 +119,18 @@ const FriendsListPage: NextPage = () => {
               ))}
             <label className="mt-[60px] mb-[20px]">프로필 이미지 선택</label>
             <div className="flex gap-[12px]">
-              <Image
-                className="cursor-pointer"
-                src={ProfileImg}
-                alt="프로필 이미지"
-                width={52}
-                height={52}
-                onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                  handleImageClick(e.currentTarget.src);
-                }}
-              />
-              <Image
-                className="cursor-pointer"
-                src={ProfileImg}
-                alt="프로필 이미지"
-                width={52}
-                height={52}
-                onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                  handleImageClick(e.currentTarget.src);
-                }}
-              />
-              <Image
-                className="cursor-pointer"
-                src={ProfileImg}
-                alt="프로필 이미지"
-                width={52}
-                height={52}
-                onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                  handleImageClick(e.currentTarget.src);
-                }}
-              />
-              <Image
-                className="cursor-pointer"
-                src={ProfileImg}
-                alt="프로필 이미지"
-                width={52}
-                height={52}
-                onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                  handleImageClick(e.currentTarget.src);
-                }}
-              />
+              {PROPILES.map((profile) => (
+                <Image
+                  className="cursor-pointer"
+                  src={profile.imgUrl}
+                  alt="프로필 이미지"
+                  width={52}
+                  height={52}
+                  onClick={() => {
+                    handleImageClick(profile.string);
+                  }}
+                />
+              ))}
             </div>
           </div>
         </form>

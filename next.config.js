@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    domains: ['mara-s3bucket.s3.ap-northeast-2.amazonaws.com'],
+  },
   webpack: (config) => {
     return {
       ...config,
@@ -22,8 +25,8 @@ const nextConfig = {
         source: '/',
         destination: '/home',
         permanent: true,
-      }
-    ]
+      },
+    ];
   },
 };
 
