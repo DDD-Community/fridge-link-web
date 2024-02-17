@@ -4,7 +4,7 @@ export { default as Container } from './Container';
 export { default as GrayBox } from './GrayBox';
 export { default as IngredientDateTag } from './IngredientDateTag';
 export { default as BorderTab } from './BorderTab';
-export { default as ModalBottom } from './ModalBottom';
+export { default as ModalContainer } from './ModalContainer';
 export { default as ModalCenter } from './ModalCenter';
 export { default as Toggle } from './Toggle';
 export { default as ToastMessage } from './ToastMessage';

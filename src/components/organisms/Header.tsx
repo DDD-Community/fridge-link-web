@@ -32,7 +32,7 @@ const Header: React.FC<{
 
   return (
     <div
-      className={`flex justify-center items-center fixed top-0 w-screen max-w-[480px] py-[12px] px-[20px] z-[1000] ${background}`}
+      className={`flex ${headerLeft ? 'justify-between' : 'justify-center'} items-center fixed top-0 w-screen max-w-[480px] py-[12px] px-[20px] z-[1000] ${background}`}
     >
       {headerLeft ?? (
         <button
@@ -45,11 +45,13 @@ const Header: React.FC<{
           />
         </button>
       )}
-      <div className="flex justify-center text-center w-full">
-        <p className="heading3-bold text-gray8 pt-1">
-          {typeof headerTitle === 'string' ? headerTitle : ''}
-        </p>
-      </div>
+      {!headerLeft && (
+        <div className="flex justify-center text-center w-full">
+          <p className="heading3-bold text-gray8 pt-1">
+            {typeof headerTitle === 'string' ? headerTitle : ''}
+          </p>
+        </div>
+      )}
       {headerRight ?? <div className="w-7" />}
     </div>
   );

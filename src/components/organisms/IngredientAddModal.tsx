@@ -1,11 +1,12 @@
 import { BoxIcon, CalendarIcon, FreezerIcon, MemoIcon } from '@/assets/icons';
-import { Button, ModalBottom, Toggle } from '@/components/atoms';
+import { Button, Toggle } from '@/components/atoms';
 import { Counter, IngredientAddItemContainer } from '../molecules';
 import React, { useState } from 'react';
 
 import { AppleIcon } from '../atoms/IngredientIcons';
 import useCount from '@/hooks/useCount';
 import useToast from '@/hooks/useToast';
+import ModalContainer from '../atoms/ModalContainer';
 
 const IngredientAddModal: React.FC<{
   toggleIsOpenIngredientAddModal: () => void;
@@ -27,7 +28,7 @@ const IngredientAddModal: React.FC<{
   };
 
   return (
-    <ModalBottom blackClickHandler={toggleIsOpenIngredientAddModal}>
+    <ModalContainer>
       <div className="mb-[24px]">
         <div className="flex gap-[12px] mb-[32px]">
           <AppleIcon width={56} height={56} />
@@ -88,7 +89,7 @@ const IngredientAddModal: React.FC<{
           onClick={handleSubmit}
         />
       </div>
-    </ModalBottom>
+    </ModalContainer>
   );
 };
 

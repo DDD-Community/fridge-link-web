@@ -3,9 +3,16 @@ import Layout from '@/components/templates/Layout';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  QueryErrorResetBoundary,
+} from '@tanstack/react-query';
+import React from 'react';
 import 'dayjs/locale/ko';
 import dayjs from 'dayjs';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback, SuspenseFallback } from '@/components/templates';
 dayjs.locale('ko');
 
 const theme = extendTheme({
@@ -26,14 +33,22 @@ const queryClient = new QueryClient({
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <ThemeProvider theme={theme}>
-          <CSSReset />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </RecoilRoot>
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
+            <React.Suspense fallback={<SuspenseFallback />}>
+              <RecoilRoot>
+                <ThemeProvider theme={theme}>
+                  <CSSReset />
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </ThemeProvider>
+              </RecoilRoot>
+            </React.Suspense>
+          </ErrorBoundary>
+        )}
+      </QueryErrorResetBoundary>
     </QueryClientProvider>
   );
 }

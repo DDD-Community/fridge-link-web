@@ -4,30 +4,50 @@ import {
   OrderListModal,
 } from '@/components/organisms';
 import Header from '@/components/organisms/Header';
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { type NextPage } from 'next';
-import { useState } from 'react';
 
 const FriendsPage: NextPage = () => {
-  const [isOpenOrderListModal, setIsOpenOrderListModal] = useState(false);
-
-  const toggleIsOpenOrderListModal: () => void = () => {
-    setIsOpenOrderListModal((prev) => !prev);
-  };
+  const {
+    isOpen: isOpenOrderListModal,
+    onOpen: onOpenOrderListModal,
+    onClose: onCloseOrderListModal,
+  } = useDisclosure();
 
   return (
     <>
-      {isOpenOrderListModal && (
-        <OrderListModal
-          currentOrder={'등록순'}
-          toggleIsOpenOrderListModal={toggleIsOpenOrderListModal}
-        />
-      )}
+      <Modal
+        onClose={onCloseOrderListModal}
+        isOpen={isOpenOrderListModal}
+        motionPreset="slideInBottom"
+        trapFocus={false}
+      >
+        <ModalOverlay height="100vh" onClick={onCloseOrderListModal} />
+        <ModalContent
+          className="bg-white"
+          position="fixed"
+          bottom="0"
+          borderRadius="24px 24px 0px 0px"
+          maxW="lg"
+          margin={0}
+        >
+          <ModalBody padding={0}>
+            <OrderListModal currentOrder={'등록순'} />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'친구 냉장고'} />
         <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
           <FriendsRecentBoard />
           <FriendsFridgeList
-            toggleIsOpenOrderListModal={toggleIsOpenOrderListModal}
+            toggleIsOpenOrderListModal={onOpenOrderListModal}
           />
         </section>
       </div>

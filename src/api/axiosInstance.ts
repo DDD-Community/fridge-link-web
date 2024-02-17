@@ -7,7 +7,7 @@ export interface ApiResponseDTO<T> {
 }
 
 const axiosInstance = axios.create({
-  baseURL: 'https://localhost:3000',
+  baseURL: process.env.NEXT_PUBLIC_BASE_URI,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',

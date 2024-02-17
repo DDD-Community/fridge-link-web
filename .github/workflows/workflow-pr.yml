@@ -29,6 +29,7 @@ jobs:
       # 환경 변수 추가
       - name: Set Environment Variables
         run: |
+          echo "NEXT_PUBLIC_BASE_URI=${{ secrets.NEXT_PUBLIC_BASE_URI }}" >> .env
           echo "NEXT_PUBLIC_KAKAO_API_KEY=${{ secrets.NEXT_PUBLIC_KAKAO_API_KEY }}" >> .env
           echo "NEXT_PUBLIC_KAKAO_REDIRECT_URI=${{ secrets.NEXT_PUBLIC_KAKAO_REDIRECT_URI }}" >> .env
           echo "NEXT_PUBLIC_GOOGLE_API_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_API_KEY }}" >> .env

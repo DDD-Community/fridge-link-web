@@ -1,15 +1,14 @@
-import { Button, ModalBottom, Radio } from '../atoms';
+import { Button, ModalContainer, Radio } from '../atoms';
 
 import React from 'react';
 
 const OrderListModal: React.FC<{
   currentOrder: string;
-  toggleIsOpenOrderListModal: () => void;
-}> = ({ toggleIsOpenOrderListModal, currentOrder }) => {
+}> = ({ currentOrder }) => {
   const ORDER_LIST = ['등록순', '이름순'];
 
   return (
-    <ModalBottom blackClickHandler={toggleIsOpenOrderListModal}>
+    <ModalContainer>
       <div className="w-full">
         {ORDER_LIST.map((order) => (
           <div className="flex flex-row items-center justify-between h-[70px]">
@@ -19,7 +18,7 @@ const OrderListModal: React.FC<{
         ))}
       </div>
       <Button className="w-full bg-primary2" text="선택 완료" />
-    </ModalBottom>
+    </ModalContainer>
   );
 };
 
