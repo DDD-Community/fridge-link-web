@@ -9,6 +9,8 @@ import Header from '@/components/organisms/Header';
 import Link from 'next/link';
 import { AlarmIcon } from '@/assets/icons';
 
+const NEAR_EXPIRATION_COUNT_MOCK_DATA=2;
+
 const Home: NextPage = () => {
   const isNearExpirationWarn = true;
   return (
@@ -24,7 +26,7 @@ const Home: NextPage = () => {
       />
       <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
         {isNearExpirationWarn && (
-          <NearExpirationWarnBox className="mt-12" count={5} />
+          <NearExpirationWarnBox className="mt-12" count={NEAR_EXPIRATION_COUNT_MOCK_DATA} />
         )}
         <div className="flex gap-8.5 mt-12">
           <SvgAndTextBox
