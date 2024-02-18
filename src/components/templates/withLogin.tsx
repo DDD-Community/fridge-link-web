@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
+
 import { useRouter } from 'next/router';
 
 const withLogin = (InnerComponent: React.FC) => {
   return () => {
     const router = useRouter();
-    const token = localStorage.getItem('accessToken');
+    const token =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('accessToken')
+        : null;
 
     const redirectToLogin: () => Promise<void> = async () => {
       if (!token) {
