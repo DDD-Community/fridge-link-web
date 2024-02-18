@@ -10,7 +10,6 @@ module.exports = {
     'standard-with-typescript',
     'eslint:recommended',
     'plugin:prettier/recommended',
-    'next/core-web-vitals',
   ],
   parserOptions: {
     ecmaVersion: 'latest',
