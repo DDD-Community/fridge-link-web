@@ -5,12 +5,38 @@ import { Button, ExclamationAlertSpan } from '@/components/atoms';
 import React, { useCallback, useState } from 'react';
 import Header from '@/components/organisms/Header';
 import { debounceFunction } from '@/utils/debounceUtil';
+import usePostUser from '@/hooks/queries/login/usePostUser';
+
+const PROPILES = [
+  {
+    string: 'GREEN',
+    imgUrl:
+      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/green-nor.svg',
+  },
+  {
+    string: 'RED',
+    imgUrl:
+      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/red-nor.svg',
+  },
+  {
+    string: 'BLUE',
+    imgUrl:
+      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/blue-nor.svg',
+  },
+  {
+    string: 'YELLOW',
+    imgUrl:
+      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/yellow-nor.svg',
+  },
+];
 
 const FriendsListPage: NextPage = () => {
   const [selectedImageSrc, setSelectedImageSrc] = useState(ProfileImg);
   const [nickname, setNickname] = useState('');
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
+
+  const postUser = usePostUser();
 
   const handleImageClick: (src: string) => void = (src) => {
     // imgURL로 변경
@@ -29,12 +55,30 @@ const FriendsListPage: NextPage = () => {
 
   const debouncedHandleNicknameChange = useCallback(
     debounceFunction((currentNickname: string) => {
-      console.log('변경할 닉네임', currentNickname);
       setIsNicknameChecked(true);
       setIsNicknameAvailable(false);
     }, 1000),
     [],
   );
+
+  const handleSumbit = () => {
+    const urlParams =
+      typeof window !== 'undefined'
+        ? new URLSearchParams(window.location.search)
+        : null;
+    const kakaoId = Number(urlParams?.get('kakaoId'));
+    const kakaoEmail = urlParams?.get('kakaoEmail');
+
+    if (!kakaoId || !kakaoEmail) return;
+
+    postUser.mutate({
+      nickName: nickname,
+      kakaoId,
+      kakaoEmail,
+      googleEmail: '',
+      profileImage: 'BLUE',
+    });
+  };
 
   return (
     <div className={'bg-white pt-[52px] min-h-screen'}>
@@ -75,53 +119,26 @@ const FriendsListPage: NextPage = () => {
               ))}
             <label className="mt-[60px] mb-[20px]">프로필 이미지 선택</label>
             <div className="flex gap-[12px]">
-              <Image
-                className="cursor-pointer"
-                src={ProfileImg}
-                alt="프로필 이미지"
-                width={52}
-                height={52}
-                onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                  handleImageClick(e.currentTarget.src);
-                }}
-              />
-              <Image
-                className="cursor-pointer"
-                src={ProfileImg}
-                alt="프로필 이미지"
-                width={52}
-                height={52}
-                onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                  handleImageClick(e.currentTarget.src);
-                }}
-              />
-              <Image
-                className="cursor-pointer"
-                src={ProfileImg}
-                alt="프로필 이미지"
-                width={52}
-                height={52}
-                onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                  handleImageClick(e.currentTarget.src);
-                }}
-              />
-              <Image
-                className="cursor-pointer"
-                src={ProfileImg}
-                alt="프로필 이미지"
-                width={52}
-                height={52}
-                onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                  handleImageClick(e.currentTarget.src);
-                }}
-              />
+              {PROPILES.map((profile) => (
+                <Image
+                  className="cursor-pointer"
+                  src={profile.imgUrl}
+                  alt="프로필 이미지"
+                  width={52}
+                  height={52}
+                  onClick={() => {
+                    handleImageClick(profile.string);
+                  }}
+                />
+              ))}
             </div>
           </div>
-          <Button
-            className={`${nickname && isNicknameAvailable && selectedImageSrc ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
-            text="편집 완료"
-          />
         </form>
+        <Button
+          onClick={handleSumbit}
+          className={`${nickname && isNicknameAvailable && selectedImageSrc ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
+          text="편집 완료"
+        />
       </section>
     </div>
   );

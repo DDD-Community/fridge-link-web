@@ -4,13 +4,13 @@ module.exports = {
     es2021: true,
   },
   globals: {
-    'JSX': true
+    JSX: true,
   },
   extends: [
     'standard-with-typescript',
     'eslint:recommended',
     'plugin:prettier/recommended',
-    'next/core-web-vitals'
+    'next/core-web-vitals',
   ],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -19,7 +19,7 @@ module.exports = {
   ignorePatterns: ['/src/assets/**', '/src/styles/**'],
   rules: {
     '@typescript-eslint/strict-boolean-expressions': 'off',
-    'prettier/prettier': ["error", { "endOfLine": "auto" }],
-    '@typescript-eslint/explicit-function-return-type': 'off'
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    '@typescript-eslint/explicit-function-return-type': 'off',
   },
 };

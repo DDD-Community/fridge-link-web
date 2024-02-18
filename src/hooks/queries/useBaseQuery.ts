@@ -1,14 +1,29 @@
 import axiosInstance from '@/api/axiosInstance';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-export const fetchData = async <T>(url: string) => {
-  const response = await axiosInstance.get<{ data: T }>(url);
-  return response.data;
+export const fetchData = async <T>(url: string, isNotCatch: boolean) => {
+  try {
+    const response = await axiosInstance.get<{ data: T; status?: number }>(url);
+    return response.data;
+  } catch (error: any) {
+    if (!isNotCatch) {
+      if (error.response && error.response.status === 404) {
+        return await Promise.resolve({ data: null });
+      } else {
+        throw error;
+      }
+    }
+  }
 };
-
-export const useBaseQuery = <T>(queryKey: any, url: string) => {
+export const useBaseQuery = <T>(
+  queryKey: any,
+  url: string,
+  isNotCatch: boolean = false,
+) => {
   return useSuspenseQuery({
     queryKey,
-    queryFn: async () => await fetchData<T>(url).then((res) => res.data),
+    queryFn: async () => {
+      return await fetchData<T>(url, isNotCatch);
+    },
   });
 };

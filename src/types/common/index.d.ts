@@ -7,3 +7,10 @@ export interface SortLabel {
   label: string;
   value: string;
 }
+
+export interface ResErrorType {
+  timestamp: string;
+  status: number;
+  error: string;
+  path: string;
+}

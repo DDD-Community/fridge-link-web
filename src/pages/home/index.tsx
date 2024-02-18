@@ -8,8 +8,9 @@ import { IngredientBoard } from '@/components/organisms';
 import Header from '@/components/organisms/Header';
 import Link from 'next/link';
 import { AlarmIcon } from '@/assets/icons';
+import withLogin from '@/components/templates/withLogin';
 
-const NEAR_EXPIRATION_COUNT_MOCK_DATA=2;
+const NEAR_EXPIRATION_COUNT_MOCK_DATA = 2;
 
 const Home: NextPage = () => {
   const isNearExpirationWarn = true;
@@ -26,7 +27,10 @@ const Home: NextPage = () => {
       />
       <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
         {isNearExpirationWarn && (
-          <NearExpirationWarnBox className="mt-12" count={NEAR_EXPIRATION_COUNT_MOCK_DATA} />
+          <NearExpirationWarnBox
+            className="mt-12"
+            count={NEAR_EXPIRATION_COUNT_MOCK_DATA}
+          />
         )}
         <div className="flex gap-8.5 mt-12">
           <SvgAndTextBox
@@ -53,4 +57,4 @@ const Home: NextPage = () => {
     </div>
   );
 };
-export default Home;
+export default withLogin(Home);

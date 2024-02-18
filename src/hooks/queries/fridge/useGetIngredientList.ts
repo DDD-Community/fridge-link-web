@@ -5,7 +5,7 @@ import { useBaseQuery } from '../useBaseQuery';
 const useGetIngredientList = () => {
   // const testApiEndpoint = 'https://jsonplaceholder.typicode.com/todos';
 
-  return useBaseQuery<IngredientType>(queryKeys.INGREDIENT(), '/ingrs');
+  return useBaseQuery<IngredientType>(queryKeys.INGREDIENT(), '/regrigs/my');
 };
 
 export default useGetIngredientList;

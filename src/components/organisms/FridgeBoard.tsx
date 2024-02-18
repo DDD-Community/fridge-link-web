@@ -6,14 +6,12 @@ import {
   IngredientItemBox,
 } from '@/components/molecules';
 
-const FridgeBoard: React.FC = () => {
+const FridgeBoard: React.FC<{ data?: any | null }> = ({ data }) => {
   const [currentTabName, setCurrentTabName] = useState<'냉장' | '냉동'>('냉장');
 
   const handleTabNameChange: (tabName: '냉장' | '냉동') => void = (tabName) => {
     setCurrentTabName(tabName);
   };
-
-  const datas = ['d'];
 
   return (
     <Container className="p-[20px] bg-white">
@@ -21,7 +19,7 @@ const FridgeBoard: React.FC = () => {
         currentTabName={currentTabName}
         handleTabNameChange={handleTabNameChange}
       />
-      {datas.length !== 0 ? (
+      {data !== null || (Array.isArray(data) && data?.length !== 0) ? (
         <div className="flex flex-col w-full gap-[24px]">
           <IngredientItemBox />
           <IngredientItemBox />
