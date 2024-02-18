@@ -1,16 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@font-face {
-  font-family: 'Pretendard';
-  src: url('../../public/fonts/Pretendard.ttf');
-}
 @layer base {
+
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  }
+
   html,
   body {
     padding: 0;
     margin: 0;
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     color: #363a45;
   }
 }
