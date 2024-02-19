@@ -5,7 +5,10 @@ import React, { useState } from 'react';
 import useCount from '@/hooks/useCount';
 import useToast from '@/hooks/useToast';
 import ModalContainer from '../atoms/ModalContainer';
-import { useGetIngredientById } from '@/hooks/queries/fridge';
+import {
+  useGetIngredientById,
+  usePostIngredient,
+} from '@/hooks/queries/fridge';
 import Image from 'next/image';
 
 const IngredientAddModal: React.FC<{
@@ -13,6 +16,7 @@ const IngredientAddModal: React.FC<{
   toggleIsOpenIngredientAddModal: () => void;
 }> = ({ id, toggleIsOpenIngredientAddModal }) => {
   const { showToast } = useToast();
+  const postIngredient = usePostIngredient();
 
   const [isInFreezer, setIsInFreezer] = useState(false);
   const [memoContent, setMemoContent] = useState('');
@@ -26,6 +30,7 @@ const IngredientAddModal: React.FC<{
     console.log({ currentCount, isInFreezer, memoContent });
     toggleIsOpenIngredientAddModal();
     showToast('식자재 추가가 완료되었습니다.', 'success');
+    postIngredient.mutate({ name: '사과' });
   };
 
   const data = useGetIngredientById(id);
