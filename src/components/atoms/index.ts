@@ -16,3 +16,4 @@ export { default as RadioButtonField } from './RadioButtonField';
 export { default as Input } from './Input';
 export { default as MiniButton } from './MiniButton';
 export { default as ExclamationAlertSpan } from './ExclamationAlertSpan';
+export { default as Lottie } from './Lottie';
