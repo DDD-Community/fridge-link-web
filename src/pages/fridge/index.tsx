@@ -13,9 +13,9 @@ import {
   ModalContent,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useGetIngredientList } from '@/hooks/queries/fridge';
 import { useGetMe } from '@/hooks/queries/mypage';
 import { useEffect } from 'react';
+import { useGetMyIngredients } from '@/hooks/queries/fridge';
 
 const FridgePage: NextPage = () => {
   const {
@@ -30,9 +30,9 @@ const FridgePage: NextPage = () => {
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
-  const data = useGetIngredientList();
-
   const { nickName } = useGetMe();
+
+  const data = useGetMyIngredients();
 
   const urlParams =
     typeof window !== 'undefined'
@@ -101,7 +101,7 @@ const FridgePage: NextPage = () => {
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
             isOkIngredientAdd={true}
           />
-          <FridgeBoard data={data?.data} />
+          <FridgeBoard data={data} />
         </section>
       </div>
     </>
