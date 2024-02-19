@@ -2,15 +2,16 @@ import { BoxIcon, CalendarIcon, FreezerIcon, MemoIcon } from '@/assets/icons';
 import { Button, Toggle } from '@/components/atoms';
 import { Counter, IngredientAddItemContainer } from '../molecules';
 import React, { useState } from 'react';
-
-import { AppleIcon } from '../atoms/IngredientIcons';
 import useCount from '@/hooks/useCount';
 import useToast from '@/hooks/useToast';
 import ModalContainer from '../atoms/ModalContainer';
+import { useGetIngredientById } from '@/hooks/queries/fridge';
+import Image from 'next/image';
 
 const IngredientAddModal: React.FC<{
+  id: string;
   toggleIsOpenIngredientAddModal: () => void;
-}> = ({ toggleIsOpenIngredientAddModal }) => {
+}> = ({ id, toggleIsOpenIngredientAddModal }) => {
   const { showToast } = useToast();
 
   const [isInFreezer, setIsInFreezer] = useState(false);
@@ -27,12 +28,19 @@ const IngredientAddModal: React.FC<{
     showToast('식자재 추가가 완료되었습니다.', 'success');
   };
 
+  const data = useGetIngredientById(id);
+
   return (
     <ModalContainer>
       <div className="mb-[24px]">
-        <div className="flex gap-[12px] mb-[32px]">
-          <AppleIcon width={56} height={56} />
-          <div className="heading1-bold">사과</div>
+        <div className="flex items-center gap-[12px] mb-[32px]">
+          <Image
+            src={data?.iconImage ?? ''}
+            alt={data?.name ?? ''}
+            width={48}
+            height={48}
+          />
+          <div className="heading1-bold">{data?.name}</div>
         </div>
         <div className="flex flex-col gap-[10px] mb-[32px]">
           <IngredientAddItemContainer
