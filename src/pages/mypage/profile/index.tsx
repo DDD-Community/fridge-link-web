@@ -6,29 +6,7 @@ import React, { useCallback, useState } from 'react';
 import Header from '@/components/organisms/Header';
 import { debounceFunction } from '@/utils/debounceUtil';
 import usePostUser from '@/hooks/queries/login/usePostUser';
-
-const PROPILES = [
-  {
-    string: 'GREEN',
-    imgUrl:
-      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/green-nor.svg',
-  },
-  {
-    string: 'RED',
-    imgUrl:
-      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/red-nor.svg',
-  },
-  {
-    string: 'BLUE',
-    imgUrl:
-      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/blue-nor.svg',
-  },
-  {
-    string: 'YELLOW',
-    imgUrl:
-      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/yellow-nor.svg',
-  },
-];
+import { PROPILE_URLS } from '@/constants/PROFILE_URLS';
 
 const FriendsListPage: NextPage = () => {
   const [selectedImageSrc, setSelectedImageSrc] = useState(ProfileImg);
@@ -119,15 +97,15 @@ const FriendsListPage: NextPage = () => {
               ))}
             <label className="mt-[60px] mb-[20px]">프로필 이미지 선택</label>
             <div className="flex gap-[12px]">
-              {PROPILES.map((profile) => (
+              {Object.entries(PROPILE_URLS).map(([colorName, { imgUrl }]) => (
                 <Image
                   className="cursor-pointer"
-                  src={profile.imgUrl}
+                  src={imgUrl}
                   alt="프로필 이미지"
                   width={52}
                   height={52}
                   onClick={() => {
-                    handleImageClick(profile.string);
+                    handleImageClick(colorName);
                   }}
                 />
               ))}

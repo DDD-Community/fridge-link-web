@@ -4,6 +4,7 @@ export const queryKeys = {
   INGREDIENT: (id?: number) => (id ? ['ingredient', id] : ['ingredient']),
   KAKAO: () => ['kakao'],
   SHARES: () => ['shares'],
+  ME: () => ['my-info'],
   FRIENDSHIPS: (sort: FriendshipSortType) => ['friendship', sort],
 } as const;
 

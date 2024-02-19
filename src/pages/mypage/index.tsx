@@ -1,7 +1,6 @@
 import { Button } from '@/components/atoms';
 import { MyFridgeInfo } from '@/components/molecules';
 import { NavWhiteBox } from '@/components/organisms';
-import ProfileImg from '@/assets/profile.png';
 import Header from '@/components/organisms/Header';
 import { type NextPage } from 'next';
 import React from 'react';
@@ -16,6 +15,8 @@ import {
   QuestionIcon,
   SettingIcon,
 } from '@/assets/icons';
+import { useGetMe } from '@/hooks/queries/mypage';
+import { PROPILE_URLS } from '@/constants/PROFILE_URLS';
 
 const GENERAGE_NAV_LIST = [
   {
@@ -43,14 +44,23 @@ const ETC_NAV_LIST = [
 ];
 
 const Mypage: NextPage = () => {
+  const data = useGetMe();
+
   return (
     <div className={'pt-[52px] min-h-screen'}>
       <Header headerTitle={'My'} />
       <main className={`flex flex-col gap-[20px] min-h-screen p-20 bg-gray1`}>
         <div className="flex justify-between items-center">
           <div className="flex gap-[15px] items-center">
-            <Image src={ProfileImg} alt="프로필 예시" width={52} height={52} />
-            <span className="heading2-semibold">닉네임</span>
+            {data?.profileImage && (
+              <Image
+                src={PROPILE_URLS[data.profileImage].imgUrl}
+                alt="프로필 예시"
+                width={52}
+                height={52}
+              />
+            )}
+            <span className="heading2-semibold">{data?.nickName ?? ''}</span>
           </div>
           <Link href="/mypage/profile">
             <Button
