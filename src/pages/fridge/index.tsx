@@ -14,6 +14,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useGetIngredientList } from '@/hooks/queries/fridge';
+import { useGetMe } from '@/hooks/queries/mypage';
 
 const FridgePage: NextPage = () => {
   const {
@@ -29,6 +30,8 @@ const FridgePage: NextPage = () => {
   } = useDisclosure();
 
   const { data } = useGetIngredientList();
+
+  const { nickName } = useGetMe();
 
   return (
     <>
@@ -78,6 +81,7 @@ const FridgePage: NextPage = () => {
         <Header headerTitle={'내 냉장고'} />
         <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
           <FridgeInfoBox
+            userName={nickName}
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
             toggleIsOpenIngredientAddModal={onOpenIngredientAddModal}
           />

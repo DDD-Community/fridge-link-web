@@ -11,7 +11,8 @@ interface ResType {
 
 const useGetMe = () => {
   const { data } = useBaseQuery<ResType>(queryKeys.ME(), `/users/me`, true);
-  return data?.data ?? null;
+  if (!data?.data) return { nickName: '' };
+  return data?.data;
 };
 
 export default useGetMe;

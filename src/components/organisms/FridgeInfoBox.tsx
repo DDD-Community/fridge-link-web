@@ -3,13 +3,18 @@ import { Button } from '../atoms';
 import React from 'react';
 
 const FridgeInfoBox: React.FC<{
+  userName?: string;
   toggleIsOpenFridgeListModal: () => void;
   toggleIsOpenIngredientAddModal?: () => void;
-}> = ({ toggleIsOpenFridgeListModal, toggleIsOpenIngredientAddModal }) => {
+}> = ({
+  userName,
+  toggleIsOpenFridgeListModal,
+  toggleIsOpenIngredientAddModal,
+}) => {
   return (
     <div className="flex justify-between items-end mb-[28px]">
       <div className="flex flex-col gap-[12px]">
-        <div className="body1-medium text-gray7">홍길동님의</div>
+        <div className="body1-medium text-gray7">{userName ?? ''}님의</div>
         <div
           className="flex items-center gap-[8px]"
           onClick={toggleIsOpenFridgeListModal}
