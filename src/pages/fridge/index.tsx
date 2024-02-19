@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useGetIngredientList } from '@/hooks/queries/fridge';
 import { useGetMe } from '@/hooks/queries/mypage';
+import { useEffect } from 'react';
 
 const FridgePage: NextPage = () => {
   const {
@@ -29,9 +30,21 @@ const FridgePage: NextPage = () => {
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
-  const { data } = useGetIngredientList();
+  const data = useGetIngredientList();
 
   const { nickName } = useGetMe();
+
+  const urlParams =
+    typeof window !== 'undefined'
+      ? new URLSearchParams(window.location.search)
+      : null;
+  const id = urlParams?.get('id');
+
+  useEffect(() => {
+    if (id) {
+      onOpenIngredientAddModal();
+    }
+  }, [id]);
 
   return (
     <>
@@ -83,7 +96,7 @@ const FridgePage: NextPage = () => {
           <FridgeInfoBox
             userName={nickName}
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
-            toggleIsOpenIngredientAddModal={onOpenIngredientAddModal}
+            isOkIngredientAdd={true}
           />
           <FridgeBoard data={data?.data} />
         </section>

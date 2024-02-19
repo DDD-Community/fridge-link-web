@@ -1,16 +1,15 @@
 import { AngleIcon } from '@/assets/icons';
 import { Button } from '../atoms';
 import React from 'react';
+import { useRouter } from 'next/router';
 
 const FridgeInfoBox: React.FC<{
   userName?: string;
   toggleIsOpenFridgeListModal: () => void;
-  toggleIsOpenIngredientAddModal?: () => void;
-}> = ({
-  userName,
-  toggleIsOpenFridgeListModal,
-  toggleIsOpenIngredientAddModal,
-}) => {
+  isOkIngredientAdd?: boolean;
+}> = ({ userName, toggleIsOpenFridgeListModal, isOkIngredientAdd }) => {
+  const router = useRouter();
+
   return (
     <div className="flex justify-between items-end mb-[28px]">
       <div className="flex flex-col gap-[12px]">
@@ -28,11 +27,13 @@ const FridgeInfoBox: React.FC<{
           />
         </div>
       </div>
-      {toggleIsOpenIngredientAddModal && (
+      {isOkIngredientAdd && (
         <Button
           className="rounded-6 w-[100px] p-[10px] body1-semibold bg-primary2 text-white"
           text="식자재 추가"
-          onClick={toggleIsOpenIngredientAddModal}
+          onClick={() => {
+            void router.push('/fridge/add');
+          }}
         />
       )}
     </div>

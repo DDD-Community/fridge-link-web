@@ -2,11 +2,22 @@ import type { NextPage } from 'next';
 import { Header } from '@/components/organisms';
 import { Container } from '../../../components/atoms';
 import { useState } from 'react';
+import { useGetIngredientList } from '@/hooks/queries/fridge';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const CATEGORIES = ['전체', '과일', '고기'];
 
 const FridgePage: NextPage = () => {
+  const router = useRouter();
+
   const [currentCategory, setCurrentCategory] = useState('전체');
+
+  const data = useGetIngredientList();
+
+  const handleClickIngredient = (id: number) => {
+    void router.push(`/fridge?id=${id}`);
+  };
 
   return (
     <div className={'pt-[52px] min-h-screen'}>
@@ -25,27 +36,30 @@ const FridgePage: NextPage = () => {
             </div>
           ))}
         </section>
-        <Container className="bg-white">
-          <label className="w-full body1-semibold">채소</label>
-          <ul className="w-full grid grid-cols-4 gap-4">
-            <li key="상추" className="flex flex-col items-center">
-              <div>이미지</div>
-              <div className="body2-regular">상추</div>
-            </li>
-            <li key="토마토" className="flex flex-col items-center">
-              <div>이미지</div>
-              <div className="body2-regular">토마토</div>
-            </li>
-            <li key="상추" className="flex flex-col items-center">
-              <div>이미지</div>
-              <div className="body2-regular">상추</div>
-            </li>
-            <li key="토마토" className="flex flex-col items-center">
-              <div>이미지</div>
-              <div className="body2-regular">토마토</div>
-            </li>
-          </ul>
-        </Container>
+        {data?.map((items) => (
+          <Container key={items.category} className="bg-white">
+            <label className="w-full body1-semibold">{items.category}</label>
+            <ul className="w-full grid grid-cols-4 gap-4">
+              {items.ingredientGroupList.map((item) => (
+                <li
+                  key={item.id}
+                  onClick={() => {
+                    handleClickIngredient(item.id);
+                  }}
+                  className="flex flex-col items-center"
+                >
+                  <Image
+                    src={item.iconImage}
+                    alt={item.name}
+                    width={48}
+                    height={48}
+                  />
+                  <div className="body2-regular">{item.name}</div>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        ))}
       </main>
     </div>
   );
