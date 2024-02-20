@@ -4,7 +4,6 @@ const nextConfig = {
   images: {
     domains: ['mara-s3bucket.s3.ap-northeast-2.amazonaws.com'],
   },
-  distDir: 'build',
   webpack: (config) => {
     return {
       ...config,
