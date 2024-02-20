@@ -15,7 +15,11 @@ import {
   QuestionIcon,
   SettingIcon,
 } from '@/assets/icons';
-import { useGetMe } from '@/hooks/queries/mypage';
+import {
+  useGetMe,
+  useGetMyFriendsCount,
+  useGetMyIngredientsCount,
+} from '@/hooks/queries/mypage';
 import { PROPILE_URLS } from '@/constants/PROFILE_URLS';
 
 const GENERAGE_NAV_LIST = [
@@ -45,6 +49,8 @@ const ETC_NAV_LIST = [
 
 const Mypage: NextPage = () => {
   const data = useGetMe();
+  const myFriendsCount = useGetMyFriendsCount();
+  const myIngredientsCount = useGetMyIngredientsCount();
 
   return (
     <div className={'pt-[52px] min-h-screen'}>
@@ -70,11 +76,11 @@ const Mypage: NextPage = () => {
           </Link>
         </div>
         <div className="flex justify-evenly items-center bg-gray6 rounded-[12px]">
-          <MyFridgeInfo label="식자재" value="34개" />
+          <MyFridgeInfo label="식자재" value={`${myIngredientsCount}개`} />
           <div className="w-[2px] h-[36px] bg-gray5" />
           <MyFridgeInfo label="나눔" value="3개" />
           <div className="w-[2px] h-[36px] bg-gray5" />
-          <MyFridgeInfo label="친구" value="5명" isLast />
+          <MyFridgeInfo label="친구" value={`${myFriendsCount}명`} isLast />
         </div>
         <NavWhiteBox label="일반" list={GENERAGE_NAV_LIST} />
         <NavWhiteBox label="기타" list={ETC_NAV_LIST} />
