@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
 
 echo "> FE 배포"
-
-cd /home/ubuntu/fridge-link-deploy
-
-nohup yarn start &
-
+sudo cp -rf /home/ubuntu/fridge-link-deploy/build/* /var/www/html
