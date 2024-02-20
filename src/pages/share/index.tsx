@@ -14,6 +14,8 @@ import { PlusIcon } from '@/assets/icons';
 import { type SortLabel, type TabLabel } from '@/types/common';
 import dayjs from 'dayjs';
 import Link from 'next/link';
+import { useGetShares } from '@/hooks/queries/share';
+import { SuspenseFallback } from '@/components/templates';
 
 const TABS: TabLabel[] = [
   { label: '나눔 신청', value: 'enroll' },
@@ -50,6 +52,12 @@ const SharePage: NextPage = () => {
   const [curTab, setCurTab] = useState<TabLabel>(TABS[0]);
   const [curSortType, setCurSortType] = useState<SortLabel>(SORT_TYPES[0]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data } = useGetShares();
+  console.log(data?.data);
+
+  if (!data?.data) {
+    return <SuspenseFallback />;
+  }
 
   return (
     <>
@@ -76,8 +84,8 @@ const SharePage: NextPage = () => {
         </div>
 
         <div className="pt-[128px] px-[20px]">
-          {MOCK_DATA.data.map((ele) => (
-            <ShareListItem key={ele.id} data={ele} />
+          {data?.data.map((ele) => (
+            <ShareListItem key={ele.shareId} data={ele} />
           ))}
         </div>
         <div className="flex justify-end pr-[20px]">
