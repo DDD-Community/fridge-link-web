@@ -3,12 +3,14 @@ import { PlusIcon, TrashcanIcon } from '@/assets/icons';
 import React, { useState } from 'react';
 
 import { FridgeListItem } from '../molecules';
+import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
 
 const FridgeListModal: React.FC<{
   isMyFridgeList?: boolean;
 }> = ({ isMyFridgeList }) => {
   const [currentFridgeName, setCurrentFridgeName] = useState('기본 냉장고');
-  const FRIDGE_NAME_LIST = ['기본 냉장고', '김치 냉장고', '주류 냉장고'];
+
+  const fridgeList = useGetMyFridgeList();
 
   return (
     <ModalContainer>
@@ -19,13 +21,13 @@ const FridgeListModal: React.FC<{
         </div>
       </div>
       <div className="flex flex-col gap-[10px] mt-[25px] mb-[32px]">
-        {FRIDGE_NAME_LIST.map((fridgeName) => (
+        {fridgeList?.map(({ id, name }) => (
           <FridgeListItem
-            key={fridgeName}
-            isCurrentFridge={currentFridgeName === fridgeName}
-            fridgeName={fridgeName}
+            key={id}
+            isCurrentFridge={currentFridgeName === name}
+            fridgeName={name}
             onClick={() => {
-              setCurrentFridgeName(fridgeName);
+              setCurrentFridgeName(name);
             }}
           />
         ))}

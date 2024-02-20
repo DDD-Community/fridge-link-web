@@ -3,7 +3,15 @@ import { queryKeys } from '../queryKeys';
 import { useBaseMutation } from '../useBaseMutation';
 
 interface PostIngredientBodyType {
+  refrigeratorId: number;
+  ingredientId: number;
   name: string;
+  quantity: number;
+  location: 'FREEZING';
+  memo: string;
+  addDate: string;
+  expirationDate: string;
+  isDeleted: true;
 }
 
 const usePostIngredient = () => {
@@ -13,7 +21,7 @@ const usePostIngredient = () => {
   };
   return useBaseMutation<PostIngredientBodyType>(
     queryKeys.INGREDIENTS(),
-    `/ingrs`,
+    `/ingrs/detail`,
     onSuccess,
   );
 };
