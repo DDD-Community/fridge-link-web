@@ -9,7 +9,7 @@ interface IngredientType {
   expirationDays: 0;
 }
 
-const useGetIngredientById = (id: string) => {
+const useGetIngredientById = (id: number) => {
   const { data } = useBaseQuery<IngredientType>(
     queryKeys.INGREDIENT_ID(id),
     `/ingrs/${id}`,

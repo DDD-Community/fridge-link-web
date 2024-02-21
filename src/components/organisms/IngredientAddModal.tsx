@@ -10,16 +10,34 @@ import {
   usePostIngredient,
 } from '@/hooks/queries/fridge';
 import Image from 'next/image';
+import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
 
 const IngredientAddModal: React.FC<{
   id: number;
   toggleIsOpenIngredientAddModal: () => void;
 }> = ({ id, toggleIsOpenIngredientAddModal }) => {
   const { showToast } = useToast();
-  const postIngredient = usePostIngredient();
+
+  const onSuccess = () => {
+    toggleIsOpenIngredientAddModal();
+    showToast('식자재 추가가 완료되었습니다.', 'success');
+  };
+
+  const postIngredient = usePostIngredient(onSuccess);
+
+  const [reqBody, setReqBody] = useState<PostIngredientBodyType>({
+    refrigeratorId: 0,
+    ingredientId: 0,
+    name: '',
+    quantity: 0,
+    location: 'FREEZING',
+    memo: '',
+    addDate: '2024-01-12',
+    expirationDate: '2024-01-22',
+    isDeleted: true,
+  });
 
   const [isInFreezer, setIsInFreezer] = useState(false);
-  const [memoContent, setMemoContent] = useState('');
   const { currentCount, handleIncreaseCount, handleDecreaseCount } = useCount();
 
   const toggleIsInFreezer: () => void = () => {
@@ -27,10 +45,7 @@ const IngredientAddModal: React.FC<{
   };
 
   const handleSubmit: () => void = () => {
-    console.log({ currentCount, isInFreezer, memoContent });
-    toggleIsOpenIngredientAddModal();
-    showToast('식자재 추가가 완료되었습니다.', 'success');
-    postIngredient.mutate({ name: '사과' });
+    postIngredient.mutate({ ...reqBody, quantity: currentCount });
   };
 
   const data = useGetIngredientById(id);
@@ -54,13 +69,33 @@ const IngredientAddModal: React.FC<{
             title="소비기한"
           >
             <div className="flex items-center w-full gap-20">
-              <div className="p-[13px] bg-white rounded-[6px] body1-medium text-center text-gray6 flex-grow">
-                2024년 01월 12일
-              </div>
+              <input
+                className="p-[13px] bg-white rounded-[6px] body1-medium text-center text-gray6 flex-grow"
+                placeholder="2024-01-12"
+                type="date"
+                value={reqBody.addDate}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setReqBody((prev) => ({
+                    ...prev,
+                    addDate: e.target.value,
+                  }));
+                }}
+              />
               <div className="body1-medium text-center text-gray6">~</div>
-              <div className="p-[13px] bg-white rounded-[6px] body1-medium text-center text-gray6 flex-grow">
-                2024년 01월 6일
-              </div>
+              <input
+                className="p-[13px] bg-white rounded-[6px] body1-medium text-center text-gray6 flex-grow"
+                placeholder="2024-01-12"
+                type="date"
+                value={reqBody.expirationDate}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setReqBody((prev) => ({
+                    ...prev,
+                    expirationDate: e.target.value,
+                  }));
+                }}
+              />
             </div>
           </IngredientAddItemContainer>
           <IngredientAddItemContainer
@@ -87,9 +122,9 @@ const IngredientAddModal: React.FC<{
             title="메모"
           >
             <input
-              value={memoContent}
+              value={reqBody.memo}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setMemoContent(e.target.value);
+                setReqBody((prev) => ({ ...prev, memo: e.target.value }));
               }}
               className="w-full p-[12px] rounded-[6px] body1-medium"
               placeholder="식자재 관련 정보를 입력해 주세요."

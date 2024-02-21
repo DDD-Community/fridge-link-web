@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { queryKeys } from '../queryKeys';
 import { useBaseMutation } from '../useBaseMutation';
 
-interface PostIngredientBodyType {
+export interface PostIngredientBodyType {
   refrigeratorId: number;
   ingredientId: number;
   name: string;
@@ -14,7 +14,7 @@ interface PostIngredientBodyType {
   isDeleted: true;
 }
 
-const usePostIngredient = () => {
+const usePostIngredient = (fn?: () => void) => {
   const router = useRouter();
   const onSuccess = () => {
     void router.push('/fridge');
