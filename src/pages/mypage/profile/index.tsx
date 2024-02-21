@@ -122,7 +122,11 @@ const FriendsListPage: NextPage = () => {
               {Object.entries(PROPILE_URLS).map(
                 ([, { string, imgUrl, pointColor }]) => (
                   <Image
-                    style={{ border: `solid 2px ${pointColor}` }}
+                    style={
+                      selectedProfile === string
+                        ? { border: `solid 2px ${pointColor}` }
+                        : {}
+                    }
                     className={`rounded-[50%] cursor-pointer`}
                     src={imgUrl}
                     alt="프로필 이미지"
