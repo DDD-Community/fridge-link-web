@@ -6,22 +6,16 @@ import React from 'react';
 import dayjs from 'dayjs';
 
 const ShareListItem: React.FC<{
-  data: {
-    id: number;
-    thumbnail: string | null;
-    title: string;
-    location: string;
-    date: dayjs.Dayjs;
-  };
+  data: ShareData;
 }> = ({ data }) => {
   return (
     <Link
-      href={`/share/${data.id}`}
+      href={`/share/${data.shareId}`}
       className="flex flex-1 items-center mb-[12px] pl-[18px] pr-[12px] py-[16px] rounded-[12px] bg-white"
     >
-      {data.thumbnail ? (
+      {data.thumbNailImage ? (
         <Image
-          src={data.thumbnail}
+          src={data.thumbNailImage}
           width={64}
           height={64}
           className="rounded-[8px]"
@@ -49,7 +43,7 @@ const ShareListItem: React.FC<{
                 className="mx-[4px] mb-1"
               />
             </span>
-            {dayjs(data.date).format('MM월 DD일 A HH:mm')}
+            {`${dayjs(data.shareDate).format('MM월 DD일')} ${data.shareTime.hour} : ${data.shareTime.minute}`}
           </p>
         </div>
       </div>
