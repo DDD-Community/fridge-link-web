@@ -4,13 +4,22 @@ import React, { useState } from 'react';
 
 import { FridgeListItem } from '../molecules';
 import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
+import { useRouter } from 'next/router';
 
 const FridgeListModal: React.FC<{
   isMyFridgeList?: boolean;
 }> = ({ isMyFridgeList }) => {
-  const [currentFridgeName, setCurrentFridgeName] = useState('기본 냉장고');
+  const [currentFridge, setCurrentFridge] = useState({
+    id: 1,
+    name: '기본 냉장고',
+  });
 
+  const router = useRouter();
   const fridgeList = useGetMyFridgeList();
+
+  const handleFridgeClick = (id: number) => {
+    void router.push(`?fridge-id=${id}`);
+  };
 
   return (
     <ModalContainer>
@@ -24,10 +33,10 @@ const FridgeListModal: React.FC<{
         {fridgeList?.map(({ id, name }) => (
           <FridgeListItem
             key={id}
-            isCurrentFridge={currentFridgeName === name}
+            isCurrentFridge={currentFridge.id === id}
             fridgeName={name}
             onClick={() => {
-              setCurrentFridgeName(name);
+              setCurrentFridge({ id, name });
             }}
           />
         ))}
@@ -41,7 +50,13 @@ const FridgeListModal: React.FC<{
         <button className="p-[13px] border-2 rounded-[12px]">
           <TrashcanIcon />
         </button>
-        <Button className="flex-grow bg-primary2 text-white" text="이동하기" />
+        <Button
+          className="flex-grow bg-primary2 text-white"
+          text="이동하기"
+          onClick={() => {
+            handleFridgeClick(currentFridge.id);
+          }}
+        />
       </div>
     </ModalContainer>
   );

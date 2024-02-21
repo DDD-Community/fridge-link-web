@@ -67,7 +67,6 @@ const FriendsListPage: NextPage = () => {
     const kakaoId = urlParams?.get('kakaoId');
     const kakaoEmail = urlParams?.get('kakaoEmail');
 
-    console.log(nickname, selectedProfile);
     postUser.mutate({
       nickName: nickname,
       kakaoId: Number(kakaoId ?? MyInfo.kakaoId),

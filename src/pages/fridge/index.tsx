@@ -15,7 +15,10 @@ import {
 } from '@chakra-ui/react';
 import { useGetMe } from '@/hooks/queries/mypage';
 import { useEffect } from 'react';
-import { useGetMyIngredients } from '@/hooks/queries/fridge';
+import {
+  useGetFridgeContentById,
+  useGetMyIngredients,
+} from '@/hooks/queries/fridge';
 
 const FridgePage: NextPage = () => {
   const {
@@ -32,13 +35,21 @@ const FridgePage: NextPage = () => {
 
   const { nickName } = useGetMe();
 
-  const data = useGetMyIngredients();
-
   const urlParams =
     typeof window !== 'undefined'
       ? new URLSearchParams(window.location.search)
       : null;
   const id = urlParams?.get('id');
+  const fridgeId = urlParams?.get('fridge-id');
+
+  let data;
+  if (fridgeId) {
+    data = useGetFridgeContentById(fridgeId)?.content;
+    console.log(data);
+    return data;
+  } else {
+    data = useGetMyIngredients();
+  }
 
   useEffect(() => {
     if (id) {
