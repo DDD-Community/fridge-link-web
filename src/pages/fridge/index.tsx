@@ -3,7 +3,6 @@ import {
   FridgeBoard,
   FridgeInfoBox,
   FridgeListModal,
-  IngredientAddModal,
 } from '@/components/organisms';
 import { type NextPage } from 'next';
 import {
@@ -14,19 +13,12 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useGetMe } from '@/hooks/queries/mypage';
-import { useEffect } from 'react';
 import {
   useGetFridgeContentById,
   useGetMyIngredients,
 } from '@/hooks/queries/fridge';
 
 const FridgePage: NextPage = () => {
-  const {
-    isOpen: isOpenIngredientAddModal,
-    onOpen: onOpenIngredientAddModal,
-    onClose: onCloseIngredientAddModal,
-  } = useDisclosure();
-
   const {
     isOpen: isOpenFridgeListModal,
     onOpen: onOpenFridgeListModal,
@@ -39,7 +31,6 @@ const FridgePage: NextPage = () => {
     typeof window !== 'undefined'
       ? new URLSearchParams(window.location.search)
       : null;
-  const id = urlParams?.get('id');
   const fridgeId = urlParams?.get('fridge-id');
 
   let data;
@@ -50,12 +41,6 @@ const FridgePage: NextPage = () => {
   } else {
     data = useGetMyIngredients();
   }
-
-  useEffect(() => {
-    if (id) {
-      onOpenIngredientAddModal();
-    }
-  }, [id]);
 
   return (
     <>
@@ -79,31 +64,6 @@ const FridgePage: NextPage = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-      {id && (
-        <Modal
-          onClose={onCloseIngredientAddModal}
-          isOpen={isOpenIngredientAddModal}
-          motionPreset="slideInBottom"
-          trapFocus={false}
-        >
-          <ModalOverlay height="100vh" onClick={onCloseIngredientAddModal} />
-          <ModalContent
-            className="bg-white"
-            position="fixed"
-            bottom="0"
-            borderRadius="24px 24px 0px 0px"
-            maxW="lg"
-            margin={0}
-          >
-            <ModalBody padding={0}>
-              <IngredientAddModal
-                id={id}
-                toggleIsOpenIngredientAddModal={onCloseIngredientAddModal}
-              />
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-      )}
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'내 냉장고'} />
         <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
