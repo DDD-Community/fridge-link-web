@@ -6,13 +6,14 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { type SortLabel } from '@/types/common';
 import { RadioButtonField, SortButton } from '../atoms';
 import { FriendListItem } from '../organisms';
 import { useGetFriendships } from '@/hooks/queries/friendship';
 import type { FriendshipData, FriendshipSortType } from '@/types/friendship';
 import { SuspenseFallback } from '.';
+import { useObserver } from '@/hooks/useObserver';
 
 const SORT_TYPES: SortLabel[] = [
   { label: '이름순', value: 'nickname' },
@@ -20,10 +21,24 @@ const SORT_TYPES: SortLabel[] = [
 ];
 
 const FriendListTemplate: React.FC = () => {
+  const bottom = useRef<HTMLDivElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [curSortType, setCurSortType] = useState<SortLabel>(SORT_TYPES[0]);
-  const { data: friendsData } = useGetFriendships({
-    sort: curSortType.value as FriendshipSortType,
+  const { data: friendsData, fetchNextPage: friendsNextPage } =
+    useGetFriendships({
+      sort: curSortType.value as FriendshipSortType,
+    });
+
+  const onIntersect: IntersectionObserverCallback = ([entry]) => {
+    if (entry.isIntersecting) {
+      void friendsNextPage();
+      console.log('next gogo');
+    }
+  };
+
+  useObserver({
+    target: bottom,
+    onIntersect,
   });
 
   if (!friendsData?.pages[0].content) {
@@ -31,7 +46,7 @@ const FriendListTemplate: React.FC = () => {
   }
 
   return (
-    <>
+    <div className="h-screen flex flex-col">
       <div className="mt-[57px] fixed w-screen max-w-[480px]">
         <div className="h-[1px] mt-[-1px] bg-gray1" />
         <div className="flex justify-between px-[20px] py-[18px] bg-white body1-medium">
@@ -42,7 +57,7 @@ const FriendListTemplate: React.FC = () => {
         </div>
       </div>
 
-      <div className="pt-[128px] px-[20px]">
+      <div className="flex flex-1 overflow-y-auto pt-[128px] px-[20px]">
         {friendsData.pages.map((page) =>
           page.content.map((ele: FriendshipData) => (
             <FriendListItem
@@ -53,6 +68,7 @@ const FriendListTemplate: React.FC = () => {
           )),
         )}
       </div>
+      <div ref={bottom} />
 
       <Modal
         onClose={onClose}
@@ -85,7 +101,7 @@ const FriendListTemplate: React.FC = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 };
 
