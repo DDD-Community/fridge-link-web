@@ -12,7 +12,7 @@ import {
 import Image from 'next/image';
 
 const IngredientAddModal: React.FC<{
-  id: string;
+  id: number;
   toggleIsOpenIngredientAddModal: () => void;
 }> = ({ id, toggleIsOpenIngredientAddModal }) => {
   const { showToast } = useToast();

@@ -4,7 +4,6 @@ import { Container } from '../../../components/atoms';
 import { useState } from 'react';
 import { useGetIngredientList } from '@/hooks/queries/fridge';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import {
   Modal,
   ModalOverlay,
@@ -16,27 +15,17 @@ import {
 const CATEGORIES = ['전체', '과일', '고기'];
 
 const FridgePage: NextPage = () => {
+  const [ingredientId, setIngredientId] = useState<null | number>(null);
   const {
     isOpen: isOpenIngredientAddModal,
     onOpen: onOpenIngredientAddModal,
     onClose: onCloseIngredientAddModal,
   } = useDisclosure();
 
-  const router = useRouter();
-
+  console.log(ingredientId);
   const [currentCategory, setCurrentCategory] = useState('전체');
 
   const data = useGetIngredientList();
-
-  const handleClickIngredient = (id: number) => {
-    void router.push(`/fridge/add?id=${id}`);
-  };
-
-  const urlParams =
-    typeof window !== 'undefined'
-      ? new URLSearchParams(window.location.search)
-      : null;
-  const id = urlParams?.get('id');
 
   return (
     <>
@@ -58,7 +47,7 @@ const FridgePage: NextPage = () => {
           >
             <ModalBody padding={0}>
               <IngredientAddModal
-                id={id ?? ''}
+                id={ingredientId ?? 0}
                 toggleIsOpenIngredientAddModal={onCloseIngredientAddModal}
               />
             </ModalBody>
@@ -89,7 +78,7 @@ const FridgePage: NextPage = () => {
                   <li
                     key={item.id}
                     onClick={() => {
-                      handleClickIngredient(item.id);
+                      setIngredientId(item.id);
                       onOpenIngredientAddModal();
                     }}
                     className="flex flex-col items-center"
