@@ -15,6 +15,7 @@ export const fetchData = async <T>(url: string, isNotCatch: boolean) => {
     }
   }
 };
+
 export const useBaseQuery = <T>(
   queryKey: any,
   url: string,

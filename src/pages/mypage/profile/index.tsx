@@ -1,13 +1,15 @@
 import { type NextPage } from 'next';
 import Image from 'next/image';
-import { Button, ExclamationAlertSpan } from '@/components/atoms';
+import { ExclamationAlertSpan } from '@/components/atoms';
 import React, { useCallback, useState } from 'react';
+import type { FormEvent } from 'react';
 import Header from '@/components/organisms/Header';
 import { debounceFunction } from '@/utils/debounceUtil';
 import usePostUser from '@/hooks/queries/login/usePostUser';
 import { PROPILE_URLS } from '@/constants/PROFILE_URLS';
 import { useGetMe } from '@/hooks/queries/mypage';
 import type { ProfileType } from '@/types/common';
+import axiosInstance from '@/api/axiosInstance';
 
 const FriendsListPage: NextPage = () => {
   const [selectedProfile, setSelectedProfile] = useState<ProfileType>('BLUE');
@@ -31,30 +33,46 @@ const FriendsListPage: NextPage = () => {
     void debouncedHandleNicknameChange(e.target.value);
   };
 
+  const nickNameCheckResult = async (nickName: string) => {
+    try {
+      const res = await axiosInstance.get<{
+        message: 'string';
+        data: {
+          isDuplicated: boolean;
+        };
+      }>(`/users/nickname/check?nickname=${nickName}`);
+      return res?.data?.data.isDuplicated;
+    } catch (error) {
+      console.error('Error checking nickname:', error);
+      return null;
+    }
+  };
+
   const debouncedHandleNicknameChange = useCallback(
     debounceFunction((currentNickname: string) => {
-      console.log(currentNickname);
+      const result = nickNameCheckResult(currentNickname);
       setIsNicknameChecked(true);
-      setIsNicknameAvailable(false);
+      setIsNicknameAvailable(result);
     }, 1000),
     [],
   );
 
-  const handleSumbit = () => {
+  const handleSumbit = (e: FormEvent) => {
+    e.preventDefault();
+
     const urlParams =
       typeof window !== 'undefined'
         ? new URLSearchParams(window.location.search)
         : null;
-    const kakaoId = Number(urlParams?.get('kakaoId'));
+    const kakaoId = urlParams?.get('kakaoId');
     const kakaoEmail = urlParams?.get('kakaoEmail');
 
-    if (!kakaoId || !kakaoEmail) return;
-
+    console.log(nickname, selectedProfile);
     postUser.mutate({
       nickName: nickname,
-      kakaoId,
-      kakaoEmail,
-      googleEmail: '',
+      kakaoId: Number(kakaoId ?? MyInfo.kakaoId),
+      kakaoEmail: kakaoEmail ?? MyInfo.kakaoEmail,
+      googleEmail: null,
       profileImage: selectedProfile,
     });
   };
@@ -72,7 +90,10 @@ const FriendsListPage: NextPage = () => {
           width={120}
           height={120}
         />
-        <form className={`w-full flex flex-col h-full justify-between`}>
+        <form
+          onSubmit={handleSumbit}
+          className={`w-full flex flex-col h-full justify-between`}
+        >
           <div className={`flex flex-col`}>
             <label className="body1-medium mb-[20px]">닉네임</label>
             <input
@@ -115,12 +136,13 @@ const FriendsListPage: NextPage = () => {
               )}
             </div>
           </div>
+          <button
+            type="submit"
+            className={`p-18 gap-12 rounded-12 heading4-semibold ${nickname && isNicknameAvailable && selectedProfile ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
+          >
+            편집완료
+          </button>
         </form>
-        <Button
-          onClick={handleSumbit}
-          className={`${nickname && isNicknameAvailable && selectedProfile ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
-          text="편집 완료"
-        />
       </section>
     </div>
   );
