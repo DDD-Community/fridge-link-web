@@ -2,8 +2,7 @@
 
 echo "> FE 배포"
 
-sudo fuser -k 80/tcp
-
 cd /home/ubuntu/fridge-link-deploy
+pm2 restart all
 
-nohup yarn start &
+
