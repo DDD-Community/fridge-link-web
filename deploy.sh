@@ -4,5 +4,5 @@ echo "> FE 배포"
 
 cd /home/ubuntu/fridge-link-deploy
 
-nohup yarn start &
+pm2 restart all
 
