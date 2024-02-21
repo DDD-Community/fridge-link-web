@@ -66,7 +66,9 @@ const Mypage: NextPage = () => {
                 height={52}
               />
             )}
-            <span className="heading2-semibold">{data?.nickName ?? ''}</span>
+            <span className="heading2-semibold">
+              {data?.nickName ?? '닉네임을 입력해주세요.'}
+            </span>
           </div>
           <Link href="/mypage/profile">
             <Button
