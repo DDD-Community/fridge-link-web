@@ -31,7 +31,7 @@ const GENERAGE_NAV_LIST = [
   {
     name: '친구',
     svgComponent: <FriendsIcon />,
-    linkTo: '/mypage/friendslist',
+    linkTo: '/mypage/friendship',
   },
   { name: '나눔 내역', svgComponent: <CartIcon />, linkTo: '' },
 ];
