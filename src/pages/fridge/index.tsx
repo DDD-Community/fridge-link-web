@@ -14,8 +14,10 @@ import {
 } from '@chakra-ui/react';
 import { useGetMe } from '@/hooks/queries/mypage';
 import { useGetFridgeContentById } from '@/hooks/queries/fridge';
+import { useRouter } from 'next/router';
 
 const FridgePage: NextPage = () => {
+  const router = useRouter();
   const {
     isOpen: isOpenFridgeListModal,
     onOpen: onOpenFridgeListModal,
@@ -24,15 +26,13 @@ const FridgePage: NextPage = () => {
 
   const { nickName } = useGetMe();
 
-  const urlParams =
-    typeof window !== 'undefined'
-      ? new URLSearchParams(window.location.search)
-      : null;
-  const fridgeId = urlParams?.get('fridgeid');
+  const { fridgeid: fridgeId } = router.query;
 
-  const data = useGetFridgeContentById(
-    fridgeId ? Number(fridgeId) : 150,
-  )?.content;
+  if (!fridgeId) {
+    onOpenFridgeListModal();
+  }
+
+  const data = useGetFridgeContentById(Number(fridgeId))?.content;
 
   return (
     <>
@@ -52,7 +52,7 @@ const FridgePage: NextPage = () => {
           margin={0}
         >
           <ModalBody padding={0}>
-            <FridgeListModal />
+            <FridgeListModal onCloseFridgeListModal={onCloseFridgeListModal} />
           </ModalBody>
         </ModalContent>
       </Modal>

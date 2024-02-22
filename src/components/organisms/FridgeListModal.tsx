@@ -9,7 +9,8 @@ import usePostFridge from '@/hooks/queries/fridge/usePostFridge';
 
 const FridgeListModal: React.FC<{
   ownerId?: number;
-}> = ({ ownerId }) => {
+  onCloseFridgeListModal: () => void;
+}> = ({ ownerId, onCloseFridgeListModal }) => {
   const [currentFridge, setCurrentFridge] = useState({
     id: 1,
     name: '기본 냉장고',
@@ -19,10 +20,13 @@ const FridgeListModal: React.FC<{
   const fridgeList = useGetMyFridgeList(ownerId ?? undefined);
   const fridgeMutation = usePostFridge();
 
-  const handleFridgeClick = (id: number) => {
+  const handleFridgeClick = (id: number, name: string) => {
     void router.push(
-      ownerId ? `/friend/${ownerId}?fridgeid=${id}` : `?fridgeid=${id}`,
+      ownerId
+        ? `/friend/${ownerId}?fridgeid=${id}`
+        : `fridge/?fridgeid=${id}&name=${name}`,
     );
+    onCloseFridgeListModal();
   };
 
   const handleNewFridgeClick = () => {
@@ -71,7 +75,7 @@ const FridgeListModal: React.FC<{
           className="flex-grow bg-primary2 text-white"
           text="이동하기"
           onClick={() => {
-            handleFridgeClick(currentFridge.id);
+            handleFridgeClick(currentFridge.id, currentFridge.name);
           }}
         />
       </div>

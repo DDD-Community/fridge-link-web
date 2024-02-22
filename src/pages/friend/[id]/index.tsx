@@ -54,7 +54,10 @@ const FriendIdPage: NextPage = () => {
         >
           <ModalBody padding={0}>
             {/* 친구 아이디 넣어야함 */}
-            <FridgeListModal ownerId={Number(fridgeId)} />
+            <FridgeListModal
+              onCloseFridgeListModal={onCloseFridgeListModal}
+              ownerId={Number(fridgeId)}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>

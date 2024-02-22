@@ -17,7 +17,7 @@ const useGetFridgeContentById = (id: number) => {
         true,
       );
     },
-    enabled: id !== 0,
+    enabled: id === 0,
   });
 
   if (!data?.data) return;

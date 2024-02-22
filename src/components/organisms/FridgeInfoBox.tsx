@@ -9,7 +9,7 @@ const FridgeInfoBox: React.FC<{
   isOkIngredientAdd?: boolean;
 }> = ({ userName = '', toggleIsOpenFridgeListModal, isOkIngredientAdd }) => {
   const router = useRouter();
-
+  const { fridgeid, name } = router.query;
   return (
     <div className="flex justify-between items-end mb-[28px]">
       <div className="flex flex-col gap-[12px]">
@@ -18,7 +18,7 @@ const FridgeInfoBox: React.FC<{
           className="flex items-center gap-[8px]"
           onClick={toggleIsOpenFridgeListModal}
         >
-          <div className="heading1-bold">기본 냉장고</div>
+          <div className="heading1-bold">{name}</div>
           <AngleIcon
             width={16}
             height={16}
@@ -32,7 +32,7 @@ const FridgeInfoBox: React.FC<{
           className="rounded-6 w-[100px] p-[10px] body1-semibold bg-primary2 text-white"
           text="식자재 추가"
           onClick={() => {
-            void router.push('/fridge/add');
+            void router.push(`/fridge/add?fridgeid=${fridgeid as string}`);
           }}
         />
       )}
