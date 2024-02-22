@@ -2,7 +2,7 @@ import React from 'react';
 
 const NotificationIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg width="22" height="22" viewBox="0 0 22 22" fill="none" {...props}>
-    <g clip-path="url(#clip0_1100_16324)">
+    <g clipPath="url(#clip0_1100_16324)">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
