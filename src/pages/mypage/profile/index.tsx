@@ -30,7 +30,7 @@ const PROFILES: Array<{ string: ProfileEnum; pointColor: string }> = [
   },
 ];
 
-const FriendsListPage: NextPage = () => {
+const ProfilePage: NextPage = () => {
   const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>('BLUE');
   const [nickname, setNickname] = useState('');
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
@@ -137,6 +137,7 @@ const FriendsListPage: NextPage = () => {
             <div className="flex gap-[12px]">
               {PROFILES.map(({ string, pointColor }) => (
                 <Image
+                  key={string}
                   style={
                     selectedProfile === string
                       ? { border: `solid 2px ${pointColor}` }
@@ -166,4 +167,4 @@ const FriendsListPage: NextPage = () => {
   );
 };
 
-export default FriendsListPage;
+export default ProfilePage;

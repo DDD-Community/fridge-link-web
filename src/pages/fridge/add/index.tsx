@@ -22,7 +22,6 @@ const FridgePage: NextPage = () => {
     onClose: onCloseIngredientAddModal,
   } = useDisclosure();
 
-  console.log(ingredientId);
   const [currentCategory, setCurrentCategory] = useState('전체');
 
   const data = useGetIngredientList();

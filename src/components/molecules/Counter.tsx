@@ -11,7 +11,7 @@ const Counter: React.FC<CountState> = ({
       <button className="w-[30px] text-center" onClick={handleDecreaseCount}>
         -
       </button>
-      <input className="w-[30px] text-center" value={currentCount} />
+      <input className="w-[30px] text-center" defaultValue={currentCount} />
       <button className="w-[30px] text-center" onClick={handleIncreaseCount}>
         +
       </button>
