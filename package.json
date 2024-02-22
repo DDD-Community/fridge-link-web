@@ -37,7 +37,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-error-boundary": "^4.0.12",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "swiper": "^11.0.6"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "7.6.3",
