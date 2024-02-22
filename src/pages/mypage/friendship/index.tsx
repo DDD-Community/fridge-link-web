@@ -29,7 +29,7 @@ const FriendShipPage: NextPage = () => {
         }
         backgroundColor="white"
       />
-      <div className="fixed w-screen max-w-[480px]">
+      <div className="fixed w-screen max-w-[480px] z-10">
         <div className="flex px-[20px] bg-white">
           {TABS.map((ele: TabLabel) => (
             <TabButton
