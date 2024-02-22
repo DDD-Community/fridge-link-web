@@ -6,13 +6,32 @@ import type { FormEvent } from 'react';
 import Header from '@/components/organisms/Header';
 import { debounceFunction } from '@/utils/debounceUtil';
 import usePostUser from '@/hooks/queries/login/usePostUser';
-import { PROPILE_URLS } from '@/constants/PROFILE_URLS';
 import { useGetMe } from '@/hooks/queries/mypage';
-import type { ProfileType } from '@/types/common';
+import type { ProfileEnum } from '@/types/common';
 import axiosInstance from '@/api/axiosInstance';
+import { returnProfileImg } from '@/utils/returnProfileImg';
+
+const PROFILES: Array<{ string: ProfileEnum; pointColor: string }> = [
+  {
+    string: 'GREEN',
+    pointColor: '#3CAA8D',
+  },
+  {
+    string: 'RED',
+    pointColor: '#CB5D45',
+  },
+  {
+    string: 'BLUE',
+    pointColor: '#5C93D4',
+  },
+  {
+    string: 'YELLOW',
+    pointColor: '#D5B02D',
+  },
+];
 
 const FriendsListPage: NextPage = () => {
-  const [selectedProfile, setSelectedProfile] = useState<ProfileType>('BLUE');
+  const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>('BLUE');
   const [nickname, setNickname] = useState('');
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
@@ -84,7 +103,7 @@ const FriendsListPage: NextPage = () => {
       >
         <Image
           className="m-[50px]"
-          src={PROPILE_URLS[selectedProfile].imgUrl}
+          src={returnProfileImg(selectedProfile)}
           alt="프로필 이미지"
           width={120}
           height={120}
@@ -118,25 +137,23 @@ const FriendsListPage: NextPage = () => {
               ))}
             <label className="mt-[60px] mb-[20px]">프로필 이미지 선택</label>
             <div className="flex gap-[12px]">
-              {Object.entries(PROPILE_URLS).map(
-                ([, { string, imgUrl, pointColor }]) => (
-                  <Image
-                    style={
-                      selectedProfile === string
-                        ? { border: `solid 2px ${pointColor}` }
-                        : {}
-                    }
-                    className={`rounded-[50%] cursor-pointer`}
-                    src={imgUrl}
-                    alt="프로필 이미지"
-                    width={50}
-                    height={50}
-                    onClick={() => {
-                      setSelectedProfile(string);
-                    }}
-                  />
-                ),
-              )}
+              {PROFILES.map(({ string, pointColor }) => (
+                <Image
+                  style={
+                    selectedProfile === string
+                      ? { border: `solid 2px ${pointColor}` }
+                      : {}
+                  }
+                  className={`rounded-[50%] cursor-pointer`}
+                  src={returnProfileImg(string)}
+                  alt="프로필 이미지"
+                  width={50}
+                  height={50}
+                  onClick={() => {
+                    setSelectedProfile(string);
+                  }}
+                />
+              ))}
             </div>
           </div>
           <button

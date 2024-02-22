@@ -20,7 +20,7 @@ import {
   useGetMyFriendsCount,
   useGetMyIngredientsCount,
 } from '@/hooks/queries/mypage';
-import { PROPILE_URLS } from '@/constants/PROFILE_URLS';
+import { returnProfileImg } from '@/utils/returnProfileImg';
 
 const GENERAGE_NAV_LIST = [
   {
@@ -60,7 +60,7 @@ const Mypage: NextPage = () => {
           <div className="flex gap-[15px] items-center">
             {data?.profileImage && (
               <Image
-                src={PROPILE_URLS[data.profileImage].imgUrl}
+                src={returnProfileImg(data?.profileImage)}
                 alt="프로필 예시"
                 width={52}
                 height={52}

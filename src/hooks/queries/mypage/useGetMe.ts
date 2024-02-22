@@ -1,3 +1,4 @@
+import type { ProfileEnum } from '@/types/common';
 import { queryKeys } from '../queryKeys';
 import { useBaseQuery } from '../useBaseQuery';
 
@@ -6,7 +7,7 @@ interface ResType {
   kakaoId: number;
   kakaoEmail: string;
   googleEmail: string | null;
-  profileImage: string;
+  profileImage: ProfileEnum;
 }
 
 const useGetMe = () => {
@@ -14,10 +15,10 @@ const useGetMe = () => {
   if (!data?.data)
     return {
       nickName: '',
-      kakaoId: '',
+      kakaoId: 0,
       kakaoEmail: '',
       googleEmail: null,
-      profileImgage: 'BULE',
+      profileImage: 'BLUE' as ProfileEnum,
     };
   return data?.data;
 };
