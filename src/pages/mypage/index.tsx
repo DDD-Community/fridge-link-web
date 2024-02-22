@@ -1,7 +1,6 @@
 import { Button } from '@/components/atoms';
 import { MyFridgeInfo } from '@/components/molecules';
 import { NavWhiteBox } from '@/components/organisms';
-import ProfileImg from '@/assets/profile.png';
 import Header from '@/components/organisms/Header';
 import { type NextPage } from 'next';
 import React from 'react';
@@ -16,6 +15,12 @@ import {
   QuestionIcon,
   SettingIcon,
 } from '@/assets/icons';
+import {
+  useGetMe,
+  useGetMyFriendsCount,
+  useGetMyIngredientsCount,
+} from '@/hooks/queries/mypage';
+import { returnProfileImg } from '@/utils/returnProfileImg';
 
 const GENERAGE_NAV_LIST = [
   {
@@ -43,14 +48,27 @@ const ETC_NAV_LIST = [
 ];
 
 const Mypage: NextPage = () => {
+  const data = useGetMe();
+  const myFriendsCount = useGetMyFriendsCount();
+  const myIngredientsCount = useGetMyIngredientsCount();
+
   return (
     <div className={'pt-[52px] min-h-screen'}>
       <Header headerTitle={'My'} />
       <main className={`flex flex-col gap-[20px] min-h-screen p-20 bg-gray1`}>
         <div className="flex justify-between items-center">
           <div className="flex gap-[15px] items-center">
-            <Image src={ProfileImg} alt="프로필 예시" width={52} height={52} />
-            <span className="heading2-semibold">닉네임</span>
+            {data?.profileImage && (
+              <Image
+                src={returnProfileImg(data?.profileImage)}
+                alt="프로필 예시"
+                width={52}
+                height={52}
+              />
+            )}
+            <span className="heading2-semibold">
+              {data?.nickName ?? '닉네임을 입력해주세요.'}
+            </span>
           </div>
           <Link href="/mypage/profile">
             <Button
@@ -60,11 +78,11 @@ const Mypage: NextPage = () => {
           </Link>
         </div>
         <div className="flex justify-evenly items-center bg-gray6 rounded-[12px]">
-          <MyFridgeInfo label="식자재" value="34개" />
+          <MyFridgeInfo label="식자재" value={`${myIngredientsCount}개`} />
           <div className="w-[2px] h-[36px] bg-gray5" />
           <MyFridgeInfo label="나눔" value="3개" />
           <div className="w-[2px] h-[36px] bg-gray5" />
-          <MyFridgeInfo label="친구" value="5명" isLast />
+          <MyFridgeInfo label="친구" value={`${myFriendsCount}명`} isLast />
         </div>
         <NavWhiteBox label="일반" list={GENERAGE_NAV_LIST} />
         <NavWhiteBox label="기타" list={ETC_NAV_LIST} />

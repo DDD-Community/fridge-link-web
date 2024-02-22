@@ -3,12 +3,31 @@ import { PlusIcon, TrashcanIcon } from '@/assets/icons';
 import React, { useState } from 'react';
 
 import { FridgeListItem } from '../molecules';
+import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
+import { useRouter } from 'next/router';
+import usePostFridge from '@/hooks/queries/fridge/usePostFridge';
 
 const FridgeListModal: React.FC<{
   isMyFridgeList?: boolean;
 }> = ({ isMyFridgeList }) => {
-  const [currentFridgeName, setCurrentFridgeName] = useState('기본 냉장고');
-  const FRIDGE_NAME_LIST = ['기본 냉장고', '김치 냉장고', '주류 냉장고'];
+  const [currentFridge, setCurrentFridge] = useState({
+    id: 1,
+    name: '기본 냉장고',
+  });
+
+  const router = useRouter();
+  const fridgeList = useGetMyFridgeList();
+  const fridgeMutation = usePostFridge();
+
+  const handleFridgeClick = (id: number) => {
+    void router.push(`?fridge-id=${id}`);
+  };
+
+  const handleNewFridgeClick = () => {
+    fridgeMutation.mutate({
+      name: `내 냉장고 ${fridgeList ? fridgeList.length + 1 : 1}`,
+    });
+  };
 
   return (
     <ModalContainer>
@@ -19,18 +38,20 @@ const FridgeListModal: React.FC<{
         </div>
       </div>
       <div className="flex flex-col gap-[10px] mt-[25px] mb-[32px]">
-        {FRIDGE_NAME_LIST.map((fridgeName) => (
+        {fridgeList?.map(({ id, name }) => (
           <FridgeListItem
-            key={fridgeName}
-            isCurrentFridge={currentFridgeName === fridgeName}
-            fridgeName={fridgeName}
+            key={id}
+            isCurrentFridge={currentFridge.id === id}
+            fridgeName={name}
             onClick={() => {
-              setCurrentFridgeName(fridgeName);
+              setCurrentFridge({ id, name });
             }}
           />
         ))}
-
-        <button className="flex justify-center items-center h-[64px] border-2 rounded-[12px] text-gray3">
+        <button
+          onClick={handleNewFridgeClick}
+          className="flex justify-center items-center h-[64px] border-2 rounded-[12px] text-gray3"
+        >
           <PlusIcon />
           냉장고 추가
         </button>
@@ -39,7 +60,13 @@ const FridgeListModal: React.FC<{
         <button className="p-[13px] border-2 rounded-[12px]">
           <TrashcanIcon />
         </button>
-        <Button className="flex-grow bg-primary2 text-white" text="이동하기" />
+        <Button
+          className="flex-grow bg-primary2 text-white"
+          text="이동하기"
+          onClick={() => {
+            handleFridgeClick(currentFridge.id);
+          }}
+        />
       </div>
     </ModalContainer>
   );

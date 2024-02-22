@@ -1,11 +1,18 @@
-import type { IngredientType } from '@/types/fridge';
 import { queryKeys } from '../queryKeys';
 import { useBaseQuery } from '../useBaseQuery';
 
-const useGetIngredientList = () => {
-  // const testApiEndpoint = 'https://jsonplaceholder.typicode.com/todos';
+interface IngredientType {
+  id: number;
+  name: string;
+  iconImage: string;
+}
 
-  return useBaseQuery<IngredientType>(queryKeys.INGREDIENT(), '/regrigs/my');
+const useGetIngredientList = () => {
+  const { data } = useBaseQuery<
+    Array<{ category: string; ingredientGroupList: IngredientType[] }>
+  >(queryKeys.INGREDIENT_LIST(), '/ingrs/category');
+
+  return data?.data;
 };
 
 export default useGetIngredientList;
