@@ -19,6 +19,11 @@ const FriendIdPage: NextPage = () => {
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
+  const pathname =
+    typeof window !== 'undefined' ? window.location.pathname : null;
+
+  const ownerId = Number(pathname?.split('/')[2]);
+
   return (
     <>
       <Modal
@@ -37,7 +42,7 @@ const FriendIdPage: NextPage = () => {
           margin={0}
         >
           <ModalBody padding={0}>
-            <FridgeListModal />
+            <FridgeListModal ownerId={ownerId} />
           </ModalBody>
         </ModalContent>
       </Modal>

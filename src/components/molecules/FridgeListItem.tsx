@@ -7,12 +7,14 @@ interface FridgeListItemProps {
   isCurrentFridge: boolean;
   fridgeName: string;
   onClick: () => void;
+  isMine: boolean;
 }
 
 const FridgeListItem: React.FC<FridgeListItemProps> = ({
   isCurrentFridge,
   fridgeName,
   onClick,
+  isMine = true,
 }) => {
   return (
     <GrayBox
@@ -21,9 +23,11 @@ const FridgeListItem: React.FC<FridgeListItemProps> = ({
     >
       <div className="flex gap-[9px] items-center">
         <div className="heading3-semibold">{fridgeName}</div>
-        <div>
-          <EditIcon />
-        </div>
+        {isMine && (
+          <div>
+            <EditIcon />
+          </div>
+        )}
       </div>
       <Radio checked={isCurrentFridge} />
     </GrayBox>
