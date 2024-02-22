@@ -24,15 +24,17 @@ const FriendListTemplate: React.FC = () => {
   const bottom = useRef<HTMLDivElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [curSortType, setCurSortType] = useState<SortLabel>(SORT_TYPES[0]);
-  const { data: friendsData, fetchNextPage: friendsNextPage } =
-    useGetFriendships({
-      sort: curSortType.value as FriendshipSortType,
-    });
+  const {
+    data: friendsData,
+    fetchNextPage: friendsNextPage,
+    isFetchingNextPage: isFetchingfriendsNextPage,
+  } = useGetFriendships({
+    sort: curSortType.value as FriendshipSortType,
+  });
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {
     if (entry.isIntersecting) {
       void friendsNextPage();
-      console.log('next gogo');
     }
   };
 
@@ -47,7 +49,7 @@ const FriendListTemplate: React.FC = () => {
 
   return (
     <div className="h-screen flex flex-col">
-      <div className="mt-[57px] fixed w-screen max-w-[480px]">
+      <div className="mt-[57px] fixed w-screen max-w-[480px] z-10">
         <div className="h-[1px] mt-[-1px] bg-gray1" />
         <div className="flex justify-between px-[20px] py-[18px] bg-white body1-medium">
           <p className="body1-medium">
@@ -57,18 +59,20 @@ const FriendListTemplate: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-1 overflow-y-auto pt-[128px] px-[20px]">
+      <div className="flex flex-col flex-1 overflow-y-auto pt-[128px] px-[20px]">
         {friendsData.pages.map((page) =>
           page.content.map((ele: FriendshipData) => (
             <FriendListItem
               key={ele.userId}
-              name={ele.nickName}
+              name={ele.nickname}
               count={ele.ingredientCount}
+              // TODO profileEnum api res 필드값으로 대체
+              profileEnum={'GREEN'}
             />
           )),
         )}
       </div>
-      <div ref={bottom} />
+      {isFetchingfriendsNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
 
       <Modal
         onClose={onClose}

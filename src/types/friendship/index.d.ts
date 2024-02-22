@@ -1,6 +1,6 @@
 export interface FriendshipData {
   userId: number;
-  nickName: string;
+  nickname: string;
   ingredientCount: number;
 }
 
