@@ -1,16 +1,19 @@
 import React from 'react';
 import { Container } from '@/components/atoms';
 import { EmptyBox, IngredientItemBox } from '@/components/molecules';
+import { useGetMyIngredientSummary } from '@/hooks/queries/home';
 
 const TermBoard: React.FC = () => {
-  const isIngredientItem = true;
+  const ingredientSummary = useGetMyIngredientSummary();
 
+  console.log(ingredientSummary);
   return (
     <Container className="bg-white">
-      {isIngredientItem ? (
+      {ingredientSummary && ingredientSummary.length !== 0 ? (
         <div className={`flex flex-col w-full gap-25`}>
-          <IngredientItemBox />
-          <IngredientItemBox />
+          {ingredientSummary.map((data) => (
+            <IngredientItemBox key={data.name} />
+          ))}
         </div>
       ) : (
         <div className={`flex flex-col items-center`}>
