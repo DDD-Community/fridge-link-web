@@ -20,5 +20,6 @@ module.exports = {
     '@typescript-eslint/strict-boolean-expressions': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-floating-promises': 'off'
   },
 };
