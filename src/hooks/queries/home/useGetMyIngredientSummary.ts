@@ -9,7 +9,7 @@ interface IngredientType {
 
 const useGetMyIngredientSummary = () => {
   const { data } = useBaseQuery<IngredientType[]>(
-    queryKeys.INGREDIENTS(),
+    queryKeys.INGREDIENTS_RECENT(),
     '/ingrs/detail/recent',
   );
 

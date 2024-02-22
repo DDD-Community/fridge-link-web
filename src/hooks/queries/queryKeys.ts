@@ -9,6 +9,7 @@ export const queryKeys = {
   INGREDIENT_LIST: () => ['ingredient_list'],
   INGREDIENT_ID: (id: number) => ['ingredient', id],
   INGREDIENTS: () => ['my-ingredient'],
+  INGREDIENTS_RECENT: () => ['my-ingredient', 'recent'],
   KAKAO: () => ['kakao'],
   SHARES: () => ['shares'],
   ME: () => ['my-info'],

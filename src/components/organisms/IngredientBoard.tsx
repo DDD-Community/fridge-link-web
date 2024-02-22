@@ -6,7 +6,6 @@ import { useGetMyIngredientSummary } from '@/hooks/queries/home';
 const TermBoard: React.FC = () => {
   const ingredientSummary = useGetMyIngredientSummary();
 
-  console.log(ingredientSummary);
   return (
     <Container className="bg-white">
       {ingredientSummary && ingredientSummary.length !== 0 ? (
