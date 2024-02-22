@@ -25,7 +25,7 @@ const FridgeListModal: React.FC<{
 
   const handleNewFridgeClick = () => {
     fridgeMutation.mutate({
-      name: `내 냉장고 ${fridgeList !== null && fridgeList !== undefined ? fridgeList[fridgeList.length - 1].id + 1 : 1}`,
+      name: `내 냉장고 ${fridgeList ? fridgeList.length + 1 : 1}`,
     });
   };
 
