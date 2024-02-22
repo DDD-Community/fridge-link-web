@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from 'react';
-
 import { BulletNoticeBox } from '../organisms';
 import { LabelRoundBox } from '../molecules';
 import { MiniButton } from '@/components/atoms';
-
-const MY_INVITATION_CODE = 'AB12CD3EF';
+import React from 'react';
+import { queryKeys } from '@/hooks/queries/queryKeys';
+import { useBaseQuery } from '@/hooks/queries/useBaseQuery';
 
 const AddFriendTemplate: React.FC = () => {
-  const [myCode, setMyCode] = useState<string>('');
-
   const onCopy: () => void = () => {
     navigator.clipboard
-      .writeText(myCode)
+      .writeText(myInviteCode?.data?.inviteCode ?? '')
       .then(() => null)
       .catch(() => null);
   };
 
-  useEffect(() => {
-    setMyCode(MY_INVITATION_CODE);
-  }, []);
+  const { data: myInviteCode } = useBaseQuery<{ inviteCode: string }>(
+    queryKeys.MY_INVITE_CODE(),
+    '/users/me/invite-code',
+  );
 
   return (
     <div className="pt-[72px] px-[20px]">
@@ -27,7 +25,7 @@ const AddFriendTemplate: React.FC = () => {
         content={
           <>
             <span className="flex-1 outline-none mr-[10px] border-none p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium">
-              {myCode}
+              {myInviteCode?.data?.inviteCode}
             </span>
             <MiniButton label="복사" onClick={onCopy} variant="active" />
           </>
