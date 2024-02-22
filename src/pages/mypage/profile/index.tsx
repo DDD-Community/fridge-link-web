@@ -60,18 +60,16 @@ const FriendsListPage: NextPage = () => {
           isDuplicated: boolean;
         };
       }>(`/users/nickname/check?nickname=${nickName}`);
-      return res?.data?.data.isDuplicated;
+      setIsNicknameChecked(true);
+      setIsNicknameAvailable(!res?.data?.data.isDuplicated);
     } catch (error) {
       console.error('Error checking nickname:', error);
-      return null;
     }
   };
 
   const debouncedHandleNicknameChange = useCallback(
     debounceFunction((currentNickname: string) => {
-      const result = nickNameCheckResult(currentNickname);
-      setIsNicknameChecked(true);
-      setIsNicknameAvailable(result);
+      void nickNameCheckResult(currentNickname);
     }, 1000),
     [],
   );
