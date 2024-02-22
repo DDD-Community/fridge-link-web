@@ -4,6 +4,7 @@ import {
   OrderListModal,
 } from '@/components/organisms';
 import Header from '@/components/organisms/Header';
+import { useGetFriendsNews } from '@/hooks/queries/friends';
 import {
   Modal,
   ModalBody,
@@ -19,6 +20,8 @@ const FriendsPage: NextPage = () => {
     onOpen: onOpenOrderListModal,
     onClose: onCloseOrderListModal,
   } = useDisclosure();
+
+  const friendsNewsList = useGetFriendsNews();
 
   return (
     <>
@@ -45,7 +48,13 @@ const FriendsPage: NextPage = () => {
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'친구 냉장고'} />
         <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
-          <FriendsRecentBoard />
+          {friendsNewsList &&
+            [friendsNewsList[0]].map((friendNews) => (
+              <FriendsRecentBoard
+                key={friendNews.nickname}
+                friendNews={friendNews}
+              />
+            ))}
           <FriendsFridgeList
             toggleIsOpenOrderListModal={onOpenOrderListModal}
           />

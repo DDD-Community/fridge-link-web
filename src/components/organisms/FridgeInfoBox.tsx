@@ -4,7 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 const FridgeInfoBox: React.FC<{
-  userName?: string;
+  userName: string;
   toggleIsOpenFridgeListModal: () => void;
   isOkIngredientAdd?: boolean;
 }> = ({ userName = '', toggleIsOpenFridgeListModal, isOkIngredientAdd }) => {

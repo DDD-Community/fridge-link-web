@@ -13,7 +13,7 @@ import { useGetMyIngredientsCount } from '@/hooks/queries/mypage';
 
 const Home: NextPage = () => {
   const ingredientCount = useGetMyIngredientsCount();
-  console.log(ingredientCount);
+
   return (
     <div className="pt-[52px]">
       <Header
