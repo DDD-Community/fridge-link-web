@@ -1,16 +1,38 @@
-import { BulletNoticeBox } from '../organisms';
-import { LabelRoundBox } from '../molecules';
+import { LabelRoundBox, WarningLine } from '@/components/molecules';
+import React, { useState } from 'react';
+
+import { BulletNoticeBox } from '@/components/organisms';
 import { MiniButton } from '@/components/atoms';
-import React from 'react';
 import { queryKeys } from '@/hooks/queries/queryKeys';
+import { useAddFriendship } from '@/hooks/queries/friendship';
 import { useBaseQuery } from '@/hooks/queries/useBaseQuery';
+import useToast from '@/hooks/useToast';
 
 const AddFriendTemplate: React.FC = () => {
+  const [friendInviteCode, setFriendInviteCode] = useState<string>('');
+  const [warningVisible, setWarningVisible] = useState<boolean>(false);
+  const { showToast } = useToast();
+  const addFriendship = useAddFriendship({
+    onSuccess: () => {
+      showToast('친구 추가가 완료되었습니다.', 'success');
+    },
+  });
+
   const onCopy: () => void = () => {
     navigator.clipboard
       .writeText(myInviteCode?.data?.inviteCode ?? '')
-      .then(() => null)
+      .then(() => {
+        showToast('초대 코드가 복사되었습니다.', 'success');
+      })
       .catch(() => null);
+  };
+
+  const onAddFriend = () => {
+    if (friendInviteCode.length < 9) {
+      setWarningVisible(true);
+    } else {
+      addFriendship.mutate({ inviteCode: friendInviteCode });
+    }
   };
 
   const { data: myInviteCode } = useBaseQuery<{ inviteCode: string }>(
@@ -23,23 +45,37 @@ const AddFriendTemplate: React.FC = () => {
       <LabelRoundBox
         label="내 초대 코드"
         content={
-          <>
+          <div className="flex">
             <span className="flex-1 outline-none mr-[10px] border-none p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium">
               {myInviteCode?.data?.inviteCode}
             </span>
             <MiniButton label="복사" onClick={onCopy} variant="active" />
-          </>
+          </div>
         }
       />
       <LabelRoundBox
         label="상대 초대 코드 입력"
         content={
           <>
-            <input
-              placeholder="상대 초대 코드를 입력해주세요."
-              className="flex-1 outline-none mr-[10px] border-none p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium"
-            />
-            <MiniButton label="추가" onClick={onCopy} variant="clickable" />
+            <div className="flex mb-[8px]">
+              <input
+                placeholder="상대 초대 코드를 입력해주세요."
+                className={`flex-1 mr-[10px] p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium ${warningVisible ? 'border border-point4' : 'border-none'}`}
+                value={friendInviteCode}
+                onChange={(e) => {
+                  setFriendInviteCode(e.target.value);
+                }}
+                maxLength={10}
+              />
+              <MiniButton
+                label="추가"
+                onClick={onAddFriend}
+                variant="clickable"
+              />
+            </div>
+            {warningVisible ? (
+              <WarningLine text="9-10자리 초대 코드를 입력해주세요." />
+            ) : null}
           </>
         }
       />
