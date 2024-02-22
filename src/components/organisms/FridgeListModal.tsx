@@ -21,7 +21,7 @@ const FridgeListModal: React.FC<{
 
   const handleFridgeClick = (id: number) => {
     void router.push(
-      ownerId ? `/friend/${ownerId}?fridge-id=${id}` : `?fridge-id=${id}`,
+      ownerId ? `/friend/${ownerId}?fridgeid=${id}` : `?fridgeid=${id}`,
     );
   };
 

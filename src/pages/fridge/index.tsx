@@ -13,10 +13,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useGetMe } from '@/hooks/queries/mypage';
-import {
-  useGetFridgeContentById,
-  useGetMyIngredients,
-} from '@/hooks/queries/fridge';
+import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 
 const FridgePage: NextPage = () => {
   const {
@@ -31,16 +28,11 @@ const FridgePage: NextPage = () => {
     typeof window !== 'undefined'
       ? new URLSearchParams(window.location.search)
       : null;
-  const fridgeId = urlParams?.get('fridge-id');
+  const fridgeId = urlParams?.get('fridgeid');
 
-  let data;
-  if (fridgeId) {
-    data = useGetFridgeContentById(fridgeId)?.content;
-    console.log(data);
-    return data;
-  } else {
-    data = useGetMyIngredients();
-  }
+  const data = useGetFridgeContentById(
+    fridgeId ? Number(fridgeId) : 150,
+  )?.content;
 
   return (
     <>

@@ -13,7 +13,10 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 const FriendIdPage: NextPage = () => {
+  const router = useRouter();
   const [nickname, setNickName] = useState('');
   const {
     isOpen: isOpenFridgeListModal,
@@ -21,19 +24,17 @@ const FriendIdPage: NextPage = () => {
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
-  const urlParams =
-    typeof window !== 'undefined'
-      ? new URLSearchParams(window.location.search)
-      : null;
-  const pathname =
-    typeof window !== 'undefined' ? window.location.pathname : null;
+  const { id: fridgeId, name } = router.query;
 
-  const ownerId = Number(pathname?.split('/')[2]);
+  if (!fridgeId) {
+    onOpenFridgeListModal();
+  }
+
+  const data = useGetFridgeContentById(Number(fridgeId))?.content;
 
   useEffect(() => {
-    setNickName(urlParams?.get('name') ?? '');
+    setNickName(name as string);
   }, []);
-
   return (
     <>
       <Modal
@@ -52,7 +53,8 @@ const FriendIdPage: NextPage = () => {
           margin={0}
         >
           <ModalBody padding={0}>
-            <FridgeListModal ownerId={ownerId} />
+            {/* 친구 아이디 넣어야함 */}
+            <FridgeListModal ownerId={Number(fridgeId)} />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -63,7 +65,7 @@ const FriendIdPage: NextPage = () => {
             userName={nickname}
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
           />
-          <FridgeBoard />
+          <FridgeBoard data={data} />
         </section>
       </div>
     </>

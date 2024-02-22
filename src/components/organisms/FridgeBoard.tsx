@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Container } from '@/components/atoms';
 import { EmptyBox, FridgeTab, IngredientItemBox } from '@/components/molecules';
+import type { IngredientDetailType } from '@/types/fridge';
 
-const FridgeBoard: React.FC<{ data?: any | null }> = ({ data }) => {
+const FridgeBoard: React.FC<{ data?: IngredientDetailType[] | null }> = ({
+  data,
+}) => {
   const [currentTabName, setCurrentTabName] = useState<'냉장' | '냉동'>('냉장');
 
   const handleTabNameChange: (tabName: '냉장' | '냉동') => void = (tabName) => {
@@ -15,11 +18,14 @@ const FridgeBoard: React.FC<{ data?: any | null }> = ({ data }) => {
         currentTabName={currentTabName}
         handleTabNameChange={handleTabNameChange}
       />
-      {data !== null || (Array.isArray(data) && data?.length !== 0) ? (
+      {data && data.length !== 0 ? (
         <div className="flex flex-col w-full gap-[24px]">
-          <IngredientItemBox />
-          <IngredientItemBox />
-          <IngredientItemBox />
+          {data.map((ingredient) => (
+            <IngredientItemBox
+              key={ingredient.ingredientDetailId}
+              data={ingredient}
+            />
+          ))}
         </div>
       ) : (
         <div>

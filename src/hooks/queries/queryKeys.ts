@@ -3,7 +3,7 @@ import type { FriendshipSortType } from '@/types/friendship';
 export const queryKeys = {
   MY_FRIDGE_LIST: () => ['my_fridge_list'],
   MY_FRIENDS_COUNT: () => ['my_friends_count'],
-  MY_FRIDGE_CONTENT: (id: string) => ['my_fridge', id],
+  MY_FRIDGE_CONTENT: (id: number) => ['my_fridge', id],
   MY_INGREDIENTS_COUNT: () => ['my_ingredient_count'],
   MY_FRIENDS_NEWS: () => ['my_friends_news'],
   INGREDIENT_LIST: () => ['ingredient_list'],
