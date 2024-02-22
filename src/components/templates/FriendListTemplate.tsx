@@ -6,11 +6,14 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { type SortLabel } from '@/types/common';
-import { RadioButtonField, SortButton } from '../atoms';
+import { Button, RadioButtonField, SortButton } from '@/components/atoms';
 import { FriendListItem } from '../organisms';
-import { useGetFriendships } from '@/hooks/queries/friendship';
+import {
+  useDeleteFriendship,
+  useGetFriendships,
+} from '@/hooks/queries/friendship';
 import type { FriendshipData, FriendshipSortType } from '@/types/friendship';
 import { SuspenseFallback } from '.';
 import { useObserver } from '@/hooks/useObserver';
@@ -20,16 +23,32 @@ const SORT_TYPES: SortLabel[] = [
   { label: '등록순', value: 'createdAt' },
 ];
 
-const FriendListTemplate: React.FC = () => {
+const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
+  possibleDelete,
+}) => {
   const bottom = useRef<HTMLDivElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: deleteIsOpen,
+    onOpen: deleteOnOpen,
+    onClose: deleteOnClose,
+  } = useDisclosure();
   const [curSortType, setCurSortType] = useState<SortLabel>(SORT_TYPES[0]);
+  const [selectedFriendIds, setSelectedFriendIds] = useState<number[]>([]);
   const {
     data: friendsData,
     fetchNextPage: friendsNextPage,
     isFetchingNextPage: isFetchingfriendsNextPage,
+    refetch: friendsRefetch,
   } = useGetFriendships({
     sort: curSortType.value as FriendshipSortType,
+  });
+
+  const deleteFriendship = useDeleteFriendship({
+    onSuccess: () => {
+      deleteOnClose();
+      friendsRefetch();
+    },
   });
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {
@@ -38,10 +57,34 @@ const FriendListTemplate: React.FC = () => {
     }
   };
 
+  const onClickDeleteFriends = useCallback(() => {
+    const friendIds: Array<{ friendId: number }> = [];
+    selectedFriendIds.forEach((ele) => friendIds.push({ friendId: ele }));
+    deleteFriendship.mutate(friendIds);
+  }, [selectedFriendIds]);
+
+  const selectFriend = useCallback(
+    (id: number) => {
+      const tempSelectedFriendIds = selectedFriendIds.slice();
+      const idx = tempSelectedFriendIds.indexOf(id);
+      if (idx === -1) {
+        tempSelectedFriendIds.push(id);
+      } else {
+        tempSelectedFriendIds.splice(idx, 1);
+      }
+      setSelectedFriendIds(tempSelectedFriendIds);
+    },
+    [selectedFriendIds],
+  );
+
   useObserver({
     target: bottom,
     onIntersect,
   });
+
+  useEffect(() => {
+    setSelectedFriendIds([]);
+  }, [possibleDelete]);
 
   if (!friendsData?.pages[0].content) {
     return <SuspenseFallback />;
@@ -64,15 +107,62 @@ const FriendListTemplate: React.FC = () => {
           page.content.map((ele: FriendshipData) => (
             <FriendListItem
               key={ele.userId}
-              name={ele.nickname}
-              count={ele.ingredientCount}
-              // TODO profileEnum api res 필드값으로 대체
-              profileEnum={'GREEN'}
+              data={ele}
+              possibleDelete={possibleDelete}
+              onClick={() => {
+                selectFriend(ele.userId);
+              }}
+              active={selectedFriendIds.includes(ele.userId)}
             />
           )),
         )}
       </div>
+
       {isFetchingfriendsNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
+
+      <div className="fixed w-screen max-w-[480px] bottom-0 px-[20px] py-[26px]">
+        <Button
+          text={'삭제하기'}
+          className={`w-full ${selectedFriendIds.length === 0 ? 'bg-gray3 text-gray1' : 'bg-primary2 text-white'}`}
+          onClick={deleteOnOpen}
+          disabled={selectedFriendIds.length === 0}
+        />
+      </div>
+
+      <Modal
+        onClose={deleteOnClose}
+        isOpen={deleteIsOpen}
+        motionPreset="slideInBottom"
+        trapFocus={false}
+      >
+        <ModalOverlay height="100vh" onClick={onClose} />
+        <ModalContent
+          className=" bg-white"
+          top="40%"
+          borderRadius="16px"
+          maxW="lg"
+          margin={'20px'}
+        >
+          <ModalBody padding={'20px'} textAlign="center">
+            <p className="mb-[20px] heading2-bold">친구삭제</p>
+            <p className="mb-[20px] body1-medium text-gray6">
+              삭제하기 버튼을 누르면 친구 목록에서 삭제됩니다.
+            </p>
+            <div className="flex justify-between gap-[16px]">
+              <Button
+                text={'뒤로가기'}
+                className="flex flex-1 justify-center bg-gray2 text-gray6"
+                onClick={deleteOnClose}
+              />
+              <Button
+                text={'삭제하기'}
+                className="flex flex-1 justify-center bg-primary2 text-white"
+                onClick={onClickDeleteFriends}
+              />
+            </div>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
 
       <Modal
         onClose={onClose}
