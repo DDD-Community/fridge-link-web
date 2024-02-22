@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@/components/atoms';
-import { EmptyIngredient, IngredientItemBox } from '@/components/molecules';
+import { EmptyBox, IngredientItemBox } from '@/components/molecules';
 
 const TermBoard: React.FC = () => {
   const isIngredientItem = true;
@@ -14,7 +14,7 @@ const TermBoard: React.FC = () => {
         </div>
       ) : (
         <div className={`flex flex-col items-center`}>
-          <EmptyIngredient text="현재 냉장고에 추가된 식자재가 없어요!" />
+          <EmptyBox text="현재 냉장고에 추가된 식자재가 없어요!" />
         </div>
       )}
     </Container>

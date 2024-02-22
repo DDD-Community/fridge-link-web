@@ -18,6 +18,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { Container } from '@/components/atoms';
+import { EmptyBox } from '@/components/molecules';
 
 const FriendsPage: NextPage = () => {
   const {
@@ -27,7 +29,6 @@ const FriendsPage: NextPage = () => {
   } = useDisclosure();
 
   const friendsNewsList = useGetFriendsNews();
-
   return (
     <>
       <Modal
@@ -53,13 +54,19 @@ const FriendsPage: NextPage = () => {
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'친구 냉장고'} />
         <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
-          <Swiper className="w-[100%]" spaceBetween={20}>
-            {friendsNewsList?.map((friendNews) => (
-              <SwiperSlide key={friendNews.nickname} className="gap-[20px]">
-                <FriendsRecentBoard friendNews={friendNews} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {friendsNewsList && friendsNewsList.length !== 0 ? (
+            <Swiper className="w-[100%]" spaceBetween={20}>
+              {friendsNewsList.map((friendNews) => (
+                <SwiperSlide key={friendNews.nickname} className="gap-[20px]">
+                  <FriendsRecentBoard friendNews={friendNews} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <Container className="bg-white">
+              <EmptyBox text="친구의 최신근황이 없어요" />
+            </Container>
+          )}
           <FriendsFridgeList
             toggleIsOpenOrderListModal={onOpenOrderListModal}
           />

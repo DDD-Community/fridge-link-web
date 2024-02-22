@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Container } from '@/components/atoms';
-import {
-  EmptyIngredient,
-  FridgeTab,
-  IngredientItemBox,
-} from '@/components/molecules';
+import { EmptyBox, FridgeTab, IngredientItemBox } from '@/components/molecules';
 
 const FridgeBoard: React.FC<{ data?: any | null }> = ({ data }) => {
   const [currentTabName, setCurrentTabName] = useState<'냉장' | '냉동'>('냉장');
@@ -27,9 +23,7 @@ const FridgeBoard: React.FC<{ data?: any | null }> = ({ data }) => {
         </div>
       ) : (
         <div>
-          <EmptyIngredient
-            text={`${currentTabName}칸에 추가된 식자재가 없어요!`}
-          />
+          <EmptyBox text={`${currentTabName}칸에 추가된 식자재가 없어요!`} />
         </div>
       )}
     </Container>

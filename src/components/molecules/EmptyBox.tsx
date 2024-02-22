@@ -1,11 +1,11 @@
 import { EmptyIcon } from '@/assets/icons';
 import React from 'react';
 
-interface EmptyIngredientProps {
+interface EmptyBoxProps {
   text: string;
 }
 
-const EmptyIngredient: React.FC<EmptyIngredientProps> = ({ text }) => {
+const EmptyBox: React.FC<EmptyBoxProps> = ({ text }) => {
   return (
     <div className="flex flex-col items-center justify-center gap-12 min-h-268">
       <EmptyIcon />
@@ -14,4 +14,4 @@ const EmptyIngredient: React.FC<EmptyIngredientProps> = ({ text }) => {
   );
 };
 
-export default EmptyIngredient;
+export default EmptyBox;
