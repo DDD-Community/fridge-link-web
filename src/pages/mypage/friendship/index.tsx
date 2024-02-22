@@ -1,10 +1,10 @@
+import { AddFriendTemplate, FriendListTemplate } from '@/components/templates';
+
+import Header from '@/components/organisms/Header';
+import type { NextPage } from 'next';
 import { SettingIcon } from '@/assets/icons';
 import { TabButton } from '@/components/atoms';
-import Header from '@/components/organisms/Header';
-import { AddFriendTemplate, FriendListTemplate } from '@/components/templates';
-import { type TabLabel } from '@/types/common';
-
-import { type NextPage } from 'next';
+import type { TabLabel } from '@/types/common';
 import { useState } from 'react';
 
 const TABS: TabLabel[] = [
@@ -12,7 +12,7 @@ const TABS: TabLabel[] = [
   { label: '친구 추가', value: 'add' },
 ];
 
-const FriendsListPage: NextPage = () => {
+const FriendShipPage: NextPage = () => {
   const [curTab, setCurTab] = useState<TabLabel>(TABS[0]);
 
   return (
@@ -41,4 +41,4 @@ const FriendsListPage: NextPage = () => {
     </div>
   );
 };
-export default FriendsListPage;
+export default FriendShipPage;

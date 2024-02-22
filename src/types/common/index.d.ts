@@ -14,3 +14,5 @@ export interface ResErrorType {
   error: string;
   path: string;
 }
+
+export type ProfileEnum = 'GREEN' | 'RED' | 'BLUE' | 'YELLOW';

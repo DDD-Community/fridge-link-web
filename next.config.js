@@ -3,6 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['mara-s3bucket.s3.ap-northeast-2.amazonaws.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'fridge-link-img.s3.ap-northeast-2.amazonaws.com',
+      }
+    ]
   },
   webpack: (config) => {
     return {
