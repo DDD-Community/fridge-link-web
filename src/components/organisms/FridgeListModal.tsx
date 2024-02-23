@@ -6,6 +6,7 @@ import { FridgeListItem } from '../molecules';
 import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
 import { useRouter } from 'next/router';
 import usePostFridge from '@/hooks/queries/fridge/usePostFridge';
+import { useDeleteFridgeById } from '@/hooks/queries/fridge';
 
 const FridgeListModal: React.FC<{
   ownerId?: number;
@@ -19,6 +20,7 @@ const FridgeListModal: React.FC<{
   const router = useRouter();
   const fridgeList = useGetMyFridgeList(ownerId ?? undefined);
   const fridgeMutation = usePostFridge();
+  const deleteFridgeMutation = useDeleteFridgeById(currentFridge.id);
 
   const handleFridgeClick = (id: number, name: string) => {
     void router.push(
@@ -33,6 +35,10 @@ const FridgeListModal: React.FC<{
     fridgeMutation.mutate({
       name: `내 냉장고 ${fridgeList ? fridgeList.length + 1 : 1}`,
     });
+  };
+
+  const handleDeleteFridgeClick = () => {
+    deleteFridgeMutation.mutate({});
   };
 
   return (
@@ -67,7 +73,10 @@ const FridgeListModal: React.FC<{
       </div>
       <div className="flex w-full gap-[8px]">
         {!ownerId && (
-          <button className="p-[13px] border-2 rounded-[12px]">
+          <button
+            className="p-[13px] border-2 rounded-[12px]"
+            onClick={handleDeleteFridgeClick}
+          >
             <TrashcanIcon />
           </button>
         )}
