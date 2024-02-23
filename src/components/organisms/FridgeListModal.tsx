@@ -12,6 +12,11 @@ const FridgeListModal: React.FC<{
   ownerId?: number;
   onCloseFridgeListModal: () => void;
 }> = ({ ownerId, onCloseFridgeListModal }) => {
+  const [isEditingFridgeName, setIsEditingFridgeName] = useState(false);
+  const [newFridgeName, setNewFridgeName] = useState({
+    id: 0,
+    name: '',
+  });
   const [currentFridge, setCurrentFridge] = useState({
     id: 1,
     name: '기본 냉장고',
@@ -41,6 +46,14 @@ const FridgeListModal: React.FC<{
     deleteFridgeMutation.mutate({});
   };
 
+  const handleNewFridgeName = (id: number, name: string) => {
+    setNewFridgeName({ id, name });
+  };
+
+  const togglesetIsEditingFridgeName = () => {
+    setIsEditingFridgeName((prev) => !prev);
+  };
+
   return (
     <ModalContainer>
       <div>
@@ -52,9 +65,14 @@ const FridgeListModal: React.FC<{
       <div className="flex flex-col gap-[10px] mt-[25px] mb-[32px]">
         {fridgeList?.map(({ id, name }) => (
           <FridgeListItem
+            isEditingFridgeName={isEditingFridgeName}
+            togglesetIsEditingFridgeName={togglesetIsEditingFridgeName}
+            newFridgeName={newFridgeName}
+            handleNewFridgeName={handleNewFridgeName}
             isMine={!ownerId}
             key={id}
             isCurrentFridge={currentFridge.id === id}
+            id={id}
             fridgeName={name}
             onClick={() => {
               setCurrentFridge({ id, name });

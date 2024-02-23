@@ -7,7 +7,7 @@ const useDeleteFridgeById = (id: number) => {
     void queryClient.invalidateQueries();
   };
   return useBaseMutation(
-    queryKeys.INGREDIENT_LIST,
+    queryKeys.MY_FRIDGE_LIST,
     `/refrigs/${id}`,
     onSuccess,
     'DELETE',
