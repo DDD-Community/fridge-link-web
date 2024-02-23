@@ -1,4 +1,8 @@
-import type { FriendshipSortType } from '@/types/friendship';
+import type {
+  FriendshipSortType,
+  ShareSortType,
+  ShareStatusType,
+} from '@/types/friendship';
 
 export const queryKeys = {
   MY_FRIDGE_LIST: () => ['my_fridge_list'],
@@ -8,7 +12,11 @@ export const queryKeys = {
   INGREDIENT_ID: (id: number) => ['ingredient', id],
   INGREDIENTS: () => ['my-ingredient'],
   KAKAO: () => ['kakao'],
-  SHARES: () => ['shares'],
+  SHARES: (sort: ShareSortType, status: ShareStatusType) => [
+    'shares',
+    sort,
+    status,
+  ],
   ME: () => ['my-info'],
   FRIENDSHIPS: (sort: FriendshipSortType) => ['friendship', sort],
   DELETE_FRIENDSHIP: () => ['deleteFriendship'],

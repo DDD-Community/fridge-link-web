@@ -1,63 +1,55 @@
-import { RadioButtonField, SortButton, TabButton } from '@/components/atoms';
-import Header from '@/components/organisms/Header';
-import ShareListItem from '@/components/organisms/ShareListItem';
-import { type NextPage } from 'next';
-import { useState } from 'react';
 import {
   Modal,
-  ModalOverlay,
   ModalBody,
   ModalContent,
+  ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react';
-import { PlusIcon } from '@/assets/icons';
-import { type SortLabel, type TabLabel } from '@/types/common';
-import dayjs from 'dayjs';
+import { RadioButtonField, SortButton, TabButton } from '@/components/atoms';
+import type { ShareSortType, ShareStatusType } from '@/types/friendship';
+import type { SortLabel, TabLabel } from '@/types/common';
+import { useRef, useState } from 'react';
+
+import Header from '@/components/organisms/Header';
 import Link from 'next/link';
-import { useGetShares } from '@/hooks/queries/share';
+import type { NextPage } from 'next';
+import { PlusIcon } from '@/assets/icons';
+import ShareListItem from '@/components/organisms/ShareListItem';
 import { SuspenseFallback } from '@/components/templates';
+import { useGetShares } from '@/hooks/queries/share';
+import { useObserver } from '@/hooks/useObserver';
 
 const TABS: TabLabel[] = [
-  { label: '나눔 신청', value: 'enroll' },
-  { label: '나눔 중', value: 'proceeding' },
-  { label: '나눔 완료', value: 'complete' },
+  { label: '나눔 신청', value: 'SHARE_START' },
+  { label: '나눔 중', value: 'SHARE_IN_PROGRESS' },
+  { label: '나눔 완료', value: 'SHARE_END' },
 ];
 
 const SORT_TYPES: SortLabel[] = [
-  { label: '최신순', value: 'latest' },
-  { label: '마감순', value: 'earliest' },
+  { label: '최신순', value: 'registeredDate' },
+  { label: '마감순', value: 'dueDate' },
 ];
-
-const MOCK_DATA = {
-  count: 2,
-  data: [
-    {
-      id: 1,
-      thumbnail: null,
-      title: '사과 받아갈 사람',
-      location: '공덕역',
-      date: dayjs('2024-12-14 10:35'),
-    },
-    {
-      id: 2,
-      thumbnail: null,
-      title: '사과 받아갈 사람',
-      location: '디지털미디어시티역',
-      date: dayjs('2024-12-14 10:35'),
-    },
-  ],
-};
 
 const SharePage: NextPage = () => {
   const [curTab, setCurTab] = useState<TabLabel>(TABS[0]);
   const [curSortType, setCurSortType] = useState<SortLabel>(SORT_TYPES[0]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data } = useGetShares();
-  console.log(data?.data);
+  const bottom = useRef<HTMLDivElement>(null);
+  const { data, fetchNextPage, isFetchingNextPage } = useGetShares({
+    sort: curSortType.value as ShareSortType,
+    status: curTab.value as ShareStatusType,
+  });
 
-  if (!data?.data) {
-    return <SuspenseFallback />;
-  }
+  const onIntersect: IntersectionObserverCallback = ([entry]) => {
+    if (entry.isIntersecting) {
+      void fetchNextPage();
+    }
+  };
+
+  useObserver({
+    target: bottom,
+    onIntersect,
+  });
 
   return (
     <>
@@ -78,16 +70,20 @@ const SharePage: NextPage = () => {
           </div>
           <div className="h-[1px] mt-[-1px] bg-gray1" />
           <div className="flex justify-between px-[20px] py-[18px] bg-white body1-medium">
-            <p className="body1-medium">총 {MOCK_DATA.count}건</p>
+            <p className="body1-medium">총 {data?.pages[0].totalElements}건</p>
             <SortButton label={curSortType.label} onClick={onOpen} />
           </div>
         </div>
 
-        <div className="pt-[128px] px-[20px]">
-          {data?.data.map((ele) => (
-            <ShareListItem key={ele.shareId} data={ele} />
-          ))}
+        <div className="flex flex-col flex-1 overflow-y-auto pt-[128px] px-[20px]">
+          {data?.pages.map((page) =>
+            page.content.map((ele: ShareData) => (
+              <ShareListItem key={ele.shareId} data={ele} />
+            )),
+          )}
+          {isFetchingNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
         </div>
+
         <div className="flex justify-end pr-[20px]">
           <Link
             href={'/add-share'}
