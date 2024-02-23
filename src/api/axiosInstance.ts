@@ -27,6 +27,7 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
+      /*
       originalRequest._retry = true;
 
       const refreshToken =
@@ -49,6 +50,8 @@ axiosInstance.interceptors.response.use(
         console.error('Error refreshing token:', refreshError);
         throw refreshError;
       }
+     */
+      window.location.href = '/login';
     }
 
     return await Promise.reject(error);

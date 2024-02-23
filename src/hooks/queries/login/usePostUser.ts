@@ -6,7 +6,7 @@ interface PostUserBodyType {
   nickName: string;
   kakaoId: number;
   kakaoEmail: string;
-  googleEmail: string;
+  googleEmail: string | null;
   profileImage: string;
 }
 

@@ -1,82 +1,95 @@
 import { type NextPage } from 'next';
 import Image from 'next/image';
-import ProfileImg from '@/assets/profile.png';
-import { Button, ExclamationAlertSpan } from '@/components/atoms';
+import { ExclamationAlertSpan } from '@/components/atoms';
 import React, { useCallback, useState } from 'react';
+import type { FormEvent } from 'react';
 import Header from '@/components/organisms/Header';
 import { debounceFunction } from '@/utils/debounceUtil';
 import usePostUser from '@/hooks/queries/login/usePostUser';
+import { useGetMe } from '@/hooks/queries/mypage';
+import type { ProfileEnum } from '@/types/common';
+import axiosInstance from '@/api/axiosInstance';
+import { returnProfileImg } from '@/utils/returnProfileImg';
 
-const PROPILES = [
+const PROFILES: Array<{ string: ProfileEnum; pointColor: string }> = [
   {
     string: 'GREEN',
-    imgUrl:
-      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/green-nor.svg',
+    pointColor: '#3CAA8D',
   },
   {
     string: 'RED',
-    imgUrl:
-      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/red-nor.svg',
+    pointColor: '#CB5D45',
   },
   {
     string: 'BLUE',
-    imgUrl:
-      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/blue-nor.svg',
+    pointColor: '#5C93D4',
   },
   {
     string: 'YELLOW',
-    imgUrl:
-      'https://mara-s3bucket.s3.ap-northeast-2.amazonaws.com/images/profiles/yellow-nor.svg',
+    pointColor: '#D5B02D',
   },
 ];
 
-const FriendsListPage: NextPage = () => {
-  const [selectedImageSrc, setSelectedImageSrc] = useState(ProfileImg);
+const ProfilePage: NextPage = () => {
+  const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>('BLUE');
   const [nickname, setNickname] = useState('');
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
 
-  const postUser = usePostUser();
+  const MyInfo = useGetMe();
 
-  const handleImageClick: (src: string) => void = (src) => {
-    // imgURL로 변경
-    console.log('선택한이미지SRC', src);
-    setSelectedImageSrc(ProfileImg);
-  };
+  if (MyInfo.nickName) {
+    setNickname(MyInfo.nickName);
+  }
+
+  const postUser = usePostUser();
 
   const handleNicknameChange: (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => void = (e) => {
     setNickname(e.target.value);
     setIsNicknameChecked(false);
-
     void debouncedHandleNicknameChange(e.target.value);
+  };
+
+  const nickNameCheckResult = async (nickName: string) => {
+    try {
+      const res = await axiosInstance.get<{
+        message: 'string';
+        data: {
+          isDuplicated: boolean;
+        };
+      }>(`/users/nickname/check?nickname=${nickName}`);
+      setIsNicknameChecked(true);
+      setIsNicknameAvailable(!res?.data?.data.isDuplicated);
+    } catch (error) {
+      console.error('Error checking nickname:', error);
+    }
   };
 
   const debouncedHandleNicknameChange = useCallback(
     debounceFunction((currentNickname: string) => {
-      setIsNicknameChecked(true);
-      setIsNicknameAvailable(false);
+      void nickNameCheckResult(currentNickname);
     }, 1000),
     [],
   );
 
-  const handleSumbit = () => {
+  const handleSumbit = (e: FormEvent) => {
+    e.preventDefault();
+
     const urlParams =
       typeof window !== 'undefined'
         ? new URLSearchParams(window.location.search)
         : null;
-    const kakaoId = Number(urlParams?.get('kakaoId'));
+    const kakaoId = urlParams?.get('kakaoId');
     const kakaoEmail = urlParams?.get('kakaoEmail');
-
-    if (!kakaoId || !kakaoEmail) return;
 
     postUser.mutate({
       nickName: nickname,
-      kakaoId,
-      kakaoEmail,
-      googleEmail: '',
-      profileImage: 'BLUE',
+      kakaoId: Number(kakaoId ?? MyInfo.kakaoId),
+      kakaoEmail: kakaoEmail ?? MyInfo.kakaoEmail,
+      googleEmail: null,
+      profileImage: selectedProfile,
     });
   };
 
@@ -88,12 +101,15 @@ const FriendsListPage: NextPage = () => {
       >
         <Image
           className="m-[50px]"
-          src={selectedImageSrc}
+          src={returnProfileImg(selectedProfile)}
           alt="프로필 이미지"
           width={120}
           height={120}
         />
-        <form className={`w-full flex flex-col h-full justify-between`}>
+        <form
+          onSubmit={handleSumbit}
+          className={`w-full flex flex-col h-full justify-between`}
+        >
           <div className={`flex flex-col`}>
             <label className="body1-medium mb-[20px]">닉네임</label>
             <input
@@ -119,29 +135,36 @@ const FriendsListPage: NextPage = () => {
               ))}
             <label className="mt-[60px] mb-[20px]">프로필 이미지 선택</label>
             <div className="flex gap-[12px]">
-              {PROPILES.map((profile) => (
+              {PROFILES.map(({ string, pointColor }) => (
                 <Image
-                  className="cursor-pointer"
-                  src={profile.imgUrl}
+                  key={string}
+                  style={
+                    selectedProfile === string
+                      ? { border: `solid 2px ${pointColor}` }
+                      : {}
+                  }
+                  className={`rounded-[50%] cursor-pointer`}
+                  src={returnProfileImg(string)}
                   alt="프로필 이미지"
-                  width={52}
-                  height={52}
+                  width={50}
+                  height={50}
                   onClick={() => {
-                    handleImageClick(profile.string);
+                    setSelectedProfile(string);
                   }}
                 />
               ))}
             </div>
           </div>
+          <button
+            type="submit"
+            className={`p-18 gap-12 rounded-12 heading4-semibold ${nickname && isNicknameAvailable && selectedProfile ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
+          >
+            편집완료
+          </button>
         </form>
-        <Button
-          onClick={handleSumbit}
-          className={`${nickname && isNicknameAvailable && selectedImageSrc ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
-          text="편집 완료"
-        />
       </section>
     </div>
   );
 };
 
-export default FriendsListPage;
+export default ProfilePage;
