@@ -7,13 +7,10 @@ const CheckBox: React.FC<{ active: boolean; onClick: () => void }> = ({
 }) => {
   const commonStyle =
     'flex justify-center items-center w-[20px] h-[20px] rounded-full';
-  return active ? (
-    <button onClick={onClick} className={`${commonStyle}  bg-primary2`}>
-      <CheckIcon />
-    </button>
-  ) : (
-    <button onClick={onClick} className={`${commonStyle} border border-gray5`}>
-      <CheckIcon stroke="#9299AA" />
+  const buttonClassName = `${commonStyle} ${active ? 'bg-primary2' : 'border border-gray5'}`;
+  return (
+    <button onClick={onClick} className={buttonClassName}>
+      <CheckIcon stroke={active ? '#F1F2F4' : '#9299AA'} />
     </button>
   );
 };
