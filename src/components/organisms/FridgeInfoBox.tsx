@@ -32,7 +32,9 @@ const FridgeInfoBox: React.FC<{
           className="rounded-6 w-[100px] p-[10px] body1-semibold bg-primary2 text-white"
           text="식자재 추가"
           onClick={() => {
-            void router.push(`/fridge/add?fridgeid=${fridgeid as string}`);
+            void router.push(
+              `/fridge/add?fridgeid=${fridgeid as string}&name=${name as string}`,
+            );
           }}
         />
       )}
