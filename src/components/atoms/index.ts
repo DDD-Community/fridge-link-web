@@ -17,3 +17,4 @@ export { default as Input } from './Input';
 export { default as MiniButton } from './MiniButton';
 export { default as ExclamationAlertSpan } from './ExclamationAlertSpan';
 export { default as Lottie } from './Lottie';
+export { default as CheckBox } from './CheckBox';

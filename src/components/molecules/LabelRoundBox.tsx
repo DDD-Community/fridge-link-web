@@ -7,7 +7,7 @@ const LabelRoundBox: React.FC<{
   return (
     <div className="mb-[20px] px-[20px] py-[16px] bg-white rounded-[12px]">
       <p className="mb-[12px] body1-semibold text-gray8">{label}</p>
-      <div className="flex">{content}</div>
+      {content}
     </div>
   );
 };

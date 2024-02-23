@@ -11,6 +11,9 @@ export const queryKeys = {
   SHARES: () => ['shares'],
   ME: () => ['my-info'],
   FRIENDSHIPS: (sort: FriendshipSortType) => ['friendship', sort],
+  DELETE_FRIENDSHIP: () => ['deleteFriendship'],
+  MY_INVITE_CODE: () => ['myInviteCode'],
+  ADD_FRIENDSHIP: () => ['addFriendship'],
 } as const;
 
 export type QueryKeys = (typeof queryKeys)[keyof typeof queryKeys];

@@ -27,3 +27,5 @@ export { default as DateIcon } from './DateIcon';
 export { default as ClockIcon } from './ClockIcon';
 export { default as CameraIcon } from './CameraIcon';
 export { default as CircleCloseIcon } from './CircleCloseIcon';
+export { default as CheckIcon } from './CheckIcon';
+export { default as WarningIcon } from './WarningIcon';
