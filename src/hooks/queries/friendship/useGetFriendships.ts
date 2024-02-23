@@ -7,7 +7,7 @@ const useGetFriendships = ({ sort }: { sort: FriendshipSortType }) => {
   return useBaseInfiniteQuery<FriendshipData[]>({
     queryKey: queryKeys.FRIENDSHIPS(sort),
     url: '/friendship',
-    sort,
+    params: { sort },
   });
 };
 
