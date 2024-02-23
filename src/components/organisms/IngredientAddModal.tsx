@@ -58,7 +58,6 @@ const IngredientAddModal: React.FC<{
   };
 
   const handleSubmit: () => void = () => {
-    console.log({ ...reqBody });
     postIngredient.mutate({
       ...reqBody,
       location: isInFreezer ? 'FREEZING' : 'FREEZING',

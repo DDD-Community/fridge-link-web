@@ -33,8 +33,6 @@ const FridgeListItem: React.FC<FridgeListItemProps> = ({
     putFridgeName.mutate({ name: newFridgeName.name });
   };
 
-  console.log(isEditingFridgeName);
-  console.log(newFridgeName);
   return (
     <GrayBox
       className="flex-row items-center justify-between h-[70px]"
