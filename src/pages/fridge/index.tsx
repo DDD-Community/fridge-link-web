@@ -15,6 +15,7 @@ import {
 import { useGetMe } from '@/hooks/queries/mypage';
 import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const FridgePage: NextPage = () => {
   const router = useRouter();
@@ -28,11 +29,17 @@ const FridgePage: NextPage = () => {
 
   const { fridgeid: fridgeId } = router.query;
 
-  if (!fridgeId) {
-    onOpenFridgeListModal();
-  }
+  // if (!fridgeId) {
+  //   onOpenFridgeListModal();
+  // }
 
   const data = useGetFridgeContentById(Number(fridgeId))?.content;
+
+  useEffect(() => {
+    if (!fridgeId) {
+      onOpenFridgeListModal();
+    }
+  }, []);
 
   return (
     <>
