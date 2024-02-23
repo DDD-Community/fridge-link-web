@@ -1,11 +1,12 @@
 import { LabelRoundBox, WarningLine } from '@/components/molecules';
 import React, { useState } from 'react';
+import {
+  useAddFriendship,
+  useGetMyInviteCode,
+} from '@/hooks/queries/friendship';
 
 import { BulletNoticeBox } from '@/components/organisms';
 import { MiniButton } from '@/components/atoms';
-import { queryKeys } from '@/hooks/queries/queryKeys';
-import { useAddFriendship } from '@/hooks/queries/friendship';
-import { useBaseQuery } from '@/hooks/queries/useBaseQuery';
 import useToast from '@/hooks/useToast';
 
 const FRIEND_ADD_SUCCESS_MESSAGE = '친구 추가가 완료되었습니다.';
@@ -23,7 +24,7 @@ const AddFriendTemplate: React.FC = () => {
 
   const onCopy: () => void = () => {
     navigator.clipboard
-      .writeText(myInviteCode?.data?.inviteCode ?? '')
+      .writeText(myInviteCode ?? '')
       .then(() => {
         showToast(CODE_COPY_SUCCESS_MESSAGE, 'success');
       })
@@ -38,10 +39,7 @@ const AddFriendTemplate: React.FC = () => {
     }
   };
 
-  const { data: myInviteCode } = useBaseQuery<{ inviteCode: string }>(
-    queryKeys.MY_INVITE_CODE(),
-    '/users/me/invite-code',
-  );
+  const { inviteCode: myInviteCode } = useGetMyInviteCode();
 
   return (
     <div className="pt-[72px] px-[20px]">
@@ -50,7 +48,7 @@ const AddFriendTemplate: React.FC = () => {
         content={
           <div className="flex">
             <span className="flex-1 outline-none mr-[10px] border-none p-[10px] bg-gray1 rounded-[6px] text-gray8 body1-medium">
-              {myInviteCode?.data?.inviteCode}
+              {myInviteCode ?? ''}
             </span>
             <MiniButton label="복사" onClick={onCopy} variant="active" />
           </div>
