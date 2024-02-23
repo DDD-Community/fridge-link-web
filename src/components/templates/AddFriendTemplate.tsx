@@ -8,13 +8,16 @@ import { useAddFriendship } from '@/hooks/queries/friendship';
 import { useBaseQuery } from '@/hooks/queries/useBaseQuery';
 import useToast from '@/hooks/useToast';
 
+const FRIEND_ADD_SUCCESS_MESSAGE = '친구 추가가 완료되었습니다.';
+const CODE_COPY_SUCCESS_MESSAGE = '초대 코드가 복사되었습니다.';
+
 const AddFriendTemplate: React.FC = () => {
   const [friendInviteCode, setFriendInviteCode] = useState<string>('');
   const [warningVisible, setWarningVisible] = useState<boolean>(false);
   const { showToast } = useToast();
   const addFriendship = useAddFriendship({
     onSuccess: () => {
-      showToast('친구 추가가 완료되었습니다.', 'success');
+      showToast(FRIEND_ADD_SUCCESS_MESSAGE, 'success');
     },
   });
 
@@ -22,7 +25,7 @@ const AddFriendTemplate: React.FC = () => {
     navigator.clipboard
       .writeText(myInviteCode?.data?.inviteCode ?? '')
       .then(() => {
-        showToast('초대 코드가 복사되었습니다.', 'success');
+        showToast(CODE_COPY_SUCCESS_MESSAGE, 'success');
       })
       .catch(() => null);
   };
