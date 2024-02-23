@@ -37,7 +37,7 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
   const [selectedFriendIds, setSelectedFriendIds] = useState<number[]>([]);
   const {
     data: friendsData,
-    fetchNextPage: friendsNextPage,
+    fetchNextPage: fetchFriendsNextPage,
     isFetchingNextPage: isFetchingfriendsNextPage,
     refetch: friendsRefetch,
   } = useGetFriendships({
@@ -53,7 +53,7 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {
     if (entry.isIntersecting) {
-      void friendsNextPage();
+      void fetchFriendsNextPage();
     }
   };
 
@@ -116,9 +116,12 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
             />
           )),
         )}
+        {isFetchingfriendsNextPage ? (
+          <SuspenseFallback />
+        ) : (
+          <div ref={bottom} />
+        )}
       </div>
-
-      {isFetchingfriendsNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
 
       <div className="fixed w-screen max-w-[480px] bottom-0 px-[20px] py-[26px]">
         <Button
