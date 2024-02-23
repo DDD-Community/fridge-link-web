@@ -14,9 +14,8 @@ const FriendListItem: React.FC<{
   return (
     <div className="flex p-[16px] mb-[12px] justify-between items-center bg-white rounded-[12px]">
       <div className="flex items-center">
-        {/* TODO profile img ENUM res 데이터로 교체  */}
         <Image
-          src={returnProfileImg('GREEN')}
+          src={returnProfileImg(data.profileImage)}
           width={40}
           height={40}
           className="w-[40px] h-[40px] aspect-square"

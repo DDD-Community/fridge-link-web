@@ -37,7 +37,7 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
   const [selectedFriendIds, setSelectedFriendIds] = useState<number[]>([]);
   const {
     data: friendsData,
-    fetchNextPage: friendsNextPage,
+    fetchNextPage: fetchFriendsNextPage,
     isFetchingNextPage: isFetchingfriendsNextPage,
     refetch: friendsRefetch,
   } = useGetFriendships({
@@ -53,7 +53,7 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {
     if (entry.isIntersecting) {
-      void friendsNextPage();
+      void fetchFriendsNextPage();
     }
   };
 
@@ -116,18 +116,23 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
             />
           )),
         )}
+        {isFetchingfriendsNextPage ? (
+          <SuspenseFallback />
+        ) : (
+          <div ref={bottom} />
+        )}
       </div>
 
-      {isFetchingfriendsNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
-
-      <div className="fixed w-screen max-w-[480px] bottom-0 px-[20px] py-[26px]">
-        <Button
-          text={'삭제하기'}
-          className={`w-full ${selectedFriendIds.length === 0 ? 'bg-gray3 text-gray1' : 'bg-primary2 text-white'}`}
-          onClick={deleteOnOpen}
-          disabled={selectedFriendIds.length === 0}
-        />
-      </div>
+      {possibleDelete ? (
+        <div className="fixed w-screen max-w-[480px] bottom-0 px-[20px] py-[26px]">
+          <Button
+            text={'삭제하기'}
+            className={`w-full ${selectedFriendIds.length === 0 ? 'bg-gray3 text-gray1' : 'bg-primary2 text-white'}`}
+            onClick={deleteOnOpen}
+            disabled={selectedFriendIds.length === 0}
+          />
+        </div>
+      ) : null}
 
       <Modal
         onClose={deleteOnClose}
