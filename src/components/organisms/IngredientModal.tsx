@@ -76,7 +76,9 @@ const IngredientModal: React.FC<{
     reqBody?.location,
   );
 
-  const [isInFreezer, setIsInFreezer] = useState(false);
+  const [isInFreezer, setIsInFreezer] = useState(
+    reqBody?.location === 'REFRIGERATION',
+  );
 
   const toggleIsInFreezer: () => void = () => {
     setIsInFreezer((prev) => !prev);
