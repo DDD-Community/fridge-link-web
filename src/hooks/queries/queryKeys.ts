@@ -5,6 +5,7 @@ import type {
 } from '@/types/friendship';
 
 export const queryKeys = {
+  COUNT: () => ['count'],
   MY_FRIDGE_LIST: () => ['my_fridge_list'],
   MY_FRIENDS_COUNT: () => ['my_friends_count'],
   MY_FRIDGE_CONTENT: (id: number, location: string) => [
