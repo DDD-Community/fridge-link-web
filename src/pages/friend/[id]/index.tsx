@@ -23,7 +23,7 @@ const FriendIdPage: NextPage = () => {
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
-  const { id: fridgeId, name } = router.query;
+  const { id: userId, fridgeid: fridgeId, name } = router.query;
 
   if (!fridgeId) {
     onOpenFridgeListModal();
@@ -50,10 +50,9 @@ const FriendIdPage: NextPage = () => {
           margin={0}
         >
           <ModalBody padding={0}>
-            {/* 친구 아이디 넣어야함 */}
             <FridgeListModal
               onCloseFridgeListModal={onCloseFridgeListModal}
-              ownerId={Number(fridgeId)}
+              ownerId={Number(userId)}
             />
           </ModalBody>
         </ModalContent>
