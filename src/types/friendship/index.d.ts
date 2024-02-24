@@ -8,3 +8,7 @@ export interface FriendshipData {
 }
 
 export type FriendshipSortType = 'nickname' | 'createdAt';
+
+export type ShareSortType = 'dueDate' | 'registeredDate';
+
+export type ShareStatusType = 'SHARE_START' | 'SHARE_IN_PROGRESS' | 'SHARE_END';
