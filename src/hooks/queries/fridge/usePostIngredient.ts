@@ -9,15 +9,16 @@ export interface PostIngredientBodyType {
   quantity: number;
   location: 'FREEZING';
   memo: string;
-  addDate: string;
-  expirationDate: string;
+  addDate: Date;
+  expirationDate: Date;
   isDeleted: true;
 }
 
-const usePostIngredient = (fn?: () => void) => {
+const usePostIngredient = (fn: () => void, fridgeid: string, name: string) => {
   const router = useRouter();
   const onSuccess = () => {
-    void router.push('/fridge');
+    fn();
+    void router.push(`/fridge?fridgeid=${fridgeid}&name=${name}`);
   };
   return useBaseMutation<PostIngredientBodyType>(
     queryKeys.INGREDIENTS(),

@@ -1,19 +1,17 @@
 import React from 'react';
 import { GreenArrowButton, Container } from '../atoms';
-import { AppleIcon } from '@/components/atoms/IngredientIcons';
 import Link from 'next/link';
+import type { FriendObjectType } from '@/hooks/queries/friends/useGetFriendsNews';
+import Image from 'next/image';
 
-const FriendsRecentBoard: React.FC = () => {
-  const INGREDIENT_LIST = [
-    { isToday: true },
-    { isToday: false },
-    { isToday: false },
-  ];
+const FriendsRecentBoard: React.FC<{ friendNews: FriendObjectType }> = ({
+  friendNews,
+}) => {
   return (
     <Container className="flex bg-white">
       <div className="text-primary2 body2-semibold">최신근황</div>
       <div className="text-center text-gray8">
-        김지수님이
+        {friendNews.nickname} 님이
         <br />
         토마토를 추가했어요!
       </div>
@@ -21,20 +19,27 @@ const FriendsRecentBoard: React.FC = () => {
         그밖에 신선한 재료를 구경할 수 있어요.
       </div>
       <div className="flex w-full justify-center gap-[6px]">
-        {INGREDIENT_LIST.map((ingredient) => (
-          <div
-            className={`flex flex-col items-center gap-[9.5px] ${ingredient.isToday ? 'bg-[#FFD5C6]' : 'bg-gray1'} p-[12px] rounded-[12px]`}
-          >
-            <AppleIcon width={38} height={38} />
+        {friendNews.friendRefrigeratorIngredientGroupList.map(
+          ({ name, iconImage }) => (
             <div
-              className={`body2-semibold ${ingredient.isToday ? 'text-point3' : ''}`}
+              key={name}
+              className={`flex flex-col items-center bg-gray1 p-[12px] rounded-[12px]`}
             >
-              오늘 추가
+              <Image
+                src={iconImage}
+                alt={`${name} 아이콘 이미지`}
+                width={50}
+                height={50}
+              />
+              <div className={`body2-medium text-gray7`}>{name}</div>
             </div>
-          </div>
-        ))}
+          ),
+        )}
       </div>
-      <Link className="w-full" href="/friend/12">
+      <Link
+        className="w-full"
+        href={`/friend/${friendNews.refrigeratorId}?name=${friendNews.nickname}`}
+      >
         <GreenArrowButton className="bg-primary2" text="친구 냉장고 보러가기" />
       </Link>
     </Container>

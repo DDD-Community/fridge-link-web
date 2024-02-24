@@ -13,12 +13,12 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useGetMe } from '@/hooks/queries/mypage';
-import {
-  useGetFridgeContentById,
-  useGetMyIngredients,
-} from '@/hooks/queries/fridge';
+import { useGetFridgeContentById } from '@/hooks/queries/fridge';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const FridgePage: NextPage = () => {
+  const router = useRouter();
   const {
     isOpen: isOpenFridgeListModal,
     onOpen: onOpenFridgeListModal,
@@ -27,20 +27,19 @@ const FridgePage: NextPage = () => {
 
   const { nickName } = useGetMe();
 
-  const urlParams =
-    typeof window !== 'undefined'
-      ? new URLSearchParams(window.location.search)
-      : null;
-  const fridgeId = urlParams?.get('fridge-id');
+  const { fridgeid: fridgeId } = router.query;
 
-  let data;
-  if (fridgeId) {
-    data = useGetFridgeContentById(fridgeId)?.content;
-    console.log(data);
-    return data;
-  } else {
-    data = useGetMyIngredients();
-  }
+  // if (!fridgeId) {
+  //   onOpenFridgeListModal();
+  // }
+
+  const data = useGetFridgeContentById(Number(fridgeId))?.content;
+
+  useEffect(() => {
+    if (!fridgeId) {
+      onOpenFridgeListModal();
+    }
+  }, []);
 
   return (
     <>
@@ -60,7 +59,7 @@ const FridgePage: NextPage = () => {
           margin={0}
         >
           <ModalBody padding={0}>
-            <FridgeListModal />
+            <FridgeListModal onCloseFridgeListModal={onCloseFridgeListModal} />
           </ModalBody>
         </ModalContent>
       </Modal>

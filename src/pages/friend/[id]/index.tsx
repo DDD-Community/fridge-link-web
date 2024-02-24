@@ -12,13 +12,29 @@ import {
   ModalContent,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 const FriendIdPage: NextPage = () => {
+  const router = useRouter();
+  const [nickname, setNickName] = useState('');
   const {
     isOpen: isOpenFridgeListModal,
     onOpen: onOpenFridgeListModal,
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
+  const { id: fridgeId, name } = router.query;
+
+  if (!fridgeId) {
+    onOpenFridgeListModal();
+  }
+
+  const data = useGetFridgeContentById(Number(fridgeId))?.content;
+
+  useEffect(() => {
+    setNickName(name as string);
+  }, []);
   return (
     <>
       <Modal
@@ -37,15 +53,22 @@ const FriendIdPage: NextPage = () => {
           margin={0}
         >
           <ModalBody padding={0}>
-            <FridgeListModal />
+            {/* 친구 아이디 넣어야함 */}
+            <FridgeListModal
+              onCloseFridgeListModal={onCloseFridgeListModal}
+              ownerId={Number(fridgeId)}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'친구 냉장고'} />
         <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
-          <FridgeInfoBox toggleIsOpenFridgeListModal={onOpenFridgeListModal} />
-          <FridgeBoard />
+          <FridgeInfoBox
+            userName={nickname}
+            toggleIsOpenFridgeListModal={onOpenFridgeListModal}
+          />
+          <FridgeBoard data={data} />
         </section>
       </div>
     </>

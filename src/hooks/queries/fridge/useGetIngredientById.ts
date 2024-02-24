@@ -6,7 +6,7 @@ interface IngredientType {
   category: string;
   name: string;
   iconImage: string;
-  expirationDays: 0;
+  expirationDays: number;
 }
 
 const useGetIngredientById = (id: number) => {

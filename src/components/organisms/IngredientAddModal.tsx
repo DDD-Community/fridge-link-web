@@ -2,7 +2,6 @@ import { BoxIcon, CalendarIcon, FreezerIcon, MemoIcon } from '@/assets/icons';
 import { Button, Toggle } from '@/components/atoms';
 import { Counter, IngredientAddItemContainer } from '../molecules';
 import React, { useState } from 'react';
-import useCount from '@/hooks/useCount';
 import useToast from '@/hooks/useToast';
 import ModalContainer from '../atoms/ModalContainer';
 import {
@@ -11,11 +10,17 @@ import {
 } from '@/hooks/queries/fridge';
 import Image from 'next/image';
 import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
+import { useRouter } from 'next/router';
 
 const IngredientAddModal: React.FC<{
   id: number;
   toggleIsOpenIngredientAddModal: () => void;
 }> = ({ id, toggleIsOpenIngredientAddModal }) => {
+  const router = useRouter();
+  const today = new Date();
+
+  const { fridgeid, name } = router.query;
+
   const { showToast } = useToast();
 
   const onSuccess = () => {
@@ -23,32 +28,41 @@ const IngredientAddModal: React.FC<{
     showToast('식자재 추가가 완료되었습니다.', 'success');
   };
 
-  const postIngredient = usePostIngredient(onSuccess);
+  const postIngredient = usePostIngredient(
+    onSuccess,
+    fridgeid as string,
+    name as string,
+  );
+
+  const data = useGetIngredientById(id);
+
+  const expirationDate = new Date(today);
+  expirationDate.setDate(today.getDate() + (data?.expirationDays ?? 0));
 
   const [reqBody, setReqBody] = useState<PostIngredientBodyType>({
-    refrigeratorId: 0,
-    ingredientId: 0,
-    name: '',
+    refrigeratorId: Number(fridgeid),
+    ingredientId: id,
+    name: data?.name ?? '',
     quantity: 0,
     location: 'FREEZING',
     memo: '',
-    addDate: '2024-01-12',
-    expirationDate: '2024-01-22',
+    addDate: today,
+    expirationDate,
     isDeleted: true,
   });
 
   const [isInFreezer, setIsInFreezer] = useState(false);
-  const { currentCount, handleIncreaseCount, handleDecreaseCount } = useCount();
 
   const toggleIsInFreezer: () => void = () => {
     setIsInFreezer((prev) => !prev);
   };
 
   const handleSubmit: () => void = () => {
-    postIngredient.mutate({ ...reqBody, quantity: currentCount });
+    postIngredient.mutate({
+      ...reqBody,
+      location: isInFreezer ? 'FREEZING' : 'FREEZING',
+    });
   };
-
-  const data = useGetIngredientById(id);
 
   return (
     <ModalContainer>
@@ -71,28 +85,24 @@ const IngredientAddModal: React.FC<{
             <div className="flex items-center w-full gap-20">
               <input
                 className="p-[13px] bg-white rounded-[6px] body1-medium text-center text-gray6 flex-grow"
-                placeholder="2024-01-12"
                 type="date"
-                value={reqBody.addDate}
+                value={reqBody.addDate.toISOString().split('T')[0]}
                 onChange={(e) => {
-                  console.log(e.target.value);
                   setReqBody((prev) => ({
                     ...prev,
-                    addDate: e.target.value,
+                    addDate: new Date(e.target.value),
                   }));
                 }}
               />
               <div className="body1-medium text-center text-gray6">~</div>
               <input
                 className="p-[13px] bg-white rounded-[6px] body1-medium text-center text-gray6 flex-grow"
-                placeholder="2024-01-12"
                 type="date"
-                value={reqBody.expirationDate}
+                value={reqBody.expirationDate.toISOString().split('T')[0]}
                 onChange={(e) => {
-                  console.log(e.target.value);
                   setReqBody((prev) => ({
                     ...prev,
-                    expirationDate: e.target.value,
+                    expirationDate: new Date(e.target.value),
                   }));
                 }}
               />
@@ -104,9 +114,19 @@ const IngredientAddModal: React.FC<{
             title="수량"
           >
             <Counter
-              currentCount={currentCount}
-              handleIncreaseCount={handleIncreaseCount}
-              handleDecreaseCount={handleDecreaseCount}
+              currentCount={reqBody.quantity}
+              handleIncreaseCount={() => {
+                setReqBody((prev) => ({
+                  ...prev,
+                  quantity: prev.quantity + 1,
+                }));
+              }}
+              handleDecreaseCount={() => {
+                setReqBody((prev) => ({
+                  ...prev,
+                  quantity: prev.quantity - 1,
+                }));
+              }}
             />
           </IngredientAddItemContainer>
           <IngredientAddItemContainer

@@ -16,3 +16,8 @@ export interface ResErrorType {
 }
 
 export type ProfileEnum = 'GREEN' | 'RED' | 'BLUE' | 'YELLOW';
+
+export interface IngredientType {
+  name: string;
+  iconImage: string;
+}

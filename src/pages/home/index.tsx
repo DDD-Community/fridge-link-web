@@ -9,11 +9,11 @@ import Header from '@/components/organisms/Header';
 import Link from 'next/link';
 import { AlarmIcon } from '@/assets/icons';
 import withLogin from '@/components/templates/withLogin';
-
-const NEAR_EXPIRATION_COUNT_MOCK_DATA = 2;
+import { useGetMyIngredientsCount } from '@/hooks/queries/mypage';
 
 const Home: NextPage = () => {
-  const isNearExpirationWarn = true;
+  const ingredientCount = useGetMyIngredientsCount();
+
   return (
     <div className="pt-[52px]">
       <Header
@@ -26,11 +26,8 @@ const Home: NextPage = () => {
         }
       />
       <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
-        {isNearExpirationWarn && (
-          <NearExpirationWarnBox
-            className="mt-12"
-            count={NEAR_EXPIRATION_COUNT_MOCK_DATA}
-          />
+        {!!ingredientCount && (
+          <NearExpirationWarnBox className="mt-12" count={ingredientCount} />
         )}
         <div className="flex gap-8.5 mt-12">
           <SvgAndTextBox
