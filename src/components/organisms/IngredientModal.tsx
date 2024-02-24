@@ -1,10 +1,17 @@
-import { BoxIcon, CalendarIcon, FreezerIcon, MemoIcon } from '@/assets/icons';
+import {
+  BoxIcon,
+  CalendarIcon,
+  FreezerIcon,
+  MemoIcon,
+  TrashcanIcon,
+} from '@/assets/icons';
 import { Button, Toggle } from '@/components/atoms';
 import { Counter, IngredientAddItemContainer } from '../molecules';
 import React, { useState } from 'react';
 import useToast from '@/hooks/useToast';
 import ModalContainer from '../atoms/ModalContainer';
 import {
+  useDeleteIngredientById,
   useGetIngredientById,
   useGetMyIngredient,
   usePostIngredient,
@@ -12,6 +19,7 @@ import {
 import Image from 'next/image';
 import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
 import { useRouter } from 'next/router';
+import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
 
 const IngredientModal: React.FC<{
   id: number;
@@ -56,6 +64,17 @@ const IngredientModal: React.FC<{
       : expirationDate,
     isDeleted: false,
   });
+
+  const deleteIngredient = useDeleteIngredientById(
+    id,
+    Number(fridgeid),
+    reqBody?.location,
+  );
+  const putIngredient = usePutIngredientById(
+    id,
+    Number(fridgeid),
+    reqBody?.location,
+  );
 
   const [isInFreezer, setIsInFreezer] = useState(false);
 
@@ -157,11 +176,41 @@ const IngredientModal: React.FC<{
             />
           </IngredientAddItemContainer>
         </div>
-        <Button
-          className="w-full bg-primary2 text-white"
-          text={isDetailModal ? '삭제하기' : '추가완료'}
-          onClick={handleSubmit}
-        />
+        {isDetailModal ? (
+          <div className="flex w-full gap-[8px]">
+            <button
+              className="p-[13px] border-2 rounded-[12px]"
+              onClick={() => {
+                deleteIngredient.mutate({});
+                toggleIsOpenIngredientModal();
+              }}
+            >
+              <TrashcanIcon />
+            </button>
+            <Button
+              className="flex-grow bg-primary2 text-white"
+              text="수정완료"
+              onClick={() => {
+                putIngredient.mutate({
+                  name: reqBody.name,
+                  quantity: reqBody.quantity,
+                  location: isInFreezer ? 'REFRIGERATION' : 'FREEZING',
+                  memo: reqBody.memo,
+                  addDate: reqBody.addDate,
+                  expirationDate: reqBody.expirationDate,
+                  isDeleted: false,
+                });
+                toggleIsOpenIngredientModal();
+              }}
+            />
+          </div>
+        ) : (
+          <Button
+            className="w-full bg-primary2 text-white"
+            text={'추가완료'}
+            onClick={handleSubmit}
+          />
+        )}
       </div>
     </ModalContainer>
   );

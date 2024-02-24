@@ -21,3 +21,5 @@ export interface IngredientType {
   name: string;
   iconImage: string;
 }
+
+export type LocationEnum = 'FREEZING' | 'REFRIGERATION';
