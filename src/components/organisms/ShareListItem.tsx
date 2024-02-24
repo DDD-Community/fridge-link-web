@@ -3,6 +3,7 @@ import { DotIcon, LocationIcon } from '@/assets/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import type { ShareData } from '@/types/share';
 import dayjs from 'dayjs';
 
 const ShareListItem: React.FC<{
@@ -43,7 +44,7 @@ const ShareListItem: React.FC<{
                 className="mx-[4px] mb-1"
               />
             </span>
-            {`${dayjs(data.shareDate).format('MM월 DD일')} ${data.shareTime.hour} : ${data.shareTime.minute}`}
+            {`${dayjs(data.shareDate).format('MM월 DD일')} ${data.shareTime}`}
           </p>
         </div>
       </div>
