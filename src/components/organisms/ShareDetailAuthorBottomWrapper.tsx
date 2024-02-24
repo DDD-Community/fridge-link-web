@@ -9,6 +9,8 @@ import {
 import { Button, RadioButtonField } from '@/components/atoms';
 import React from 'react';
 import { type SortLabel } from '@/types/common';
+import { useGetShareApplicants } from '@/hooks/queries/share';
+import ShareApplicantListItem from './ShareApplicantListItem';
 
 const SHARE_STATUSES = [
   { label: '나눔 신청', value: 'enroll' },
@@ -16,28 +18,11 @@ const SHARE_STATUSES = [
   { label: '나눔 완료', value: 'complete' },
 ];
 
-const MOCK_DATA_PARTICIPANTS = [
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-  '김지수',
-];
-
 const ShareDetailAuthorBottomWrapper: React.FC<{
+  id: string | string[] | undefined;
   curStatus: SortLabel;
   onChangeStatus: React.Dispatch<React.SetStateAction<SortLabel>>;
-}> = ({ curStatus, onChangeStatus }) => {
+}> = ({ id, curStatus, onChangeStatus }) => {
   const {
     isOpen: isStatusModalOpen,
     onOpen: onStatusModalOpen,
@@ -48,6 +33,8 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
     onOpen: onParticipantsModalOpen,
     onClose: onParticipantsModalClose,
   } = useDisclosure();
+
+  const applicants = useGetShareApplicants({ id });
 
   return (
     <>
@@ -117,9 +104,13 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
           maxW="lg"
         >
           <ModalBody>
-            <div className="max-h-[300px] overflow-scroll px-[20px] py-[40px]">
-              {MOCK_DATA_PARTICIPANTS.map((ele, idx) => (
-                <div key={idx}>{ele}</div>
+            <div className="max-h-[300px] overflow-scroll px-[20px] pt-[40px] py-[20px]">
+              {applicants?.map((ele, idx) => (
+                <ShareApplicantListItem
+                  key={ele.nickname}
+                  idx={idx}
+                  data={ele}
+                />
               ))}
             </div>
             <div className="pt-[20px] pb-[32px]">

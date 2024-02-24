@@ -18,3 +18,8 @@ interface ShareDetailData extends ShareData {
   userName: string;
   profileImage: ProfileEnum;
 }
+
+interface ShareApplicantData {
+  nickname: string;
+  profileImage: ProfileEnum;
+}

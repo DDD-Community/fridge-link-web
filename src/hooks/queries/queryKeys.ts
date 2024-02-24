@@ -26,6 +26,7 @@ export const queryKeys = {
   MY_INVITE_CODE: () => ['myInviteCode'],
   ADD_FRIENDSHIP: () => ['addFriendship'],
   SHARE_DETAIL: () => ['shareDetail'],
+  SHARE_APPLICANTS: () => ['shareApplicants'],
 } as const;
 
 export type QueryKeys = (typeof queryKeys)[keyof typeof queryKeys];
