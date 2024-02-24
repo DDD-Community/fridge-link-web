@@ -8,12 +8,12 @@ const FriendsRecentBoard: React.FC<{ friendNews: FriendObjectType }> = ({
   friendNews,
 }) => {
   return (
-    <Container className="flex bg-white">
+    <Container className="flex bg-white gap-[12px]">
       <div className="text-primary2 body2-semibold">최신근황</div>
-      <div className="text-center text-gray8">
+      <div className="text-center text-gray8 heading3-semibold">
         {friendNews.nickname} 님이
         <br />
-        토마토를 추가했어요!
+        {friendNews.friendRefrigeratorIngredientGroupList[0].name}를 추가했어요!
       </div>
       <div className="text-gray6 body2-medium">
         그밖에 신선한 재료를 구경할 수 있어요.

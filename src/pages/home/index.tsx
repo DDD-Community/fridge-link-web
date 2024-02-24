@@ -25,11 +25,13 @@ const Home: NextPage = () => {
           </div>
         }
       />
-      <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
+      <section
+        className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}
+      >
         {!!ingredientCount && (
-          <NearExpirationWarnBox className="mt-12" count={ingredientCount} />
+          <NearExpirationWarnBox className="mb-12" count={ingredientCount} />
         )}
-        <div className="flex gap-8.5 mt-12">
+        <div className="flex gap-8.5">
           <SvgAndTextBox
             svgComponent={<MyFridgeImg />}
             text="내 냉장고"

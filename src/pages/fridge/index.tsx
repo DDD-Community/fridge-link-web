@@ -58,7 +58,9 @@ const FridgePage: NextPage = () => {
       </Modal>
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'내 냉장고'} />
-        <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
+        <section
+          className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}
+        >
           <FridgeInfoBox
             userName={nickName}
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}

@@ -53,7 +53,9 @@ const FridgePage: NextPage = () => {
       )}
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'식자재 추가'} />
-        <main className={`flex flex-col min-h-screen p-20 bg-gray1 gap-[18px]`}>
+        <main
+          className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1 gap-[18px]`}
+        >
           <section className="flex gap-[10px] flex-wrap">
             {['전체', ...(data?.map((item) => item.category) as string[])].map(
               (category) => (

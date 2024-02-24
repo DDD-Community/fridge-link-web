@@ -20,8 +20,12 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Container } from '@/components/atoms';
 import { EmptyBox } from '@/components/molecules';
+import { PlusIcon } from '@/assets/icons';
+import { useRouter } from 'next/router';
 
 const FriendsPage: NextPage = () => {
+  const router = useRouter();
+
   const {
     isOpen: isOpenOrderListModal,
     onOpen: onOpenOrderListModal,
@@ -52,8 +56,22 @@ const FriendsPage: NextPage = () => {
         </ModalContent>
       </Modal>
       <div className={'pt-[52px] min-h-screen'}>
-        <Header headerTitle={'친구 냉장고'} />
-        <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
+        <Header
+          headerTitle={'친구 냉장고'}
+          headerRight={
+            <PlusIcon
+              fill="gray7"
+              width={24}
+              height={24}
+              onClick={() => {
+                router.push('/mypage/friendship');
+              }}
+            />
+          }
+        />
+        <section
+          className={`flex flex-col min-h-screen pt-[10px] pl-20 pr-20 pb-20 bg-gray1`}
+        >
           {friendsNewsList && friendsNewsList.length !== 0 ? (
             <Swiper className="w-[100%]" spaceBetween={20}>
               {friendsNewsList.map((friendNews) => (
