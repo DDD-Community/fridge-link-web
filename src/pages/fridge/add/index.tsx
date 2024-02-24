@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { Header, IngredientModal } from '@/components/organisms';
 import { Container } from '../../../components/atoms';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useGetIngredientList } from '@/hooks/queries/fridge';
 import Image from 'next/image';
 import {
@@ -23,6 +23,21 @@ const FridgePage: NextPage = () => {
   } = useDisclosure();
 
   const [currentCategory, setCurrentCategory] = useState('전체');
+  const categoryRef = useRef<HTMLDivElement>(null);
+
+  const handleCategoryClick = (category: string) => {
+    setCurrentCategory(category);
+    const categoryComponent = document.getElementById(category);
+
+    if (categoryComponent) {
+      const labelPosition = categoryComponent.getBoundingClientRect().top;
+
+      window.scrollTo({
+        top: window.scrollY + labelPosition - 300,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const data = useGetIngredientList();
 
@@ -82,16 +97,18 @@ const FridgePage: NextPage = () => {
               <div
                 className="flex gap-[10px]"
                 style={{ transform: `translateX(${scrollX}px)` }}
+                ref={categoryRef}
               >
                 {['전체', ...(data?.map((item) => item.category) ?? [])].map(
                   (category) => (
                     <div
                       key={category}
                       onClick={() => {
-                        setCurrentCategory(category);
+                        handleCategoryClick(category);
                       }}
                       className={`${category === currentCategory ? 'bg-primary2 text-white' : 'bg-white text-gray4'} cursor-pointer body1-semibold pt-[6px] pb-[6px] pl-[18px] pr-[18px] rounded-[20px]`}
                       style={{ whiteSpace: 'nowrap' }}
+                      data-category={category}
                     >
                       {category}
                     </div>
@@ -101,7 +118,11 @@ const FridgePage: NextPage = () => {
             </Draggable>
           </section>
           {data?.map((items) => (
-            <Container key={items.category} className="bg-white">
+            <Container
+              key={items.category}
+              className="bg-white"
+              id={items.category}
+            >
               <label className="w-full body1-semibold">{items.category}</label>
               <ul className="w-full grid grid-cols-4 gap-4">
                 {items.ingredientGroupList.map((item) => (
