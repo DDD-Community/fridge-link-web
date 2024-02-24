@@ -7,11 +7,11 @@ export interface PostIngredientBodyType {
   ingredientId: number;
   name: string;
   quantity: number;
-  location: 'FREEZING';
+  location: 'FREEZING' | 'REFRIGERATION';
   memo: string;
   addDate: Date;
   expirationDate: Date;
-  isDeleted: true;
+  isDeleted: boolean;
 }
 
 const usePostIngredient = (fn: () => void, fridgeid: string, name: string) => {

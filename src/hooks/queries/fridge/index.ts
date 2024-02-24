@@ -5,3 +5,4 @@ export { default as useGetMyIngredients } from './useGetMyIngredients';
 export { default as useGetFridgeContentById } from './useGetFridgeContentById';
 export { default as useDeleteFridgeById } from './useDeleteFridgeById';
 export { default as usePutFridgeById } from './usePutFridgeById';
+export { default as useGetMyIngredient } from './useGetMyIngredient';

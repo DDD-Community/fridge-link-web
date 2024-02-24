@@ -4,7 +4,7 @@ import { useBaseQuery } from '../useBaseQuery';
 const useGetMyIngredientsCount = () => {
   const { data } = useBaseQuery<number>(
     queryKeys.MY_INGREDIENTS_COUNT(),
-    `/ingrs/detail/count?day=5`,
+    `/ingrs/detail/count?day=7`,
     true,
   );
 

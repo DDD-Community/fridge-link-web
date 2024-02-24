@@ -14,7 +14,6 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 const FriendIdPage: NextPage = () => {
   const router = useRouter();
   const [nickname, setNickName] = useState('');
@@ -29,8 +28,6 @@ const FriendIdPage: NextPage = () => {
   if (!fridgeId) {
     onOpenFridgeListModal();
   }
-
-  const data = useGetFridgeContentById(Number(fridgeId))?.content;
 
   useEffect(() => {
     setNickName(name as string);
@@ -68,7 +65,7 @@ const FriendIdPage: NextPage = () => {
             userName={nickname}
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
           />
-          <FridgeBoard data={data} />
+          <FridgeBoard fridgeId={Number(fridgeId)} />
         </section>
       </div>
     </>

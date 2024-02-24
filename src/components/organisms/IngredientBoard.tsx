@@ -11,7 +11,7 @@ const TermBoard: React.FC = () => {
       {ingredientSummary && ingredientSummary.length !== 0 ? (
         <div className={`flex flex-col w-full gap-25`}>
           {ingredientSummary.map((data) => (
-            <IngredientItemBox key={data.name} />
+            <IngredientItemBox key={data.name} data={data} />
           ))}
         </div>
       ) : (

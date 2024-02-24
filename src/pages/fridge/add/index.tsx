@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { Header, IngredientAddModal } from '@/components/organisms';
+import { Header, IngredientModal } from '@/components/organisms';
 import { Container } from '../../../components/atoms';
 import { useState } from 'react';
 import { useGetIngredientList } from '@/hooks/queries/fridge';
@@ -15,9 +15,9 @@ import {
 const FridgePage: NextPage = () => {
   const [ingredientId, setIngredientId] = useState<null | number>(null);
   const {
-    isOpen: isOpenIngredientAddModal,
-    onOpen: onOpenIngredientAddModal,
-    onClose: onCloseIngredientAddModal,
+    isOpen: isOpenIngredientModal,
+    onOpen: onOpenIngredientModal,
+    onClose: onCloseIngredientModal,
   } = useDisclosure();
 
   const [currentCategory, setCurrentCategory] = useState('전체');
@@ -26,14 +26,14 @@ const FridgePage: NextPage = () => {
 
   return (
     <>
-      {isOpenIngredientAddModal && (
+      {isOpenIngredientModal && (
         <Modal
-          onClose={onCloseIngredientAddModal}
-          isOpen={isOpenIngredientAddModal}
+          onClose={onCloseIngredientModal}
+          isOpen={isOpenIngredientModal}
           motionPreset="slideInBottom"
           trapFocus={false}
         >
-          <ModalOverlay height="100vh" onClick={onCloseIngredientAddModal} />
+          <ModalOverlay height="100vh" onClick={onCloseIngredientModal} />
           <ModalContent
             className="bg-white"
             position="fixed"
@@ -43,9 +43,9 @@ const FridgePage: NextPage = () => {
             margin={0}
           >
             <ModalBody padding={0}>
-              <IngredientAddModal
+              <IngredientModal
                 id={ingredientId ?? 0}
-                toggleIsOpenIngredientAddModal={onCloseIngredientAddModal}
+                toggleIsOpenIngredientModal={onCloseIngredientModal}
               />
             </ModalBody>
           </ModalContent>
@@ -78,7 +78,7 @@ const FridgePage: NextPage = () => {
                     key={item.id}
                     onClick={() => {
                       setIngredientId(item.id);
-                      onOpenIngredientAddModal();
+                      onOpenIngredientModal();
                     }}
                     className="flex flex-col items-center"
                   >

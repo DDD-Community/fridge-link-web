@@ -6,16 +6,18 @@ import useToast from '@/hooks/useToast';
 import ModalContainer from '../atoms/ModalContainer';
 import {
   useGetIngredientById,
+  useGetMyIngredient,
   usePostIngredient,
 } from '@/hooks/queries/fridge';
 import Image from 'next/image';
 import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
 import { useRouter } from 'next/router';
 
-const IngredientAddModal: React.FC<{
+const IngredientModal: React.FC<{
   id: number;
-  toggleIsOpenIngredientAddModal: () => void;
-}> = ({ id, toggleIsOpenIngredientAddModal }) => {
+  isDetailModal?: boolean;
+  toggleIsOpenIngredientModal: () => void;
+}> = ({ id, toggleIsOpenIngredientModal, isDetailModal = false }) => {
   const router = useRouter();
   const today = new Date();
 
@@ -24,7 +26,7 @@ const IngredientAddModal: React.FC<{
   const { showToast } = useToast();
 
   const onSuccess = () => {
-    toggleIsOpenIngredientAddModal();
+    toggleIsOpenIngredientModal();
     showToast('식자재 추가가 완료되었습니다.', 'success');
   };
 
@@ -34,7 +36,9 @@ const IngredientAddModal: React.FC<{
     name as string,
   );
 
-  const data = useGetIngredientById(id);
+  const data = isDetailModal
+    ? useGetMyIngredient(id)
+    : useGetIngredientById(id);
 
   const expirationDate = new Date(today);
   expirationDate.setDate(today.getDate() + (data?.expirationDays ?? 0));
@@ -43,12 +47,14 @@ const IngredientAddModal: React.FC<{
     refrigeratorId: Number(fridgeid),
     ingredientId: id,
     name: data?.name ?? '',
-    quantity: 0,
-    location: 'FREEZING',
+    quantity: data?.quantity ?? 0,
+    location: data?.location ?? 'FREEZING',
     memo: '',
     addDate: today,
-    expirationDate,
-    isDeleted: true,
+    expirationDate: data?.expirationDate
+      ? new Date(data?.expirationDate)
+      : expirationDate,
+    isDeleted: false,
   });
 
   const [isInFreezer, setIsInFreezer] = useState(false);
@@ -60,7 +66,7 @@ const IngredientAddModal: React.FC<{
   const handleSubmit: () => void = () => {
     postIngredient.mutate({
       ...reqBody,
-      location: isInFreezer ? 'FREEZING' : 'FREEZING',
+      location: isInFreezer ? 'REFRIGERATION' : 'FREEZING',
     });
   };
 
@@ -153,7 +159,7 @@ const IngredientAddModal: React.FC<{
         </div>
         <Button
           className="w-full bg-primary2 text-white"
-          text="추가완료"
+          text={isDetailModal ? '삭제하기' : '추가완료'}
           onClick={handleSubmit}
         />
       </div>
@@ -161,4 +167,4 @@ const IngredientAddModal: React.FC<{
   );
 };
 
-export default IngredientAddModal;
+export default IngredientModal;
