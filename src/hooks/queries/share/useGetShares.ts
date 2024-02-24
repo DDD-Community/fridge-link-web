@@ -1,4 +1,6 @@
-import { type ShareStatusType, type ShareSortType } from '@/types/friendship';
+import type { ShareSortType, ShareStatusType } from '@/types/friendship';
+
+import type { ShareData } from '@/types/share';
 import { queryKeys } from '../queryKeys';
 import { useBaseInfiniteQuery } from '../useBaseInfiniteQuery';
 
