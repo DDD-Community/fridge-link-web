@@ -1,7 +1,7 @@
 import { Container } from '../atoms';
 
 import { AngleIcon } from '@/assets/icons';
-import { FriendsFridgeItem } from '../molecules';
+import { EmptyBox, FriendsFridgeItem } from '../molecules';
 import React from 'react';
 import { useGetMyFriendsCount } from '@/hooks/queries/mypage';
 
@@ -9,6 +9,9 @@ const FriendsFridgeList: React.FC<{
   toggleIsOpenOrderListModal: () => void;
 }> = ({ toggleIsOpenOrderListModal }) => {
   const count = useGetMyFriendsCount();
+
+  const data = ['hi'];
+
   return (
     <div className="mt-[37px]">
       <div className="mb-[19.5px] flex justify-between">
@@ -30,9 +33,18 @@ const FriendsFridgeList: React.FC<{
       </div>
       <Container className="bg-white">
         <div className="w-full flex flex-col gap-[24px]">
-          <FriendsFridgeItem name="김지수" ingredientCount={13} linkTo="#" />
-          <FriendsFridgeItem name="김지수" ingredientCount={13} linkTo="#" />
-          <FriendsFridgeItem name="김지수" ingredientCount={13} linkTo="#" />
+          {data && data.length !== 0 ? (
+            data.map((friend) => (
+              <FriendsFridgeItem
+                key="김지수"
+                name="김지수"
+                ingredientCount={13}
+                linkTo="#"
+              />
+            ))
+          ) : (
+            <EmptyBox text="추가된 친구가 없어요!" />
+          )}
         </div>
       </Container>
     </div>
