@@ -5,6 +5,7 @@ export interface IngredientType {
 
 export interface IngredientDetailType {
   ingredientDetailId: number;
+  iconImage: string;
   name: string;
   quantity: number;
   location: string;

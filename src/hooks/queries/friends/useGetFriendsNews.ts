@@ -3,6 +3,7 @@ import { queryKeys } from '../queryKeys';
 import { useBaseQuery } from '../useBaseQuery';
 
 export interface FriendObjectType {
+  userId: number;
   nickname: string;
   refrigeratorId: number;
   friendRefrigeratorIngredientGroupList: IngredientType[];

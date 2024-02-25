@@ -13,7 +13,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useGetMe } from '@/hooks/queries/mypage';
-import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -28,12 +27,6 @@ const FridgePage: NextPage = () => {
   const { nickName } = useGetMe();
 
   const { fridgeid: fridgeId } = router.query;
-
-  // if (!fridgeId) {
-  //   onOpenFridgeListModal();
-  // }
-
-  const data = useGetFridgeContentById(Number(fridgeId))?.content;
 
   useEffect(() => {
     if (!fridgeId) {
@@ -65,13 +58,15 @@ const FridgePage: NextPage = () => {
       </Modal>
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'내 냉장고'} />
-        <section className={`flex flex-col min-h-screen p-20 bg-gray1`}>
+        <section
+          className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}
+        >
           <FridgeInfoBox
             userName={nickName}
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
             isOkIngredientAdd={true}
           />
-          <FridgeBoard data={data} />
+          <FridgeBoard fridgeId={Number(fridgeId)} />
         </section>
       </div>
     </>

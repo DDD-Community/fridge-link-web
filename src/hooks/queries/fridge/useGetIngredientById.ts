@@ -1,12 +1,16 @@
 import { queryKeys } from '../queryKeys';
 import { useBaseQuery } from '../useBaseQuery';
 
-interface IngredientType {
+export interface IngredientType {
   ingredientId: 0;
   category: string;
   name: string;
   iconImage: string;
   expirationDays: number;
+  location?: 'FREEZING' | 'REFRIGERATION';
+  quantity?: number;
+  addDate?: string;
+  expirationDate?: string;
 }
 
 const useGetIngredientById = (id: number) => {

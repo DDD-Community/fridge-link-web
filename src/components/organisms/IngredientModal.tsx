@@ -1,21 +1,31 @@
-import { BoxIcon, CalendarIcon, FreezerIcon, MemoIcon } from '@/assets/icons';
+import {
+  BoxIcon,
+  CalendarIcon,
+  FreezerIcon,
+  MemoIcon,
+  TrashcanIcon,
+} from '@/assets/icons';
 import { Button, Toggle } from '@/components/atoms';
 import { Counter, IngredientAddItemContainer } from '../molecules';
 import React, { useState } from 'react';
 import useToast from '@/hooks/useToast';
 import ModalContainer from '../atoms/ModalContainer';
 import {
+  useDeleteIngredientById,
   useGetIngredientById,
+  useGetMyIngredient,
   usePostIngredient,
 } from '@/hooks/queries/fridge';
 import Image from 'next/image';
 import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
 import { useRouter } from 'next/router';
+import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
 
-const IngredientAddModal: React.FC<{
+const IngredientModal: React.FC<{
   id: number;
-  toggleIsOpenIngredientAddModal: () => void;
-}> = ({ id, toggleIsOpenIngredientAddModal }) => {
+  isDetailModal?: boolean;
+  toggleIsOpenIngredientModal: () => void;
+}> = ({ id, toggleIsOpenIngredientModal, isDetailModal = false }) => {
   const router = useRouter();
   const today = new Date();
 
@@ -24,7 +34,7 @@ const IngredientAddModal: React.FC<{
   const { showToast } = useToast();
 
   const onSuccess = () => {
-    toggleIsOpenIngredientAddModal();
+    toggleIsOpenIngredientModal();
     showToast('식자재 추가가 완료되었습니다.', 'success');
   };
 
@@ -34,7 +44,9 @@ const IngredientAddModal: React.FC<{
     name as string,
   );
 
-  const data = useGetIngredientById(id);
+  const data = isDetailModal
+    ? useGetMyIngredient(id)
+    : useGetIngredientById(id);
 
   const expirationDate = new Date(today);
   expirationDate.setDate(today.getDate() + (data?.expirationDays ?? 0));
@@ -43,15 +55,30 @@ const IngredientAddModal: React.FC<{
     refrigeratorId: Number(fridgeid),
     ingredientId: id,
     name: data?.name ?? '',
-    quantity: 0,
-    location: 'FREEZING',
+    quantity: data?.quantity ?? 0,
+    location: data?.location ?? 'FREEZING',
     memo: '',
     addDate: today,
-    expirationDate,
-    isDeleted: true,
+    expirationDate: data?.expirationDate
+      ? new Date(data?.expirationDate)
+      : expirationDate,
+    isDeleted: false,
   });
 
-  const [isInFreezer, setIsInFreezer] = useState(false);
+  const deleteIngredient = useDeleteIngredientById(
+    id,
+    Number(fridgeid),
+    reqBody?.location,
+  );
+  const putIngredient = usePutIngredientById(
+    id,
+    Number(fridgeid),
+    reqBody?.location,
+  );
+
+  const [isInFreezer, setIsInFreezer] = useState(
+    reqBody?.location === 'REFRIGERATION',
+  );
 
   const toggleIsInFreezer: () => void = () => {
     setIsInFreezer((prev) => !prev);
@@ -60,7 +87,7 @@ const IngredientAddModal: React.FC<{
   const handleSubmit: () => void = () => {
     postIngredient.mutate({
       ...reqBody,
-      location: isInFreezer ? 'FREEZING' : 'FREEZING',
+      location: isInFreezer ? 'REFRIGERATION' : 'FREEZING',
     });
   };
 
@@ -151,14 +178,44 @@ const IngredientAddModal: React.FC<{
             />
           </IngredientAddItemContainer>
         </div>
-        <Button
-          className="w-full bg-primary2 text-white"
-          text="추가완료"
-          onClick={handleSubmit}
-        />
+        {isDetailModal ? (
+          <div className="flex w-full gap-[8px]">
+            <button
+              className="p-[13px] border-2 rounded-[12px]"
+              onClick={() => {
+                deleteIngredient.mutate({});
+                toggleIsOpenIngredientModal();
+              }}
+            >
+              <TrashcanIcon />
+            </button>
+            <Button
+              className="flex-grow bg-primary2 text-white"
+              text="수정완료"
+              onClick={() => {
+                putIngredient.mutate({
+                  name: reqBody.name,
+                  quantity: reqBody.quantity,
+                  location: isInFreezer ? 'REFRIGERATION' : 'FREEZING',
+                  memo: reqBody.memo,
+                  addDate: reqBody.addDate,
+                  expirationDate: reqBody.expirationDate,
+                  isDeleted: false,
+                });
+                toggleIsOpenIngredientModal();
+              }}
+            />
+          </div>
+        ) : (
+          <Button
+            className="w-full bg-primary2 text-white"
+            text={'추가완료'}
+            onClick={handleSubmit}
+          />
+        )}
       </div>
     </ModalContainer>
   );
 };
 
-export default IngredientAddModal;
+export default IngredientModal;

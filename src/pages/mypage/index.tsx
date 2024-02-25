@@ -15,11 +15,7 @@ import {
   QuestionIcon,
   SettingIcon,
 } from '@/assets/icons';
-import {
-  useGetMe,
-  useGetMyFriendsCount,
-  useGetMyIngredientsCount,
-} from '@/hooks/queries/mypage';
+import { useGetCount, useGetMe } from '@/hooks/queries/mypage';
 import { returnProfileImg } from '@/utils/returnProfileImg';
 
 const GENERAGE_NAV_LIST = [
@@ -49,9 +45,8 @@ const ETC_NAV_LIST = [
 
 const Mypage: NextPage = () => {
   const data = useGetMe();
-  const myFriendsCount = useGetMyFriendsCount();
-  const myIngredientsCount = useGetMyIngredientsCount();
 
+  const count = useGetCount();
   return (
     <div className={'pt-[52px] min-h-screen'}>
       <Header headerTitle={'My'} />
@@ -78,11 +73,11 @@ const Mypage: NextPage = () => {
           </Link>
         </div>
         <div className="flex justify-evenly items-center bg-gray6 rounded-[12px]">
-          <MyFridgeInfo label="식자재" value={`${myIngredientsCount}개`} />
+          <MyFridgeInfo label="식자재" value={`${count?.ingredientCount}개`} />
           <div className="w-[2px] h-[36px] bg-gray5" />
-          <MyFridgeInfo label="나눔" value="3개" />
+          <MyFridgeInfo label="나눔" value={`${count?.shareCount}개`} />
           <div className="w-[2px] h-[36px] bg-gray5" />
-          <MyFridgeInfo label="친구" value={`${myFriendsCount}명`} isLast />
+          <MyFridgeInfo label="친구" value={`${count?.friendCount}명`} isLast />
         </div>
         <NavWhiteBox label="일반" list={GENERAGE_NAV_LIST} />
         <NavWhiteBox label="기타" list={ETC_NAV_LIST} />

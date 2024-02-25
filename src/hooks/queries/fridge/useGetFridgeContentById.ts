@@ -7,13 +7,16 @@ interface FridgeContentType {
   content: IngredientDetailType[];
 }
 
-const useGetFridgeContentById = (id: number) => {
+const useGetFridgeContentById = (
+  id: number,
+  location: 'REFRIGERATION' | 'FREEZING',
+) => {
   // 무한스크롤 or useSuspenseQuery로 변경 해야함
   const { data } = useQuery({
-    queryKey: queryKeys.MY_FRIDGE_CONTENT(id),
+    queryKey: queryKeys.MY_FRIDGE_CONTENT(id, location),
     queryFn: async () => {
       return await fetchData<FridgeContentType>(
-        `/ingrs/detail/refrig/${id}`,
+        `/ingrs/detail/refrig/${id}?location=${location}`,
         true,
       );
     },

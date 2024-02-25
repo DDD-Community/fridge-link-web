@@ -5,10 +5,16 @@ import type {
 } from '@/types/friendship';
 
 export const queryKeys = {
+  COUNT: () => ['count'],
   MY_FRIDGE_LIST: () => ['my_fridge_list'],
   MY_FRIENDS_COUNT: () => ['my_friends_count'],
-  MY_FRIDGE_CONTENT: (id: number) => ['my_fridge', id],
+  MY_FRIDGE_CONTENT: (id: number, location: string) => [
+    'my_fridge',
+    id,
+    location,
+  ],
   MY_INGREDIENTS_COUNT: () => ['my_ingredient_count'],
+  MY_INGREDIENT_ID: (id: number) => ['my-ingredient', id],
   MY_FRIENDS_NEWS: () => ['my_friends_news'],
   INGREDIENT_LIST: () => ['ingredient_list'],
   INGREDIENT_ID: (id: number) => ['ingredient', id],
