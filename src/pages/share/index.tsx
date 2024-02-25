@@ -14,6 +14,7 @@ import Header from '@/components/organisms/Header';
 import Link from 'next/link';
 import type { NextPage } from 'next';
 import { PlusIcon } from '@/assets/icons';
+import { type ShareData } from '@/types/share';
 import ShareListItem from '@/components/organisms/ShareListItem';
 import { SuspenseFallback } from '@/components/templates';
 import { useGetShares } from '@/hooks/queries/share';
