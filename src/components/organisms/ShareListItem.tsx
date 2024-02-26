@@ -14,9 +14,9 @@ const ShareListItem: React.FC<{
       href={`/share/${data.shareId}`}
       className="flex flex-1 items-center mb-[12px] pl-[18px] pr-[12px] py-[16px] rounded-[12px] bg-white"
     >
-      {data.thumbNailImage ? (
+      {data.thumbnailImage ? (
         <Image
-          src={data.thumbNailImage}
+          src={data.thumbnailImage}
           width={64}
           height={64}
           className="rounded-[8px]"

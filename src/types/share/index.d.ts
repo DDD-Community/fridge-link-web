@@ -11,7 +11,7 @@ interface ShareData {
   limitPerson: number;
   location: string;
   status: string;
-  thumbNailImage: string;
+  thumbnailImage: string;
 }
 
 interface ShareDetailData extends ShareData {
