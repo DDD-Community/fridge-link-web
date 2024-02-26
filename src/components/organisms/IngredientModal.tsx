@@ -24,8 +24,14 @@ import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
 const IngredientModal: React.FC<{
   id: number;
   isDetailModal?: boolean;
+  ingredientsRefetch?: any;
   toggleIsOpenIngredientModal: () => void;
-}> = ({ id, toggleIsOpenIngredientModal, isDetailModal = false }) => {
+}> = ({
+  id,
+  toggleIsOpenIngredientModal,
+  isDetailModal = false,
+  ingredientsRefetch,
+}) => {
   const router = useRouter();
   const today = new Date();
 
@@ -35,6 +41,7 @@ const IngredientModal: React.FC<{
 
   const onSuccess = () => {
     toggleIsOpenIngredientModal();
+    ingredientsRefetch();
     showToast('식자재 추가가 완료되었습니다.', 'success');
   };
 
@@ -69,11 +76,13 @@ const IngredientModal: React.FC<{
     id,
     Number(fridgeid),
     reqBody?.location,
+    ingredientsRefetch,
   );
   const putIngredient = usePutIngredientById(
     id,
     Number(fridgeid),
     reqBody?.location,
+    ingredientsRefetch,
   );
 
   const [isInFreezer, setIsInFreezer] = useState(

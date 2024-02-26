@@ -15,6 +15,8 @@ import {
 import { useGetMe } from '@/hooks/queries/mypage';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { EmptyBox } from '@/components/molecules';
+import { Container } from '@/components/atoms';
 
 const FridgePage: NextPage = () => {
   const router = useRouter();
@@ -66,7 +68,13 @@ const FridgePage: NextPage = () => {
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
             isOkIngredientAdd={true}
           />
-          <FridgeBoard fridgeId={Number(fridgeId)} />
+          {fridgeId ? (
+            <FridgeBoard />
+          ) : (
+            <Container className="p-[20px] bg-white">
+              <EmptyBox text={`추가된 식자재가 없어요!`} />
+            </Container>
+          )}
         </section>
       </div>
     </>
