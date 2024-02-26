@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { EmptyBox } from '@/components/molecules';
 import { Container } from '@/components/atoms';
+import withLogin from '@/components/templates/withLogin';
 
 const FridgePage: NextPage = () => {
   const router = useRouter();
@@ -80,4 +81,4 @@ const FridgePage: NextPage = () => {
     </>
   );
 };
-export default FridgePage;
+export default withLogin(FridgePage);

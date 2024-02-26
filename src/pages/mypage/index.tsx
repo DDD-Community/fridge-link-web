@@ -17,6 +17,7 @@ import {
 } from '@/assets/icons';
 import { useGetCount, useGetMe } from '@/hooks/queries/mypage';
 import { returnProfileImg } from '@/utils/returnProfileImg';
+import withLogin from '@/components/templates/withLogin';
 
 const GENERAGE_NAV_LIST = [
   {
@@ -86,4 +87,4 @@ const Mypage: NextPage = () => {
   );
 };
 
-export default Mypage;
+export default withLogin(Mypage);
