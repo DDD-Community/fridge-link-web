@@ -3,12 +3,12 @@ import { Container } from '../atoms';
 import { AngleIcon } from '@/assets/icons';
 import { EmptyBox, FriendsFridgeItem } from '../molecules';
 import React from 'react';
-import { useGetMyFriendsCount } from '@/hooks/queries/mypage';
+import { useGetCount } from '@/hooks/queries/mypage';
 
 const FriendsFridgeList: React.FC<{
   toggleIsOpenOrderListModal: () => void;
 }> = ({ toggleIsOpenOrderListModal }) => {
-  const count = useGetMyFriendsCount();
+  const count = useGetCount()?.friendCount;
 
   const data = ['hi'];
 

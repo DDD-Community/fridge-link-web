@@ -31,7 +31,7 @@ const IngredientDateTag: React.FC<IngredientDateTagProps> = ({ dDay }) => {
 
   return (
     <div
-      className={`w-64 p-9 rounded-6 text-center body1-semibold ${className}`}
+      className={`min-w-[64px] p-9 rounded-6 text-center body1-semibold ${className}`}
       style={{ backgroundColor }}
     >
       {textDay}
