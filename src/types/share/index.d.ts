@@ -12,11 +12,13 @@ interface ShareData {
   location: string;
   status: string;
   thumbnailImage: string;
+  isApplied: boolean;
 }
 
 interface ShareDetailData extends ShareData {
   userName: string;
   profileImage: ProfileEnum;
+  thumbNailImage: string;
 }
 
 interface ShareApplicantData {

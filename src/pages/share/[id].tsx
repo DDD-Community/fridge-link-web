@@ -87,7 +87,7 @@ const ShareDetailPage: NextPage = () => {
           <ShareInfoRowItem
             icon={ClockIcon}
             label="약속시간"
-            value={`${data?.shareTime}`}
+            value={`${data?.shareTime.slice(0, 5)}`}
           />
           <ShareInfoRowItem
             icon={LocationIcon}

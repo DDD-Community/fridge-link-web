@@ -44,7 +44,7 @@ const ShareListItem: React.FC<{
                 className="mx-[4px] mb-1"
               />
             </span>
-            {`${dayjs(data.shareDate).format('MM월 DD일')} ${data.shareTime}`}
+            {`${dayjs(data.shareDate).format('MM월 DD일')} ${data.shareTime.slice(0, 5)}`}
           </p>
         </div>
       </div>
