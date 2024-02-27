@@ -66,7 +66,7 @@ const FriendIdPage: NextPage = () => {
             userName={nickname}
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
           />
-          <FridgeBoard fridgeId={Number(fridgeId)} />
+          <FridgeBoard />
         </section>
       </div>
     </>
