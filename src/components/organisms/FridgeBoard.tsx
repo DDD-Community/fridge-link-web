@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Container } from '@/components/atoms';
+import { Container, Lottie } from '@/components/atoms';
 import { EmptyBox, FridgeTab, IngredientItemBox } from '@/components/molecules';
 import { IngredientModal } from '.';
 import {
@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 import { useObserver } from '@/hooks/useObserver';
-import { SuspenseFallback } from '../templates';
 import { useRouter } from 'next/router';
 
 const FridgeBoard: React.FC = () => {
@@ -109,11 +108,7 @@ const FridgeBoard: React.FC = () => {
               </div>
             ),
           )}
-          {isFetchingIngredientNextPage ? (
-            <SuspenseFallback />
-          ) : (
-            <div ref={bottom} />
-          )}
+          {isFetchingIngredientNextPage ? <Lottie /> : <div ref={bottom} />}
         </div>
       </Container>
     </>
