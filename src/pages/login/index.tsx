@@ -3,9 +3,12 @@ import KaKaoImg from '@/assets/images/img_login_kakao.svg';
 import GoogleImg from '@/assets/images/img_login_google.svg';
 import LogoTextImg from '@/assets/logos/text_logo_l.svg';
 import { type NextPage } from 'next';
-import { useGetKakaoToken } from '@/hooks/queries/login';
+import { useGetGoogleToken, useGetKakaoToken } from '@/hooks/queries/login';
+import { useRouter } from 'next/router';
 
 const LoginPage: NextPage = () => {
+  const router = useRouter();
+
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
   const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&response_type=code&scope=email&access_type=offline`;
 
@@ -17,14 +20,13 @@ const LoginPage: NextPage = () => {
     window.location.href = `${googleURL}&type=google`;
   };
 
-  const urlParams =
-    typeof window !== 'undefined'
-      ? new URLSearchParams(window.location.search)
-      : null;
-  const code = urlParams?.get('code');
+  const { code, scope } = router.query;
 
-  if (code) {
-    useGetKakaoToken(code);
+  if (code && !scope) {
+    useGetKakaoToken(code as string);
+  }
+  if (code && scope) {
+    useGetGoogleToken(code as string);
   }
 
   return (

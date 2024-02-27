@@ -21,6 +21,7 @@ export const queryKeys = {
   INGREDIENTS: () => ['my-ingredient'],
   INGREDIENTS_RECENT: () => ['my-ingredient', 'recent'],
   KAKAO: () => ['kakao'],
+  GOOGLE: () => ['google'],
   SHARES: (sort: ShareSortType, status: ShareStatusType) => [
     'shares',
     sort,
