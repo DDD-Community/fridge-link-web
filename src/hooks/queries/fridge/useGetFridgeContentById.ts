@@ -20,11 +20,12 @@ const useGetFridgeContentById = ({
   sort: LocationEnum;
   id: number;
 }) => {
-  return useBaseInfiniteQuery<FridgeContentType[]>({
+  const data = useBaseInfiniteQuery<FridgeContentType[]>({
     queryKey: queryKeys.MY_FRIDGE_CONTENT(id, sort),
     url: `/ingrs/detail/refrig/${id}`,
     params: { location: sort },
   });
+  return data;
 };
 
 export default useGetFridgeContentById;

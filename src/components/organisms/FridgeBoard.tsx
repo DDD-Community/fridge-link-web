@@ -92,9 +92,9 @@ const FridgeBoard: React.FC = () => {
           handleTabNameChange={handleTabNameChange}
         />
         <div className="flex flex-col w-full gap-[24px]">
-          {ingredients?.pages.map((page) =>
-            page.content && page.content.length > 0 ? (
-              page.content.map((ingredient) => (
+          {ingredients?.pages.map(({ content }) =>
+            content && content.length > 0 ? (
+              content.map((ingredient) => (
                 <IngredientItemBox
                   key={ingredient.ingredientDetailId}
                   data={ingredient}

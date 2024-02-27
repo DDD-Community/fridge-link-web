@@ -43,9 +43,12 @@ export const useBaseInfiniteQuery = <T>({
 
   return useInfiniteQuery({
     queryKey,
-    queryFn: async (context: QueryFunctionContext<QueryKey, number>) =>
-      await fetchData<T>(context),
+    queryFn: async (context: QueryFunctionContext<QueryKey, number>) => {
+      const data = await fetchData<T>(context);
+      return data;
+    },
     initialPageParam: INITIAL_PAGE_PARAM,
     getNextPageParam: (res) => getNextOffset<T>(res),
+    staleTime: 0,
   });
 };

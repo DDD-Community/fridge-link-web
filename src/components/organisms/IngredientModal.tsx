@@ -22,6 +22,7 @@ import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngre
 import { useRouter } from 'next/router';
 import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
 import axiosInstance from '@/api/axiosInstance';
+import { queryClient } from '@/pages/_app';
 
 const IngredientModal: React.FC<{
   id: number;
@@ -47,8 +48,9 @@ const IngredientModal: React.FC<{
 
   const onSuccess = () => {
     toggleIsOpenIngredientModal();
-    ingredientsRefetch();
     showToast('식자재 추가가 완료되었습니다.', 'success');
+    ingredientsRefetch();
+    queryClient.invalidateQueries({ queryKey: ['my_fridge'] });
   };
 
   const postIngredient = usePostIngredient(
