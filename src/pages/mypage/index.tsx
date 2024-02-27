@@ -35,7 +35,7 @@ const GENERAGE_NAV_LIST = [
     svgComponent: <FriendsIcon />,
     linkTo: '/mypage/friendship',
   },
-  { name: '나눔 내역', svgComponent: <CartIcon />, linkTo: '' },
+  { name: '나눔 내역', svgComponent: <CartIcon />, linkTo: '/mypage/share' },
 ];
 
 const ETC_NAV_LIST = [

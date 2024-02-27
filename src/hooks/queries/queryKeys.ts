@@ -26,6 +26,11 @@ export const queryKeys = {
     sort,
     status,
   ],
+  MY_SHARES: (sort: ShareSortType, status: ShareStatusType) => [
+    'my-shares',
+    sort,
+    status,
+  ],
   ME: () => ['my-info'],
   FRIENDSHIPS: (sort: FriendshipSortType) => ['friendship', sort],
   DELETE_FRIENDSHIP: () => ['deleteFriendship'],
