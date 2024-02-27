@@ -41,6 +41,7 @@ const FridgeListItem: React.FC<FridgeListItemProps> = ({
       <div className="flex gap-[9px] items-center">
         {isEditingFridgeName && id === newFridgeName.id ? (
           <input
+            className="heading3-semibold bg-[#F5F6F7]"
             value={newFridgeName.name}
             onChange={(e) => {
               handleNewFridgeName(id, e.target.value);
