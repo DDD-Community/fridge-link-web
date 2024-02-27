@@ -8,7 +8,7 @@ import {
 } from '@/assets/icons';
 import { Button, Toggle } from '@/components/atoms';
 import { Counter, IngredientAddItemContainer } from '../molecules';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useToast from '@/hooks/useToast';
 import ModalContainer from '../atoms/ModalContainer';
 import {
@@ -21,16 +21,21 @@ import Image from 'next/image';
 import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
 import { useRouter } from 'next/router';
 import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
+import axiosInstance from '@/api/axiosInstance';
 
 const IngredientModal: React.FC<{
   id: number;
   isDetailModal?: boolean;
   ingredientsRefetch?: any;
+  categoryImage?: string;
+  category?: string;
   toggleIsOpenIngredientModal: () => void;
 }> = ({
   id,
+  categoryImage,
   toggleIsOpenIngredientModal,
   isDetailModal = false,
+  category,
   ingredientsRefetch,
 }) => {
   const router = useRouter();
@@ -52,9 +57,12 @@ const IngredientModal: React.FC<{
     name as string,
   );
 
-  const data = isDetailModal
-    ? useGetMyIngredient(id)
-    : useGetIngredientById(id);
+  const data =
+    id === 0
+      ? null
+      : isDetailModal
+        ? useGetMyIngredient(id)
+        : useGetIngredientById(id);
 
   const expirationDate = new Date(today);
   expirationDate.setDate(today.getDate() + (data?.expirationDays ?? 0));
@@ -63,7 +71,7 @@ const IngredientModal: React.FC<{
   const [reqBody, setReqBody] = useState<PostIngredientBodyType>({
     refrigeratorId: Number(fridgeid),
     ingredientId: id,
-    name: data?.name ?? '',
+    name: data?.name ?? category ?? '',
     quantity: data?.quantity ?? 1,
     location: data?.location ?? 'FREEZING',
     memo: '',
@@ -102,12 +110,25 @@ const IngredientModal: React.FC<{
     });
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axiosInstance.post('/ingrs', {
+        category,
+        name: reqBody.name,
+        iconImage: categoryImage,
+        expirationDays: 0,
+      });
+
+      setReqBody((prev) => ({ ...prev, ingredientId: res.data.data }));
+    };
+    if (id === 0) fetchData();
+  }, []);
   return (
     <ModalContainer>
       <div className="mb-[24px]">
         <div className="flex items-center gap-[12px] mb-[32px]">
           <Image
-            src={data?.iconImage ?? ''}
+            src={data?.iconImage ?? categoryImage ?? ''}
             alt={data?.name ?? ''}
             width={48}
             height={48}

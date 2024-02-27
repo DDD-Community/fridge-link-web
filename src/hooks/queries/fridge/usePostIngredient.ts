@@ -17,8 +17,8 @@ export interface PostIngredientBodyType {
 const usePostIngredient = (fn: () => void, fridgeid: string, name: string) => {
   const router = useRouter();
   const onSuccess = () => {
-    fn();
     void router.push(`/fridge?fridgeid=${fridgeid}&name=${name}`);
+    fn();
   };
   return useBaseMutation<PostIngredientBodyType>(
     queryKeys.INGREDIENTS(),

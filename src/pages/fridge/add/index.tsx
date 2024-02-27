@@ -14,7 +14,25 @@ import {
 import Draggable from 'react-draggable';
 import type { DraggableEvent } from 'react-draggable';
 
+// 임시 식자재 추가 disapper
+const CATEGORY_COUNT: Record<string, number> = {
+  야채: 11,
+  과일: 6,
+  고기: 4,
+  수산물: 4,
+  유제품: 4,
+  면: 2,
+  인스턴트: 5,
+  반찬: 1,
+  '빵/디저트/과자': 1,
+  '음료/주류': 3,
+  '조미료/양념/소스': 4,
+  양곡: 2,
+  견과: 3,
+};
 const FridgePage: NextPage = () => {
+  const [category, setCategory] = useState('');
+  const [categoryImage, setCategoryImage] = useState('');
   const [ingredientId, setIngredientId] = useState<null | number>(null);
   const {
     isOpen: isOpenIngredientModal,
@@ -80,6 +98,8 @@ const FridgePage: NextPage = () => {
           >
             <ModalBody padding={0}>
               <IngredientModal
+                category={category}
+                categoryImage={categoryImage}
                 id={ingredientId ?? 0}
                 toggleIsOpenIngredientModal={onCloseIngredientModal}
               />
@@ -125,24 +145,44 @@ const FridgePage: NextPage = () => {
             >
               <label className="w-full body1-semibold">{items.category}</label>
               <ul className="w-full grid grid-cols-4 gap-4">
-                {items.ingredientGroupList.map((item) => (
-                  <li
-                    key={item.id}
-                    onClick={() => {
-                      setIngredientId(item.id);
-                      onOpenIngredientModal();
-                    }}
-                    className="flex flex-col items-center"
-                  >
-                    <Image
-                      src={item.iconImage}
-                      alt={item.name}
-                      width={48}
-                      height={48}
-                    />
-                    <div className="body2-regular">{item.name}</div>
-                  </li>
-                ))}
+                {items.ingredientGroupList
+                  .slice(0, CATEGORY_COUNT[items.category])
+                  .map((item) => (
+                    <li
+                      key={item.id}
+                      onClick={() => {
+                        setIngredientId(item.id);
+                        onOpenIngredientModal();
+                      }}
+                      className="flex flex-col items-center"
+                    >
+                      <Image
+                        src={item.iconImage}
+                        alt={item.name}
+                        width={48}
+                        height={48}
+                      />
+                      <div className="body2-regular">{item.name}</div>
+                    </li>
+                  ))}
+                <li
+                  key={items.category}
+                  onClick={() => {
+                    setIngredientId(0);
+                    setCategory(items.category);
+                    setCategoryImage(items.ingredientGroupList[0].iconImage);
+                    onOpenIngredientModal();
+                  }}
+                  className="flex flex-col items-center"
+                >
+                  <Image
+                    src={items.ingredientGroupList[0].iconImage}
+                    alt={items.category}
+                    width={48}
+                    height={48}
+                  />
+                  <div className="body2-regular">직접 추가</div>
+                </li>
               </ul>
             </Container>
           ))}
