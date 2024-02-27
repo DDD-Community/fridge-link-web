@@ -1,6 +1,7 @@
 import {
   BoxIcon,
   CalendarIcon,
+  EditIcon,
   FreezerIcon,
   MemoIcon,
   TrashcanIcon,
@@ -58,11 +59,12 @@ const IngredientModal: React.FC<{
   const expirationDate = new Date(today);
   expirationDate.setDate(today.getDate() + (data?.expirationDays ?? 0));
 
+  const [isEditingName, setIsEditingName] = useState(false);
   const [reqBody, setReqBody] = useState<PostIngredientBodyType>({
     refrigeratorId: Number(fridgeid),
     ingredientId: id,
     name: data?.name ?? '',
-    quantity: data?.quantity ?? 0,
+    quantity: data?.quantity ?? 1,
     location: data?.location ?? 'FREEZING',
     memo: '',
     addDate: today,
@@ -110,7 +112,27 @@ const IngredientModal: React.FC<{
             width={48}
             height={48}
           />
-          <div className="heading1-bold">{data?.name}</div>
+          {isEditingName ? (
+            <input
+              className={`w-[100px] flex heading1-bold`}
+              value={reqBody.name}
+              onChange={(e) => {
+                setReqBody((prev) => ({
+                  ...prev,
+                  name: e.target.value,
+                }));
+              }}
+            />
+          ) : (
+            <div className="heading1-bold">{reqBody.name}</div>
+          )}
+          <button
+            onClick={() => {
+              setIsEditingName((prev) => !prev);
+            }}
+          >
+            <EditIcon />
+          </button>
         </div>
         <div className="flex flex-col gap-[10px] mb-[32px]">
           <IngredientAddItemContainer

@@ -27,7 +27,7 @@ const FridgePage: NextPage = () => {
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
-  const { nickName } = useGetMe();
+  const { nickname } = useGetMe();
 
   const { fridgeid: fridgeId } = router.query;
 
@@ -65,7 +65,7 @@ const FridgePage: NextPage = () => {
           className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}
         >
           <FridgeInfoBox
-            userName={nickName}
+            userName={nickname}
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
             isOkIngredientAdd={true}
           />

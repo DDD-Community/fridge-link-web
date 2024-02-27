@@ -14,7 +14,7 @@ export const fetchData = async <T>(url: string, body: T, method: string) => {
 export const useBaseMutation = <T>(
   mutationKey: any,
   url: string,
-  onSuccess: (any: any) => void,
+  onSuccess?: (any: any) => void,
   method: 'POST' | 'PUT' | 'DELETE' = 'POST',
 ) => {
   return useMutation({
@@ -22,7 +22,7 @@ export const useBaseMutation = <T>(
     mutationFn: async (body: T) => {
       const response = await fetchData<T>(url, body, method);
 
-      onSuccess(response.data);
+      if (onSuccess) onSuccess(response.data);
     },
   });
 };
