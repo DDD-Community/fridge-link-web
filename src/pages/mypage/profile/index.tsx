@@ -6,7 +6,7 @@ import type { FormEvent } from 'react';
 import Header from '@/components/organisms/Header';
 import { debounceFunction } from '@/utils/debounceUtil';
 import usePostUser from '@/hooks/queries/login/usePostUser';
-import { useGetMe } from '@/hooks/queries/mypage';
+import { useGetMe, usePutMe } from '@/hooks/queries/mypage';
 import type { ProfileEnum } from '@/types/common';
 import axiosInstance from '@/api/axiosInstance';
 import { returnProfileImg } from '@/utils/returnProfileImg';
@@ -31,16 +31,18 @@ const PROFILES: Array<{ string: ProfileEnum; pointColor: string }> = [
 ];
 
 const ProfilePage: NextPage = () => {
-  const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>('BLUE');
-  const [nickname, setNickname] = useState('');
-  const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
-  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
-
   const MyInfo = useGetMe();
 
-  if (MyInfo.nickName) {
-    setNickname(MyInfo.nickName);
-  }
+  const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>('BLUE');
+  const [nickname, setNickname] = useState(MyInfo?.nickname ?? '');
+  const [isNicknameAvailable, setIsNicknameAvailable] = useState<
+    null | boolean
+  >(null);
+  const [isNicknameChecked, setIsNicknameChecked] = useState<null | boolean>(
+    null,
+  );
+
+  const putMe = usePutMe();
 
   const postUser = usePostUser();
 
@@ -53,6 +55,11 @@ const ProfilePage: NextPage = () => {
   };
 
   const nickNameCheckResult = async (nickName: string) => {
+    if (MyInfo?.nickname === nickName) {
+      setIsNicknameAvailable(null);
+      setIsNicknameChecked(null);
+      return;
+    }
     try {
       const res = await axiosInstance.get<{
         message: 'string';
@@ -84,13 +91,17 @@ const ProfilePage: NextPage = () => {
     const kakaoId = urlParams?.get('kakaoId');
     const kakaoEmail = urlParams?.get('kakaoEmail');
 
-    postUser.mutate({
-      nickName: nickname,
-      kakaoId: Number(kakaoId ?? MyInfo.kakaoId),
-      kakaoEmail: kakaoEmail ?? MyInfo.kakaoEmail,
-      googleEmail: null,
-      profileImage: selectedProfile,
-    });
+    if (kakaoEmail && kakaoId) {
+      postUser.mutate({
+        nickName: nickname,
+        kakaoId: Number(kakaoId ?? MyInfo.kakaoId),
+        kakaoEmail: kakaoEmail ?? MyInfo.kakaoEmail,
+        googleEmail: null,
+        profileImage: selectedProfile,
+      });
+    } else {
+      putMe.mutate({ nickname, profileImage: selectedProfile });
+    }
   };
 
   return (
@@ -157,7 +168,7 @@ const ProfilePage: NextPage = () => {
           </div>
           <button
             type="submit"
-            className={`p-18 gap-12 rounded-12 heading4-semibold ${nickname && isNicknameAvailable && selectedProfile ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
+            className={`p-18 gap-12 rounded-12 heading4-semibold ${(MyInfo?.nickname !== nickname && MyInfo.profileImage === selectedProfile) || (MyInfo?.nickname === nickname && MyInfo.profileImage !== selectedProfile) || (isNicknameAvailable && selectedProfile) ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
           >
             편집완료
           </button>

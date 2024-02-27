@@ -63,7 +63,7 @@ const Mypage: NextPage = () => {
               />
             )}
             <span className="heading2-semibold">
-              {data?.nickName ?? '닉네임을 입력해주세요.'}
+              {data?.nickname ?? '닉네임을 입력해주세요.'}
             </span>
           </div>
           <Link href="/mypage/profile">
