@@ -43,7 +43,9 @@ const LoginPage: NextPage = () => {
       <div className="flex flex-col items-center gap-[24px]">
         <div className="flex items-center">
           <div className="flex-1 w-[96px] h-[1px] bg-gray6"></div>
-          <div className="mx-4 text-gray6">SNS 계정으로 로그인</div>
+          <div className="mx-4 text-gray6 body1-medium">
+            SNS 계정으로 로그인
+          </div>
           <div className="flex-1 w-[96px] h-[1px] bg-gray6"></div>
         </div>
         <div className="flex gap-[20px]">
