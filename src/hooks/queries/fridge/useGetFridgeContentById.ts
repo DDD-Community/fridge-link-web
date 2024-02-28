@@ -1,31 +1,31 @@
-import type { IngredientDetailType } from '@/types/fridge';
 import { queryKeys } from '../queryKeys';
-import { fetchData } from '../useBaseQuery';
-import { useQuery } from '@tanstack/react-query';
+import type { LocationEnum } from '@/types/common';
+import { useBaseInfiniteQuery } from '../useBaseInfiniteQuery';
 
 interface FridgeContentType {
-  content: IngredientDetailType[];
+  ingredientDetailId: number;
+  iconImage: string;
+  name: string;
+  quantity: 0;
+  location: LocationEnum;
+  memo: string;
+  addDate: string;
+  expirationDate: string;
+  isDeleted: true;
 }
-
-const useGetFridgeContentById = (
-  id: number,
-  location: 'REFRIGERATION' | 'FREEZING',
-) => {
-  // 무한스크롤 or useSuspenseQuery로 변경 해야함
-  const { data } = useQuery({
-    queryKey: queryKeys.MY_FRIDGE_CONTENT(id, location),
-    queryFn: async () => {
-      return await fetchData<FridgeContentType>(
-        `/ingrs/detail/refrig/${id}?location=${location}`,
-        true,
-      );
-    },
-    enabled: id !== 0 && !isNaN(id),
+const useGetFridgeContentById = ({
+  sort,
+  id,
+}: {
+  sort: LocationEnum;
+  id: number;
+}) => {
+  const data = useBaseInfiniteQuery<FridgeContentType[]>({
+    queryKey: queryKeys.MY_FRIDGE_CONTENT(id, sort),
+    url: `/ingrs/detail/refrig/${id}`,
+    params: { location: sort },
   });
-
-  if (!data?.data) return;
-
-  return data?.data;
+  return data;
 };
 
 export default useGetFridgeContentById;

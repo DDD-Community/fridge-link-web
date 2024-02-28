@@ -17,6 +17,7 @@ import {
 } from '@/assets/icons';
 import { useGetCount, useGetMe } from '@/hooks/queries/mypage';
 import { returnProfileImg } from '@/utils/returnProfileImg';
+import withLogin from '@/components/templates/withLogin';
 
 const GENERAGE_NAV_LIST = [
   {
@@ -34,7 +35,7 @@ const GENERAGE_NAV_LIST = [
     svgComponent: <FriendsIcon />,
     linkTo: '/mypage/friendship',
   },
-  { name: '나눔 내역', svgComponent: <CartIcon />, linkTo: '' },
+  { name: '나눔 내역', svgComponent: <CartIcon />, linkTo: '/mypage/share' },
 ];
 
 const ETC_NAV_LIST = [
@@ -62,7 +63,7 @@ const Mypage: NextPage = () => {
               />
             )}
             <span className="heading2-semibold">
-              {data?.nickName ?? '닉네임을 입력해주세요.'}
+              {data?.nickname ?? '닉네임을 입력해주세요.'}
             </span>
           </div>
           <Link href="/mypage/profile">
@@ -86,4 +87,4 @@ const Mypage: NextPage = () => {
   );
 };
 
-export default Mypage;
+export default withLogin(Mypage);

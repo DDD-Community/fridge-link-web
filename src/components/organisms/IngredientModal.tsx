@@ -1,13 +1,14 @@
 import {
   BoxIcon,
   CalendarIcon,
+  EditIcon,
   FreezerIcon,
   MemoIcon,
   TrashcanIcon,
 } from '@/assets/icons';
 import { Button, Toggle } from '@/components/atoms';
 import { Counter, IngredientAddItemContainer } from '../molecules';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useToast from '@/hooks/useToast';
 import ModalContainer from '../atoms/ModalContainer';
 import {
@@ -20,12 +21,24 @@ import Image from 'next/image';
 import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
 import { useRouter } from 'next/router';
 import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
+import axiosInstance from '@/api/axiosInstance';
+import { queryClient } from '@/pages/_app';
 
 const IngredientModal: React.FC<{
   id: number;
   isDetailModal?: boolean;
+  ingredientsRefetch?: any;
+  categoryImage?: string;
+  category?: string;
   toggleIsOpenIngredientModal: () => void;
-}> = ({ id, toggleIsOpenIngredientModal, isDetailModal = false }) => {
+}> = ({
+  id,
+  categoryImage,
+  toggleIsOpenIngredientModal,
+  isDetailModal = false,
+  category,
+  ingredientsRefetch,
+}) => {
   const router = useRouter();
   const today = new Date();
 
@@ -36,6 +49,8 @@ const IngredientModal: React.FC<{
   const onSuccess = () => {
     toggleIsOpenIngredientModal();
     showToast('식자재 추가가 완료되었습니다.', 'success');
+    ingredientsRefetch();
+    queryClient.invalidateQueries({ queryKey: ['my_fridge'] });
   };
 
   const postIngredient = usePostIngredient(
@@ -44,18 +59,22 @@ const IngredientModal: React.FC<{
     name as string,
   );
 
-  const data = isDetailModal
-    ? useGetMyIngredient(id)
-    : useGetIngredientById(id);
+  const data =
+    id === 0
+      ? null
+      : isDetailModal
+        ? useGetMyIngredient(id)
+        : useGetIngredientById(id);
 
   const expirationDate = new Date(today);
   expirationDate.setDate(today.getDate() + (data?.expirationDays ?? 0));
 
+  const [isEditingName, setIsEditingName] = useState(false);
   const [reqBody, setReqBody] = useState<PostIngredientBodyType>({
     refrigeratorId: Number(fridgeid),
     ingredientId: id,
-    name: data?.name ?? '',
-    quantity: data?.quantity ?? 0,
+    name: data?.name ?? category ?? '',
+    quantity: data?.quantity ?? 1,
     location: data?.location ?? 'FREEZING',
     memo: '',
     addDate: today,
@@ -69,11 +88,13 @@ const IngredientModal: React.FC<{
     id,
     Number(fridgeid),
     reqBody?.location,
+    ingredientsRefetch,
   );
   const putIngredient = usePutIngredientById(
     id,
     Number(fridgeid),
     reqBody?.location,
+    ingredientsRefetch,
   );
 
   const [isInFreezer, setIsInFreezer] = useState(
@@ -91,17 +112,50 @@ const IngredientModal: React.FC<{
     });
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axiosInstance.post('/ingrs', {
+        category,
+        name: reqBody.name,
+        iconImage: categoryImage,
+        expirationDays: 0,
+      });
+
+      setReqBody((prev) => ({ ...prev, ingredientId: res.data.data }));
+    };
+    if (id === 0) fetchData();
+  }, []);
   return (
     <ModalContainer>
       <div className="mb-[24px]">
         <div className="flex items-center gap-[12px] mb-[32px]">
           <Image
-            src={data?.iconImage ?? ''}
+            src={data?.iconImage ?? categoryImage ?? ''}
             alt={data?.name ?? ''}
             width={48}
             height={48}
           />
-          <div className="heading1-bold">{data?.name}</div>
+          {isEditingName ? (
+            <input
+              className={`w-[100px] flex heading1-bold`}
+              value={reqBody.name}
+              onChange={(e) => {
+                setReqBody((prev) => ({
+                  ...prev,
+                  name: e.target.value,
+                }));
+              }}
+            />
+          ) : (
+            <div className="heading1-bold">{reqBody.name}</div>
+          )}
+          <button
+            onClick={() => {
+              setIsEditingName((prev) => !prev);
+            }}
+          >
+            <EditIcon />
+          </button>
         </div>
         <div className="flex flex-col gap-[10px] mb-[32px]">
           <IngredientAddItemContainer

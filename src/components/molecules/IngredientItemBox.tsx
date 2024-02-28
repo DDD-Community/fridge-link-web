@@ -34,7 +34,7 @@ const IngredientItemBox: React.FC<{
         <div className="flex flex-col gap-8">
           <div className="heading4-semibold">{data?.name ?? ''}</div>
           <div className="body2-medium text-gray5 ">
-            {`${addDate.getFullYear()}년 ${addDate.getMonth() + 1}월 ${addDate.getDay()}일 저장`}
+            {`${addDate.getFullYear()}년 ${addDate.getMonth() + 1}월 ${addDate.getDate()}일 저장`}
           </div>
         </div>
       </div>

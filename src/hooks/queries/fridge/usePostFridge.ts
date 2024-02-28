@@ -8,7 +8,6 @@ interface PostFridgeBodyType {
 
 const usePostFridge = () => {
   const onSuccess = (data: PostFridgeBodyType) => {
-    console.log(data);
     void queryClient.invalidateQueries();
   };
   return useBaseMutation<PostFridgeBodyType>(

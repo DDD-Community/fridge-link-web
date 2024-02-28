@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container } from '@/components/atoms';
+import React, { useRef, useState } from 'react';
+import { Container, Lottie } from '@/components/atoms';
 import { EmptyBox, FridgeTab, IngredientItemBox } from '@/components/molecules';
 import { IngredientModal } from '.';
 import {
@@ -10,15 +10,25 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useGetFridgeContentById } from '@/hooks/queries/fridge';
+import { useObserver } from '@/hooks/useObserver';
+import { useRouter } from 'next/router';
 
-const FridgeBoard: React.FC<{ fridgeId: number }> = ({ fridgeId }) => {
+const FridgeBoard: React.FC = () => {
+  const bottom = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const [detailIngredientId, setDetailIngredientId] = useState(0);
   const [currentTabName, setCurrentTabName] = useState<'냉장' | '냉동'>('냉장');
+  const { fridgeid: fridgeId } = router.query;
 
-  const data = useGetFridgeContentById(
-    Number(fridgeId),
-    currentTabName === '냉장' ? 'FREEZING' : 'REFRIGERATION',
-  )?.content;
+  const {
+    data: ingredients,
+    fetchNextPage: fetchIngredientNextPage,
+    isFetchingNextPage: isFetchingIngredientNextPage,
+    refetch: ingredientsRefetch,
+  } = useGetFridgeContentById({
+    id: Number(fridgeId),
+    sort: currentTabName === '냉장' ? 'FREEZING' : 'REFRIGERATION',
+  });
 
   const {
     isOpen: isOpenIngredientModal,
@@ -34,6 +44,17 @@ const FridgeBoard: React.FC<{ fridgeId: number }> = ({ fridgeId }) => {
     setDetailIngredientId(id);
     onOpenIngredientModal();
   };
+
+  const onIntersect: IntersectionObserverCallback = ([entry]) => {
+    if (entry.isIntersecting) {
+      void fetchIngredientNextPage();
+    }
+  };
+
+  useObserver({
+    target: bottom,
+    onIntersect,
+  });
 
   return (
     <>
@@ -57,6 +78,7 @@ const FridgeBoard: React.FC<{ fridgeId: number }> = ({ fridgeId }) => {
               <IngredientModal
                 isDetailModal
                 id={detailIngredientId}
+                ingredientsRefetch={ingredientsRefetch}
                 toggleIsOpenIngredientModal={onCloseIngredientModal}
               />
             </ModalBody>
@@ -68,21 +90,26 @@ const FridgeBoard: React.FC<{ fridgeId: number }> = ({ fridgeId }) => {
           currentTabName={currentTabName}
           handleTabNameChange={handleTabNameChange}
         />
-        {data && data.length !== 0 ? (
-          <div className="flex flex-col w-full gap-[24px]">
-            {data.map((ingredient) => (
-              <IngredientItemBox
-                key={ingredient.ingredientDetailId}
-                data={ingredient}
-                handleDetailIngreditentId={handleDetailIngreditentId}
-              />
-            ))}
-          </div>
-        ) : (
-          <div>
-            <EmptyBox text={`${currentTabName}칸에 추가된 식자재가 없어요!`} />
-          </div>
-        )}
+        <div className="flex flex-col w-full gap-[24px]">
+          {ingredients?.pages.map(({ content }) =>
+            content && content.length > 0 ? (
+              content.map((ingredient) => (
+                <IngredientItemBox
+                  key={ingredient.ingredientDetailId}
+                  data={ingredient}
+                  handleDetailIngreditentId={handleDetailIngreditentId}
+                />
+              ))
+            ) : (
+              <div>
+                <EmptyBox
+                  text={`${currentTabName}칸에 추가된 식자재가 없어요!`}
+                />
+              </div>
+            ),
+          )}
+          {isFetchingIngredientNextPage ? <Lottie /> : <div ref={bottom} />}
+        </div>
       </Container>
     </>
   );

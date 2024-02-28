@@ -11,7 +11,7 @@ const IngredientDateTag: React.FC<IngredientDateTagProps> = ({ dDay }) => {
   let textDay;
 
   // dDay에 따라서 className 설정
-  if (dDay <= 0) {
+  if (dDay < 0) {
     className = 'bg-gray1 text-gray6';
     backgroundColor = '';
     textDay = `D+${Math.abs(dDay)}`;
@@ -31,7 +31,7 @@ const IngredientDateTag: React.FC<IngredientDateTagProps> = ({ dDay }) => {
 
   return (
     <div
-      className={`w-64 p-9 rounded-6 text-center body1-semibold ${className}`}
+      className={`min-w-[64px] p-9 rounded-6 text-center body1-semibold ${className}`}
       style={{ backgroundColor }}
     >
       {textDay}

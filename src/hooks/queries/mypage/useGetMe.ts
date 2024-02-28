@@ -3,7 +3,7 @@ import { queryKeys } from '../queryKeys';
 import { useBaseQuery } from '../useBaseQuery';
 
 interface ResType {
-  nickName: string;
+  nickname: string;
   kakaoId: number;
   kakaoEmail: string;
   googleEmail: string | null;
@@ -14,7 +14,7 @@ const useGetMe = () => {
   const { data } = useBaseQuery<ResType>(queryKeys.ME(), `/users/me`, true);
   if (!data?.data)
     return {
-      nickName: '',
+      nickname: '',
       kakaoId: 0,
       kakaoEmail: '',
       googleEmail: null,
