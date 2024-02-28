@@ -25,3 +25,15 @@ interface ShareApplicantData {
   nickname: string;
   profileImage: ProfileEnum;
 }
+
+interface AddShareReq {
+  title: string;
+  ingredientDetailId: number;
+  content: string;
+  shareTime: string;
+  shareDate: string;
+  limitPerson: number;
+  location: string;
+  status: string;
+  thumbnailImage: string;
+}
