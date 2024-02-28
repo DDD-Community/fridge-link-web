@@ -8,9 +8,10 @@ interface IngredientType {
 }
 
 const useGetIngredientList = () => {
-  const { data } = useBaseQuery<
-    Array<{ category: string; ingredientGroupList: IngredientType[] }>
-  >(queryKeys.INGREDIENT_LIST(), '/ingrs/category');
+  const { data } = useBaseQuery<Array<{ category: string; ingredientGroupList: IngredientType[] }>>(
+    queryKeys.INGREDIENT_LIST(),
+    '/ingrs/category',
+  );
 
   return data?.data;
 };

@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
 import { Container } from '@/components/atoms';
+import Link from 'next/link';
+import React from 'react';
 
 interface SvgAndTextBoxProps {
   svgComponent: React.ReactNode;
@@ -8,11 +8,7 @@ interface SvgAndTextBoxProps {
   linkTo: string;
 }
 
-const SvgAndTextBox: React.FC<SvgAndTextBoxProps> = ({
-  svgComponent,
-  text,
-  linkTo,
-}) => {
+const SvgAndTextBox: React.FC<SvgAndTextBoxProps> = ({ svgComponent, text, linkTo }) => {
   return (
     <Link className="w-full" href={linkTo}>
       <Container className="bg-white">

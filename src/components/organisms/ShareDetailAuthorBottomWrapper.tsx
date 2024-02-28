@@ -1,10 +1,4 @@
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 
 import { Button, RadioButtonField } from '@/components/atoms';
 import React from 'react';
@@ -23,11 +17,7 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
   curStatus: SortLabel;
   onChangeStatus: React.Dispatch<React.SetStateAction<SortLabel>>;
 }> = ({ id, curStatus, onChangeStatus }) => {
-  const {
-    isOpen: isStatusModalOpen,
-    onOpen: onStatusModalOpen,
-    onClose: onStatusModalClose,
-  } = useDisclosure();
+  const { isOpen: isStatusModalOpen, onOpen: onStatusModalOpen, onClose: onStatusModalClose } = useDisclosure();
   const {
     isOpen: isParticipantsModalOpen,
     onOpen: onParticipantsModalOpen,
@@ -39,11 +29,7 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
   return (
     <>
       <div className="fixed flex gap-[11px] w-full max-w-[480px] bottom-0 p-[20px] pb-[32px] bg-gray1">
-        <Button
-          onClick={onStatusModalOpen}
-          className="w-full py-[16px] text-gray6 bg-gray2"
-          text={'상태 변경'}
-        />
+        <Button onClick={onStatusModalOpen} className="w-full py-[16px] text-gray6 bg-gray2" text={'상태 변경'} />
         <Button
           onClick={onParticipantsModalOpen}
           className="w-full py-[16px] text-white bg-primary2"
@@ -51,12 +37,7 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
         />
       </div>
 
-      <Modal
-        onClose={onStatusModalClose}
-        isOpen={isStatusModalOpen}
-        motionPreset="slideInBottom"
-        trapFocus={false}
-      >
+      <Modal onClose={onStatusModalClose} isOpen={isStatusModalOpen} motionPreset="slideInBottom" trapFocus={false}>
         <ModalOverlay height="100vh" onClick={onStatusModalClose} />
         <ModalContent
           className=" bg-white"
@@ -78,11 +59,7 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
               />
             ))}
             <div className="px-[20px] pb-[32px]">
-              <Button
-                className="block w-full bg-primary2"
-                text={'선택 완료'}
-                onClick={onStatusModalClose}
-              />
+              <Button className="block w-full bg-primary2" text={'선택 완료'} onClick={onStatusModalClose} />
             </div>
           </ModalBody>
         </ModalContent>
@@ -105,20 +82,10 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
         >
           <ModalBody>
             <div className="max-h-[300px] overflow-scroll px-[20px] pt-[40px] py-[20px]">
-              {applicants?.map((ele, idx) => (
-                <ShareApplicantListItem
-                  key={ele.nickname}
-                  idx={idx}
-                  data={ele}
-                />
-              ))}
+              {applicants?.map((ele, idx) => <ShareApplicantListItem key={ele.nickname} idx={idx} data={ele} />)}
             </div>
             <div className="pt-[20px] pb-[32px]">
-              <Button
-                className="block w-full bg-primary2"
-                text={'확인'}
-                onClick={onParticipantsModalClose}
-              />
+              <Button className="block w-full bg-primary2" text={'확인'} onClick={onParticipantsModalClose} />
             </div>
           </ModalBody>
         </ModalContent>

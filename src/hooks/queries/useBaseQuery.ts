@@ -16,11 +16,7 @@ export const fetchData = async <T>(url: string, isNotCatch: boolean) => {
   }
 };
 
-export const useBaseQuery = <T>(
-  queryKey: any,
-  url: string,
-  isNotCatch: boolean = false,
-) => {
+export const useBaseQuery = <T>(queryKey: any, url: string, isNotCatch: boolean = false) => {
   return useSuspenseQuery({
     queryKey,
     queryFn: async () => {

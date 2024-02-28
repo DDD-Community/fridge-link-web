@@ -22,24 +22,14 @@ const FriendListItem: React.FC<{
           alt="친구 프로필"
         />
         <div className="ml-[16px]">
-          <p className="mb-[4px] heading4-semibold text-gray7">
-            {data.nickname}
-          </p>
-          <p className="body2-medium text-gray5">
-            냉장고 식자재 목록 {data.ingredientCount}개
-          </p>
+          <p className="mb-[4px] heading4-semibold text-gray7">{data.nickname}</p>
+          <p className="body2-medium text-gray5">냉장고 식자재 목록 {data.ingredientCount}개</p>
         </div>
       </div>
       {possibleDelete ? (
         <CheckBox onClick={onClick} active={active} />
       ) : (
-        <AngleIcon
-          width={16}
-          height={16}
-          fill="#CCCFD7"
-          transform="rotate(180)"
-          className="z-0"
-        />
+        <AngleIcon width={16} height={16} fill="#CCCFD7" transform="rotate(180)" className="z-0" />
       )}
     </div>
   );

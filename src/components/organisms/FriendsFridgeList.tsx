@@ -1,7 +1,7 @@
-import { Container } from '../atoms';
+import { EmptyBox, FriendsFridgeItem } from '../molecules';
 
 import { AngleIcon } from '@/assets/icons';
-import { EmptyBox, FriendsFridgeItem } from '../molecules';
+import { Container } from '../atoms';
 import React from 'react';
 import { useGetCount } from '@/hooks/queries/mypage';
 

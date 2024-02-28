@@ -1,5 +1,5 @@
-import React from 'react';
 import { GrayBox } from '../atoms';
+import React from 'react';
 
 interface IngredientAddItemContainerProps {
   isRow: boolean;
@@ -14,11 +14,7 @@ const IngredientAddItemContainer: React.FC<IngredientAddItemContainerProps> = ({
   children,
 }) => {
   return (
-    <GrayBox
-      className={
-        isRow ? 'h-[60px] flex-row justify-between items-center' : undefined
-      }
-    >
+    <GrayBox className={isRow ? 'h-[60px] flex-row justify-between items-center' : undefined}>
       <div className="flex gap-[4px]">
         {svgComponent}
         <div className="heading4-semibold">{title}</div>

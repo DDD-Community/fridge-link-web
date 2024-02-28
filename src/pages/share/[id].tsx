@@ -9,19 +9,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-// const MOCK_DATA = {
-//   shareerName: '김지수',
-//   image: '',
-//   title: '사과받아갈사람선착순12345명',
-//   ingredient: '사과',
-//   fixedNum: 15,
-//   useByDate: dayjs('2024-02-30'),
-//   meetingDate: dayjs('2024-02-20'),
-//   meetingTime: '14:00',
-//   meetingLocation: '디지털시티역 8번출구 뜌레주르앞',
-//   desc: '사과는역시청송사과맛있음은당연보장선착순1명사과는역시청송사과맛있음은당연보장선착순1명사과는역체시청송사과맛있음은당연보장선착순1명사과는역시청송사과맛있음은당연보장선착순1명은당연보장선착순1명사당연',
-// };
-
 const MOCK_DATA_IS_AUTHOR: boolean = true;
 
 const MOCK_DATA_SHARE_STATUS = { label: '나눔 신청', value: 'enroll' };

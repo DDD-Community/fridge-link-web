@@ -44,11 +44,7 @@ const FriendShipPage: NextPage = () => {
         </div>
       </div>
 
-      {curTab.value === 'list' ? (
-        <FriendListTemplate possibleDelete={possibleDelete} />
-      ) : (
-        <AddFriendTemplate />
-      )}
+      {curTab.value === 'list' ? <FriendListTemplate possibleDelete={possibleDelete} /> : <AddFriendTemplate />}
     </div>
   );
 };

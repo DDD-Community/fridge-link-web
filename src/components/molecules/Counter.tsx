@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
+
 import type { CountState } from '@/hooks/useCount';
 
-const Counter: React.FC<CountState> = ({
-  currentCount,
-  handleDecreaseCount,
-  handleIncreaseCount,
-}) => {
+const Counter: React.FC<CountState> = ({ currentCount, handleDecreaseCount, handleIncreaseCount }) => {
   useEffect(() => {}, [currentCount]);
   return (
     <div className="flex items-center h-[32px] bg-white rounded-[6px]">

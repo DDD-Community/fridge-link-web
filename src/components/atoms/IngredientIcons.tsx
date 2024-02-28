@@ -11,17 +11,9 @@ export const AppleIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
   >
     <rect width="38" height="38" rx="19" fill="#DAF7A3" />
-    <path
-      d="M8.44424 28.5893H29.5554V7.47819H8.44424V28.5893Z"
-      fill="url(#pattern0)"
-    />
+    <path d="M8.44424 28.5893H29.5554V7.47819H8.44424V28.5893Z" fill="url(#pattern0)" />
     <defs>
-      <pattern
-        id="pattern0"
-        patternContentUnits="objectBoundingBox"
-        width="1"
-        height="1"
-      >
+      <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
         <use xlinkHref="#image0_204_3739" transform="scale(0.00625)" />
       </pattern>
       <image

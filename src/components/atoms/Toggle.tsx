@@ -5,9 +5,7 @@ const Toggle: React.FC<{
   isToggleOn?: boolean;
   onClick?: () => void;
 }> = ({ isToggleOn, onClick }) => {
-  return (
-    <Switch colorScheme="primary2" isChecked={isToggleOn} onChange={onClick} />
-  );
+  return <Switch colorScheme="primary2" isChecked={isToggleOn} onChange={onClick} />;
 };
 
 export default Toggle;
