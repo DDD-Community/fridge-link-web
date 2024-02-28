@@ -1,10 +1,4 @@
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 import { RadioButtonField, SortButton, TabButton } from '@/components/atoms';
 import type { ShareSortType, ShareStatusType } from '@/types/friendship';
 import type { SortLabel, TabLabel } from '@/types/common';
@@ -78,9 +72,7 @@ const SharePage: NextPage = () => {
 
         <div className="flex flex-col flex-1 overflow-y-auto pt-[128px] px-[20px]">
           {data?.pages.map((page) =>
-            page.content.map((ele: ShareData) => (
-              <ShareListItem key={ele.shareId} data={ele} />
-            )),
+            page.content.map((ele: ShareData) => <ShareListItem key={ele.shareId} data={ele} />),
           )}
           {isFetchingNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
         </div>
@@ -91,17 +83,10 @@ const SharePage: NextPage = () => {
             className="fixed bottom-[88px] flex justify-center items-center px-[16px] py-[12px] rounded-[50px] bg-primary1"
           >
             <PlusIcon fill="#FFFFFF" />
-            <span className="ml-[4px] heading4-semibold text-white">
-              글쓰기
-            </span>
+            <span className="ml-[4px] heading4-semibold text-white">글쓰기</span>
           </Link>
         </div>
-        <Modal
-          onClose={onClose}
-          isOpen={isOpen}
-          motionPreset="slideInBottom"
-          trapFocus={false}
-        >
+        <Modal onClose={onClose} isOpen={isOpen} motionPreset="slideInBottom" trapFocus={false}>
           <ModalOverlay height="100vh" onClick={onClose} />
           <ModalContent
             className=" bg-white"

@@ -2,13 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Container, Lottie } from '@/components/atoms';
 import { EmptyBox, FridgeTab, IngredientItemBox } from '@/components/molecules';
 import { IngredientModal } from '.';
-import {
-  Modal,
-  ModalOverlay,
-  ModalBody,
-  ModalContent,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
 import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 import { useObserver } from '@/hooks/useObserver';
 import { useRouter } from 'next/router';
@@ -86,10 +80,7 @@ const FridgeBoard: React.FC = () => {
         </Modal>
       )}
       <Container className="p-[20px] bg-white">
-        <FridgeTab
-          currentTabName={currentTabName}
-          handleTabNameChange={handleTabNameChange}
-        />
+        <FridgeTab currentTabName={currentTabName} handleTabNameChange={handleTabNameChange} />
         <div className="flex flex-col w-full gap-[24px]">
           {ingredients?.pages.map(({ content }) =>
             content && content.length > 0 ? (
@@ -102,9 +93,7 @@ const FridgeBoard: React.FC = () => {
               ))
             ) : (
               <div>
-                <EmptyBox
-                  text={`${currentTabName}칸에 추가된 식자재가 없어요!`}
-                />
+                <EmptyBox text={`${currentTabName}칸에 추가된 식자재가 없어요!`} />
               </div>
             ),
           )}

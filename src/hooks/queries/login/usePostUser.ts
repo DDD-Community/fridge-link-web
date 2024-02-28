@@ -26,10 +26,6 @@ const usePostUser = () => {
     localStorage.setItem('refreshToken', data.refreshToken);
     void router.push('/home');
   };
-  return useBaseMutation<PostUserBodyType>(
-    queryKeys.KAKAO(),
-    `/users`,
-    onSuccess,
-  );
+  return useBaseMutation<PostUserBodyType>(queryKeys.KAKAO(), `/users`, onSuccess);
 };
 export default usePostUser;

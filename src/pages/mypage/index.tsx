@@ -55,22 +55,12 @@ const Mypage: NextPage = () => {
         <div className="flex justify-between items-center">
           <div className="flex gap-[15px] items-center">
             {data?.profileImage && (
-              <Image
-                src={returnProfileImg(data?.profileImage)}
-                alt="프로필 예시"
-                width={52}
-                height={52}
-              />
+              <Image src={returnProfileImg(data?.profileImage)} alt="프로필 예시" width={52} height={52} />
             )}
-            <span className="heading2-semibold">
-              {data?.nickname ?? '닉네임을 입력해주세요.'}
-            </span>
+            <span className="heading2-semibold">{data?.nickname ?? '닉네임을 입력해주세요.'}</span>
           </div>
           <Link href="/mypage/profile">
-            <Button
-              text="프로필 수정"
-              className="body2-medium w-80px bg-white text-black rounded-[30px] p-[10px]"
-            />
+            <Button text="프로필 수정" className="body2-medium w-80px bg-white text-black rounded-[30px] p-[10px]" />
           </Link>
         </div>
         <div className="flex justify-evenly items-center bg-gray6 rounded-[12px]">

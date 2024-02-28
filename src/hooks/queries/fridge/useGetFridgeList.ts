@@ -7,10 +7,7 @@ interface IngredientType {
 }
 
 const useGetMyFridgeList = (id?: number) => {
-  const { data } = useBaseQuery<IngredientType[]>(
-    queryKeys.MY_FRIDGE_LIST(),
-    `/refrigs/${id ? `users/${id}` : 'my'}`,
-  );
+  const { data } = useBaseQuery<IngredientType[]>(queryKeys.MY_FRIDGE_LIST(), `/refrigs/${id ? `users/${id}` : 'my'}`);
 
   return data?.data;
 };

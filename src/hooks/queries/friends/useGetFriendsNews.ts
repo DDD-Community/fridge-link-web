@@ -10,10 +10,7 @@ export interface FriendObjectType {
 }
 
 const useGetFriendsNews = () => {
-  const { data } = useBaseQuery<FriendObjectType[]>(
-    queryKeys.MY_FRIENDS_NEWS(),
-    `friend-refrigs/recent`,
-  );
+  const { data } = useBaseQuery<FriendObjectType[]>(queryKeys.MY_FRIENDS_NEWS(), `friend-refrigs/recent`);
 
   return data?.data;
 };

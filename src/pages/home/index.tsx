@@ -25,28 +25,14 @@ const Home: NextPage = () => {
           </div>
         }
       />
-      <section
-        className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}
-      >
-        {!!ingredientCount && (
-          <NearExpirationWarnBox className="mb-12" count={ingredientCount} />
-        )}
+      <section className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}>
+        {!!ingredientCount && <NearExpirationWarnBox className="mb-12" count={ingredientCount} />}
         <div className="flex gap-8.5">
-          <SvgAndTextBox
-            svgComponent={<MyFridgeImg />}
-            text="내 냉장고"
-            linkTo="/fridge"
-          />
-          <SvgAndTextBox
-            svgComponent={<FriendsFridgeImg />}
-            text="친구 냉장고"
-            linkTo="/friends"
-          />
+          <SvgAndTextBox svgComponent={<MyFridgeImg />} text="내 냉장고" linkTo="/fridge" />
+          <SvgAndTextBox svgComponent={<FriendsFridgeImg />} text="친구 냉장고" linkTo="/friends" />
         </div>
         <div>
-          <div className="text-gray6 mt-30 mb-12 heading4-semibold">
-            소비기한
-          </div>
+          <div className="text-gray6 mt-30 mb-12 heading4-semibold">소비기한</div>
           <IngredientBoard />
         </div>
         <Link href="/fridge">

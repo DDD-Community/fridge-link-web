@@ -9,9 +9,6 @@ export interface PostNewIngredientBodyType {
 }
 
 const usePostNewIngredient = () => {
-  return useBaseMutation<PostNewIngredientBodyType>(
-    queryKeys.INGREDIENTS(),
-    `/ingrs`,
-  );
+  return useBaseMutation<PostNewIngredientBodyType>(queryKeys.INGREDIENTS(), `/ingrs`);
 };
 export default usePostNewIngredient;
