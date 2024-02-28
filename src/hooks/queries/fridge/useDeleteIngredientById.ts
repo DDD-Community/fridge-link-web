@@ -4,8 +4,8 @@ import { useBaseMutation } from '../useBaseMutation';
 
 const useDeleteIngredientById = (id: number, fridgeId: number, location: string, fn?: () => void) => {
   const onSuccess = () => {
-    void queryClient.invalidateQueries();
     if (fn) fn();
+    void queryClient.invalidateQueries();
   };
   return useBaseMutation(queryKeys.MY_FRIDGE_CONTENT(fridgeId, location), `/ingrs/detail/${id}`, onSuccess, 'DELETE');
 };

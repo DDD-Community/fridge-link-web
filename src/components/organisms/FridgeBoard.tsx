@@ -5,14 +5,12 @@ import { IngredientModal } from '.';
 import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
 import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 import { useObserver } from '@/hooks/useObserver';
-import { useRouter } from 'next/router';
+import type { CurrentFridgeInfoType } from '@/types/fridge';
 
-const FridgeBoard: React.FC = () => {
+const FridgeBoard: React.FC<{ currentFridgeInfo: CurrentFridgeInfoType }> = ({ currentFridgeInfo }) => {
   const bottom = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const [detailIngredientId, setDetailIngredientId] = useState(0);
   const [currentTabName, setCurrentTabName] = useState<'냉장' | '냉동'>('냉장');
-  const { fridgeid: fridgeId, username } = router.query;
 
   const {
     data: ingredients,
@@ -20,7 +18,7 @@ const FridgeBoard: React.FC = () => {
     isFetchingNextPage: isFetchingIngredientNextPage,
     refetch: ingredientsRefetch,
   } = useGetFridgeContentById({
-    id: Number(fridgeId),
+    id: Number(currentFridgeInfo.fridgeId),
     sort: currentTabName === '냉장' ? 'FREEZING' : 'REFRIGERATION',
   });
 
@@ -52,7 +50,7 @@ const FridgeBoard: React.FC = () => {
 
   return (
     <>
-      {!username && isOpenIngredientModal && (
+      {!currentFridgeInfo.username && isOpenIngredientModal && (
         <Modal
           onClose={onCloseIngredientModal}
           isOpen={isOpenIngredientModal}

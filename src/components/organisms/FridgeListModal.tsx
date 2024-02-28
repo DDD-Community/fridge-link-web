@@ -4,14 +4,14 @@ import React, { useState } from 'react';
 
 import { FridgeListItem } from '../molecules';
 import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
-import { useRouter } from 'next/router';
 import usePostFridge from '@/hooks/queries/fridge/usePostFridge';
 import { useDeleteFridgeById } from '@/hooks/queries/fridge';
 
 const FridgeListModal: React.FC<{
+  handleCurrentFridgeInfo: (id: number, name: string) => void;
   ownerId?: number;
   onCloseFridgeListModal: () => void;
-}> = ({ ownerId, onCloseFridgeListModal }) => {
+}> = ({ handleCurrentFridgeInfo, ownerId, onCloseFridgeListModal }) => {
   const [isEditingFridgeName, setIsEditingFridgeName] = useState(false);
   const [newFridgeName, setNewFridgeName] = useState({
     id: 0,
@@ -22,18 +22,12 @@ const FridgeListModal: React.FC<{
     name: '기본 냉장고',
   });
 
-  const router = useRouter();
   const fridgeList = useGetMyFridgeList(ownerId ?? undefined);
   const fridgeMutation = usePostFridge();
   const deleteFridgeMutation = useDeleteFridgeById(currentFridge.id);
 
-  const { username } = router.query;
   const handleFridgeClick = (id: number, name: string) => {
-    void router.push(
-      ownerId
-        ? `/friend/${ownerId}?fridgeid=${id}&name=${name}&username=${username as string}`
-        : `fridge/?fridgeid=${id}&name=${name}`,
-    );
+    handleCurrentFridgeInfo(id, name);
     onCloseFridgeListModal();
   };
 

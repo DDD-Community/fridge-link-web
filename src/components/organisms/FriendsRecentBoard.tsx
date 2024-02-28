@@ -22,10 +22,7 @@ const FriendsRecentBoard: React.FC<{ friendNews: FriendObjectType }> = ({ friend
           </div>
         ))}
       </div>
-      <Link
-        className="w-full"
-        href={`/friend/${friendNews.userId}?fridgeid=${friendNews.refrigeratorId}&name=${friendNews.nickname}`}
-      >
+      <Link className="w-full" href={`/friend/${friendNews.userId}?name=${friendNews.nickname}`}>
         <GreenArrowButton className="bg-primary2" text="친구 냉장고 보러가기" />
       </Link>
     </Container>

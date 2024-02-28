@@ -89,7 +89,7 @@ const FriendsFridgeList: React.FC<{
                     data={ele}
                     possibleDelete={false}
                     onClick={() => {
-                      router.push(`/friend/${ele.userId}?username=${ele.nickname}`);
+                      router.push(`/friend/${ele.userId}?name=${ele.nickname}`);
                     }}
                     active={false}
                   />

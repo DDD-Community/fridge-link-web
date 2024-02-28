@@ -2,13 +2,15 @@ import { AngleIcon } from '@/assets/icons';
 import { Button } from '../atoms';
 import React from 'react';
 import { useRouter } from 'next/router';
+import type { CurrentFridgeInfoType } from '@/types/fridge';
 
 const FridgeInfoBox: React.FC<{
+  currentFridgeInfo: CurrentFridgeInfoType;
   fridgeName?: string;
   userName: string;
   toggleIsOpenFridgeListModal: () => void;
   isOkIngredientAdd?: boolean;
-}> = ({ fridgeName, userName = '', toggleIsOpenFridgeListModal, isOkIngredientAdd }) => {
+}> = ({ currentFridgeInfo, fridgeName, userName = '', toggleIsOpenFridgeListModal, isOkIngredientAdd }) => {
   const router = useRouter();
   const { fridgeid, name } = router.query;
   return (
@@ -16,7 +18,7 @@ const FridgeInfoBox: React.FC<{
       <div className="flex flex-col gap-[12px]">
         <div className="body1-medium text-gray7">{userName ?? '사용자정보없음'} 님의</div>
         <div className="flex items-center gap-[8px]" onClick={toggleIsOpenFridgeListModal}>
-          <div className="heading1-bold">{name ?? fridgeName ?? '냉장고정보없음'}</div>
+          <div className="heading1-bold">{currentFridgeInfo.fridgeName ?? '냉장고정보없음'}</div>
           <AngleIcon width={16} height={16} fill="#000000" transform="rotate(-90)" />
         </div>
       </div>

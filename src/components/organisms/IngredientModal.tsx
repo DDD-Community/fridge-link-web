@@ -59,8 +59,14 @@ const IngredientModal: React.FC<{
     isDeleted: false,
   });
 
-  const deleteIngredient = useDeleteIngredientById(id, Number(fridgeid), reqBody?.location, ingredientsRefetch);
-  const putIngredient = usePutIngredientById(id, Number(fridgeid), reqBody?.location, ingredientsRefetch);
+  const deleteIngredient = useDeleteIngredientById(id, Number(fridgeid), reqBody?.location, () => {
+    ingredientsRefetch();
+    toggleIsOpenIngredientModal();
+  });
+  const putIngredient = usePutIngredientById(id, Number(fridgeid), reqBody?.location, () => {
+    ingredientsRefetch();
+    toggleIsOpenIngredientModal();
+  });
 
   const [isInFreezer, setIsInFreezer] = useState(reqBody?.location === 'REFRIGERATION');
 
@@ -180,7 +186,6 @@ const IngredientModal: React.FC<{
               className="p-[13px] border-2 rounded-[12px]"
               onClick={() => {
                 deleteIngredient.mutate({});
-                toggleIsOpenIngredientModal();
               }}
             >
               <TrashcanIcon />
@@ -198,7 +203,6 @@ const IngredientModal: React.FC<{
                   expirationDate: reqBody.expirationDate,
                   isDeleted: false,
                 });
-                toggleIsOpenIngredientModal();
               }}
             />
           </div>
