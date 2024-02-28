@@ -12,7 +12,7 @@ const FridgeBoard: React.FC = () => {
   const router = useRouter();
   const [detailIngredientId, setDetailIngredientId] = useState(0);
   const [currentTabName, setCurrentTabName] = useState<'냉장' | '냉동'>('냉장');
-  const { fridgeid: fridgeId } = router.query;
+  const { fridgeid: fridgeId, username } = router.query;
 
   const {
     data: ingredients,
@@ -52,7 +52,7 @@ const FridgeBoard: React.FC = () => {
 
   return (
     <>
-      {isOpenIngredientModal && (
+      {!username && isOpenIngredientModal && (
         <Modal
           onClose={onCloseIngredientModal}
           isOpen={isOpenIngredientModal}

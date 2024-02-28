@@ -27,9 +27,12 @@ const FridgeListModal: React.FC<{
   const fridgeMutation = usePostFridge();
   const deleteFridgeMutation = useDeleteFridgeById(currentFridge.id);
 
+  const { username } = router.query;
   const handleFridgeClick = (id: number, name: string) => {
     void router.push(
-      ownerId ? `/friend/${ownerId}?fridgeid=${id}&name=${name}` : `fridge/?fridgeid=${id}&name=${name}`,
+      ownerId
+        ? `/friend/${ownerId}?fridgeid=${id}&name=${name}&username=${username as string}`
+        : `fridge/?fridgeid=${id}&name=${name}`,
     );
     onCloseFridgeListModal();
   };

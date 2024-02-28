@@ -2,26 +2,31 @@ import { FridgeBoard, FridgeInfoBox, FridgeListModal } from '@/components/organi
 import Header from '@/components/organisms/Header';
 import { type NextPage } from 'next';
 import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
 const FriendIdPage: NextPage = () => {
   const router = useRouter();
-  const [nickname, setNickName] = useState('');
   const {
     isOpen: isOpenFridgeListModal,
     onOpen: onOpenFridgeListModal,
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
-  const { id: userId, fridgeid: fridgeId, name } = router.query;
+  const { id: userId, fridgeid: fridgeId, username } = router.query;
 
-  if (!fridgeId) {
-    onOpenFridgeListModal();
-  }
+  const fridgeList = useGetMyFridgeList(Number(userId));
 
   useEffect(() => {
-    setNickName(name as string);
-  }, []);
+    if (!fridgeList || fridgeList.length < 0) {
+      return;
+    }
+    if (!fridgeId) {
+      router.push(
+        `/friend/${userId as string}?fridgeid=${fridgeList[0].id}&username=${username as string}&name=${fridgeList[0].name}`,
+      );
+    }
+  }, [fridgeList]);
   return (
     <>
       <Modal
@@ -47,7 +52,7 @@ const FriendIdPage: NextPage = () => {
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'친구 냉장고'} />
         <section className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}>
-          <FridgeInfoBox userName={nickname} toggleIsOpenFridgeListModal={onOpenFridgeListModal} />
+          <FridgeInfoBox userName={username as string} toggleIsOpenFridgeListModal={onOpenFridgeListModal} />
           <FridgeBoard />
         </section>
       </div>

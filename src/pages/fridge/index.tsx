@@ -3,11 +3,10 @@ import { FridgeBoard, FridgeInfoBox, FridgeListModal } from '@/components/organi
 import { type NextPage } from 'next';
 import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
 import { useGetMe } from '@/hooks/queries/mypage';
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { EmptyBox } from '@/components/molecules';
-import { Container } from '@/components/atoms';
 import withLogin from '@/components/templates/withLogin';
+import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
+import { useRouter } from 'next/router';
 
 const FridgePage: NextPage = () => {
   const router = useRouter();
@@ -17,15 +16,15 @@ const FridgePage: NextPage = () => {
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
+  const fridgeList = useGetMyFridgeList();
   const { nickname } = useGetMe();
 
-  const { fridgeid: fridgeId } = router.query;
-
   useEffect(() => {
-    if (!fridgeId) {
-      onOpenFridgeListModal();
+    if (!fridgeList || fridgeList.length < 0) {
+      return;
     }
-  }, []);
+    router.push(`/fridge?fridgeid=${fridgeList[0].id}&name=${fridgeList[0].name}`);
+  }, [fridgeList]);
 
   return (
     <>
@@ -57,13 +56,7 @@ const FridgePage: NextPage = () => {
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
             isOkIngredientAdd={true}
           />
-          {fridgeId ? (
-            <FridgeBoard />
-          ) : (
-            <Container className="p-[20px] bg-white">
-              <EmptyBox text={`추가된 식자재가 없어요!`} />
-            </Container>
-          )}
+          <FridgeBoard />
         </section>
       </div>
     </>
