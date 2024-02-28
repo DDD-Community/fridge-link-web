@@ -34,10 +34,7 @@ const FridgeListItem: React.FC<FridgeListItemProps> = ({
   };
 
   return (
-    <GrayBox
-      className="flex-row items-center justify-between h-[70px]"
-      onClick={onClick}
-    >
+    <GrayBox className="flex-row items-center justify-between h-[70px]" onClick={onClick}>
       <div className="flex gap-[9px] items-center">
         {isEditingFridgeName && id === newFridgeName.id ? (
           <input

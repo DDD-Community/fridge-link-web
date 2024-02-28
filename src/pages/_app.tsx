@@ -3,11 +3,7 @@ import Layout from '@/components/templates/Layout';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
-import {
-  QueryClient,
-  QueryClientProvider,
-  QueryErrorResetBoundary,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, QueryErrorResetBoundary } from '@tanstack/react-query';
 import React from 'react';
 import 'dayjs/locale/ko';
 import dayjs from 'dayjs';

@@ -1,19 +1,10 @@
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { type SortLabel } from '@/types/common';
 import { Button, RadioButtonField, SortButton } from '@/components/atoms';
 import { FriendListItem } from '../organisms';
-import {
-  useDeleteFriendship,
-  useGetFriendships,
-} from '@/hooks/queries/friendship';
+import { useDeleteFriendship, useGetFriendships } from '@/hooks/queries/friendship';
 import type { FriendshipData, FriendshipSortType } from '@/types/friendship';
 import { SuspenseFallback } from '.';
 import { useObserver } from '@/hooks/useObserver';
@@ -23,16 +14,10 @@ const SORT_TYPES: SortLabel[] = [
   { label: '등록순', value: 'createdAt' },
 ];
 
-const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
-  possibleDelete,
-}) => {
+const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({ possibleDelete }) => {
   const bottom = useRef<HTMLDivElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: deleteIsOpen,
-    onOpen: deleteOnOpen,
-    onClose: deleteOnClose,
-  } = useDisclosure();
+  const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure();
   const [curSortType, setCurSortType] = useState<SortLabel>(SORT_TYPES[0]);
   const [selectedFriendIds, setSelectedFriendIds] = useState<number[]>([]);
   const {
@@ -95,9 +80,7 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
       <div className="mt-[57px] fixed w-screen max-w-[480px] z-10">
         <div className="h-[1px] mt-[-1px] bg-gray1" />
         <div className="flex justify-between px-[20px] py-[18px] bg-white body1-medium">
-          <p className="body1-medium">
-            총 {friendsData?.pages[0].totalElements}명
-          </p>
+          <p className="body1-medium">총 {friendsData?.pages[0].totalElements}명</p>
           <SortButton label={curSortType.label} onClick={onOpen} />
         </div>
       </div>
@@ -116,11 +99,7 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
             />
           )),
         )}
-        {isFetchingfriendsNextPage ? (
-          <SuspenseFallback />
-        ) : (
-          <div ref={bottom} />
-        )}
+        {isFetchingfriendsNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
       </div>
 
       {possibleDelete ? (
@@ -134,25 +113,12 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
         </div>
       ) : null}
 
-      <Modal
-        onClose={deleteOnClose}
-        isOpen={deleteIsOpen}
-        motionPreset="slideInBottom"
-        trapFocus={false}
-      >
+      <Modal onClose={deleteOnClose} isOpen={deleteIsOpen} motionPreset="slideInBottom" trapFocus={false}>
         <ModalOverlay height="100vh" onClick={onClose} />
-        <ModalContent
-          className=" bg-white"
-          top="40%"
-          borderRadius="16px"
-          maxW="lg"
-          margin={'20px'}
-        >
+        <ModalContent className=" bg-white" top="40%" borderRadius="16px" maxW="lg" margin={'20px'}>
           <ModalBody padding={'20px'} textAlign="center">
             <p className="mb-[20px] heading2-bold">친구삭제</p>
-            <p className="mb-[20px] body1-medium text-gray6">
-              삭제하기 버튼을 누르면 친구 목록에서 삭제됩니다.
-            </p>
+            <p className="mb-[20px] body1-medium text-gray6">삭제하기 버튼을 누르면 친구 목록에서 삭제됩니다.</p>
             <div className="flex justify-between gap-[16px]">
               <Button
                 text={'뒤로가기'}
@@ -169,12 +135,7 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({
         </ModalContent>
       </Modal>
 
-      <Modal
-        onClose={onClose}
-        isOpen={isOpen}
-        motionPreset="slideInBottom"
-        trapFocus={false}
-      >
+      <Modal onClose={onClose} isOpen={isOpen} motionPreset="slideInBottom" trapFocus={false}>
         <ModalOverlay height="100vh" onClick={onClose} />
         <ModalContent
           className=" bg-white"

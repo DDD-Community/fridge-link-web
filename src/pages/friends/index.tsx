@@ -1,17 +1,7 @@
-import {
-  FriendsFridgeList,
-  FriendsRecentBoard,
-  OrderListModal,
-} from '@/components/organisms';
+import { FriendsFridgeList, FriendsRecentBoard, OrderListModal } from '@/components/organisms';
 import Header from '@/components/organisms/Header';
 import { useGetFriendsNews } from '@/hooks/queries/friends';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 import { type NextPage } from 'next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -69,9 +59,7 @@ const FriendsPage: NextPage = () => {
             />
           }
         />
-        <section
-          className={`flex flex-col min-h-screen pt-[10px] pl-20 pr-20 pb-20 bg-gray1`}
-        >
+        <section className={`flex flex-col min-h-screen pt-[10px] pl-20 pr-20 pb-20 bg-gray1`}>
           {friendsNewsList && friendsNewsList.length !== 0 ? (
             <Swiper className="w-[100%]" spaceBetween={20}>
               {friendsNewsList.map((friendNews) => (
@@ -85,9 +73,7 @@ const FriendsPage: NextPage = () => {
               <EmptyBox text="친구의 최신근황이 없어요" />
             </Container>
           )}
-          <FriendsFridgeList
-            toggleIsOpenOrderListModal={onOpenOrderListModal}
-          />
+          <FriendsFridgeList toggleIsOpenOrderListModal={onOpenOrderListModal} />
         </section>
       </div>
     </>

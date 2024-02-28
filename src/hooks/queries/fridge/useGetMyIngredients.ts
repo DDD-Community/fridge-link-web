@@ -8,10 +8,7 @@ interface IngredientType {
 }
 
 const useGetMyIngredients = () => {
-  const { data } = useBaseQuery<IngredientType>(
-    queryKeys.INGREDIENTS(),
-    '/refridge/my',
-  );
+  const { data } = useBaseQuery<IngredientType>(queryKeys.INGREDIENTS(), '/refridge/my');
 
   return data?.data;
 };

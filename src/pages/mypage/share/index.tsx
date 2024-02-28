@@ -1,10 +1,4 @@
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 import { RadioButtonField, SortButton, TabButton } from '@/components/atoms';
 import type { ShareSortType, ShareStatusType } from '@/types/friendship';
 import type { SortLabel, TabLabel } from '@/types/common';
@@ -76,18 +70,11 @@ const MySharePage: NextPage = () => {
 
         <div className="flex flex-col flex-1 overflow-y-auto pt-[128px] px-[20px]">
           {data?.pages.map((page) =>
-            page.content.map((ele: ShareData) => (
-              <ShareListItem key={ele.shareId} data={ele} />
-            )),
+            page.content.map((ele: ShareData) => <ShareListItem key={ele.shareId} data={ele} />),
           )}
           {isFetchingNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
         </div>
-        <Modal
-          onClose={onClose}
-          isOpen={isOpen}
-          motionPreset="slideInBottom"
-          trapFocus={false}
-        >
+        <Modal onClose={onClose} isOpen={isOpen} motionPreset="slideInBottom" trapFocus={false}>
           <ModalOverlay height="100vh" onClick={onClose} />
           <ModalContent
             className=" bg-white"

@@ -3,10 +3,7 @@ import { queryKeys } from '../queryKeys';
 import { useBaseQuery } from '../useBaseQuery';
 
 const useGetMyIngredientSummary = () => {
-  const { data } = useBaseQuery<IngredientDetailType[]>(
-    queryKeys.INGREDIENTS_RECENT(),
-    '/ingrs/detail/recent',
-  );
+  const { data } = useBaseQuery<IngredientDetailType[]>(queryKeys.INGREDIENTS_RECENT(), '/ingrs/detail/recent');
 
   return data?.data;
 };

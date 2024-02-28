@@ -4,15 +4,9 @@ import { AngleIcon } from '@/assets/icons';
 import { useRouter } from 'next/router';
 
 const Header: React.FC<{
-  headerLeft?: React.ReactElement<
-    any,
-    string | React.JSXElementConstructor<any>
-  >;
+  headerLeft?: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
   headerTitle?: string;
-  headerRight?: React.ReactElement<
-    any,
-    string | React.JSXElementConstructor<any>
-  >;
+  headerRight?: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
   backgroundColor?: 'gray1' | 'white' | 'transparent';
 }> = ({ headerLeft, headerTitle, headerRight, backgroundColor }) => {
   const router = useRouter();
@@ -40,16 +34,12 @@ const Header: React.FC<{
             router.back();
           }}
         >
-          <AngleIcon
-            fill={backgroundColor === 'transparent' ? '#FFFFFF' : '#363A45'}
-          />
+          <AngleIcon fill={backgroundColor === 'transparent' ? '#FFFFFF' : '#363A45'} />
         </button>
       )}
       {!headerLeft && (
         <div className="flex justify-center text-center w-full">
-          <p className="heading3-bold text-gray8 pt-1">
-            {typeof headerTitle === 'string' ? headerTitle : ''}
-          </p>
+          <p className="heading3-bold text-gray8 pt-1">{typeof headerTitle === 'string' ? headerTitle : ''}</p>
         </div>
       )}
       {headerRight ?? <div className="w-7" />}

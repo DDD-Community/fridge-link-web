@@ -1,8 +1,9 @@
+import { RecoilRoot, useRecoilState } from 'recoil';
+
 import React from 'react';
+import { ToastMessage } from '../components/atoms';
 import type { ToastType } from '../stores/toastState';
 import { toastState } from '../stores/toastState';
-import { ToastMessage } from '../components/atoms';
-import { RecoilRoot, useRecoilState } from 'recoil';
 
 export default {
   title: 'ToastMessage',
@@ -39,10 +40,7 @@ const Template: any = (args: ToastStoryArgs) => {
   return (
     <div>
       {toast.isOpen && <ToastMessage />}
-      <button
-        className="bg-primary2 rounded-[5px] p-[5px]"
-        onClick={handleToggle}
-      >
+      <button className="bg-primary2 rounded-[5px] p-[5px]" onClick={handleToggle}>
         토스트띄우기
       </button>
     </div>

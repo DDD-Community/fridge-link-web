@@ -11,10 +11,7 @@ const BulletNoticeBox: React.FC<{
         <DotIcon width={4} height={4} fill="#52C5A6" className="inline" />
         <span className="ml-[4px] body2-semibold text-gray7">{title}</span>
       </p>
-      <p
-        className="pl-[8px] body2-semibold text-gray6"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      <p className="pl-[8px] body2-semibold text-gray6" dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );
 };

@@ -6,10 +6,7 @@ const useGetShareDetail = ({ id }: { id: string | string[] | undefined }) => {
   if (typeof id !== 'string') {
     return null;
   }
-  const { data } = useBaseQuery<ShareDetailData>(
-    queryKeys.SHARE_DETAIL(),
-    `/shares/${id}`,
-  );
+  const { data } = useBaseQuery<ShareDetailData>(queryKeys.SHARE_DETAIL(), `/shares/${id}`);
 
   return data?.data;
 };

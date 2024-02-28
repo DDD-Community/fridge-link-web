@@ -8,10 +8,7 @@ interface ContainerProps {
 
 const Container: React.FC<ContainerProps> = ({ children, className, id }) => {
   return (
-    <div
-      id={id}
-      className={`flex flex-col justify-center items-center gap-22 p-32 w-full rounded-12 ${className}`}
-    >
+    <div id={id} className={`flex flex-col justify-center items-center gap-22 p-32 w-full rounded-12 ${className}`}>
       {children}
     </div>
   );

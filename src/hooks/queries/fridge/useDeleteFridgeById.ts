@@ -6,12 +6,7 @@ const useDeleteFridgeById = (id: number) => {
   const onSuccess = () => {
     void queryClient.invalidateQueries();
   };
-  return useBaseMutation(
-    queryKeys.MY_FRIDGE_LIST,
-    `/refrigs/${id}`,
-    onSuccess,
-    'DELETE',
-  );
+  return useBaseMutation(queryKeys.MY_FRIDGE_LIST, `/refrigs/${id}`, onSuccess, 'DELETE');
 };
 
 export default useDeleteFridgeById;

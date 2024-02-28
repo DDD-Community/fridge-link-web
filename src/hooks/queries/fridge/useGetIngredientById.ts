@@ -14,10 +14,7 @@ export interface IngredientType {
 }
 
 const useGetIngredientById = (id: number) => {
-  const { data } = useBaseQuery<IngredientType>(
-    queryKeys.INGREDIENT_ID(id),
-    `/ingrs/${id}`,
-  );
+  const { data } = useBaseQuery<IngredientType>(queryKeys.INGREDIENT_ID(id), `/ingrs/${id}`);
 
   if (!data?.data) return;
 

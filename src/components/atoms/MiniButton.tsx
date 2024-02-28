@@ -17,11 +17,7 @@ const MiniButton: React.FC<{
   }, []);
 
   return (
-    <button
-      disabled={variant === 'disable'}
-      onClick={onClick}
-      className={`px-[16px] py-[10px] rounded-[6px] ${style}`}
-    >
+    <button disabled={variant === 'disable'} onClick={onClick} className={`px-[16px] py-[10px] rounded-[6px] ${style}`}>
       {label}
     </button>
   );

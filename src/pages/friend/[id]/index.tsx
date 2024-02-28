@@ -1,17 +1,7 @@
-import {
-  FridgeBoard,
-  FridgeInfoBox,
-  FridgeListModal,
-} from '@/components/organisms';
+import { FridgeBoard, FridgeInfoBox, FridgeListModal } from '@/components/organisms';
 import Header from '@/components/organisms/Header';
 import { type NextPage } from 'next';
-import {
-  Modal,
-  ModalOverlay,
-  ModalBody,
-  ModalContent,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 const FriendIdPage: NextPage = () => {
@@ -50,22 +40,14 @@ const FriendIdPage: NextPage = () => {
           margin={0}
         >
           <ModalBody padding={0}>
-            <FridgeListModal
-              onCloseFridgeListModal={onCloseFridgeListModal}
-              ownerId={Number(userId)}
-            />
+            <FridgeListModal onCloseFridgeListModal={onCloseFridgeListModal} ownerId={Number(userId)} />
           </ModalBody>
         </ModalContent>
       </Modal>
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'친구 냉장고'} />
-        <section
-          className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}
-        >
-          <FridgeInfoBox
-            userName={nickname}
-            toggleIsOpenFridgeListModal={onOpenFridgeListModal}
-          />
+        <section className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}>
+          <FridgeInfoBox userName={nickname} toggleIsOpenFridgeListModal={onOpenFridgeListModal} />
           <FridgeBoard />
         </section>
       </div>

@@ -1,17 +1,7 @@
 import Header from '@/components/organisms/Header';
-import {
-  FridgeBoard,
-  FridgeInfoBox,
-  FridgeListModal,
-} from '@/components/organisms';
+import { FridgeBoard, FridgeInfoBox, FridgeListModal } from '@/components/organisms';
 import { type NextPage } from 'next';
-import {
-  Modal,
-  ModalOverlay,
-  ModalBody,
-  ModalContent,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
 import { useGetMe } from '@/hooks/queries/mypage';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -61,9 +51,7 @@ const FridgePage: NextPage = () => {
       </Modal>
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'내 냉장고'} />
-        <section
-          className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}
-        >
+        <section className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}>
           <FridgeInfoBox
             userName={nickname}
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}

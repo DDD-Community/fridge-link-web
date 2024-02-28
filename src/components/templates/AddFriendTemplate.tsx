@@ -1,9 +1,6 @@
 import { LabelRoundBox, WarningLine } from '@/components/molecules';
 import React, { useState } from 'react';
-import {
-  useAddFriendship,
-  useGetMyInviteCode,
-} from '@/hooks/queries/friendship';
+import { useAddFriendship, useGetMyInviteCode } from '@/hooks/queries/friendship';
 
 import { BulletNoticeBox } from '@/components/organisms';
 import { MiniButton } from '@/components/atoms';
@@ -68,15 +65,9 @@ const AddFriendTemplate: React.FC = () => {
                 }}
                 maxLength={10}
               />
-              <MiniButton
-                label="추가"
-                onClick={onAddFriend}
-                variant="clickable"
-              />
+              <MiniButton label="추가" onClick={onAddFriend} variant="clickable" />
             </div>
-            {warningVisible ? (
-              <WarningLine text="9-10자리 초대 코드를 입력해주세요." />
-            ) : null}
+            {warningVisible ? <WarningLine text="9-10자리 초대 코드를 입력해주세요." /> : null}
           </>
         }
       />

@@ -20,10 +20,6 @@ const usePostIngredient = (fn: () => void, fridgeid: string, name: string) => {
     void router.push(`/fridge?fridgeid=${fridgeid}&name=${name}`);
     fn();
   };
-  return useBaseMutation<PostIngredientBodyType>(
-    queryKeys.INGREDIENTS(),
-    `/ingrs/detail`,
-    onSuccess,
-  );
+  return useBaseMutation<PostIngredientBodyType>(queryKeys.INGREDIENTS(), `/ingrs/detail`, onSuccess);
 };
 export default usePostIngredient;

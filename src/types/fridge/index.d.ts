@@ -14,3 +14,8 @@ export interface IngredientDetailType {
   expirationDate: string;
   isDeleted: true;
 }
+
+export interface FridgeData {
+  id: number;
+  name: string;
+}

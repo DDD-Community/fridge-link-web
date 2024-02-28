@@ -15,11 +15,6 @@ const usePutMe = () => {
     void queryClient.invalidateQueries();
     router.push('/mypage');
   };
-  return useBaseMutation<ProfileBodyType>(
-    queryKeys.ME(),
-    `/users`,
-    onSuccess,
-    'PUT',
-  );
+  return useBaseMutation<ProfileBodyType>(queryKeys.ME(), `/users`, onSuccess, 'PUT');
 };
 export default usePutMe;

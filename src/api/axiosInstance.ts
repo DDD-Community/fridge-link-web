@@ -29,10 +29,7 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      const refreshToken =
-        typeof window !== 'undefined'
-          ? localStorage.getItem('refreshToken')
-          : null;
+      const refreshToken = typeof window !== 'undefined' ? localStorage.getItem('refreshToken') : null;
 
       try {
         originalRequest.headers['Refresh-Token'] = refreshToken;

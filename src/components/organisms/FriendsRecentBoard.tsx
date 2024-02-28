@@ -4,9 +4,7 @@ import Link from 'next/link';
 import type { FriendObjectType } from '@/hooks/queries/friends/useGetFriendsNews';
 import Image from 'next/image';
 
-const FriendsRecentBoard: React.FC<{ friendNews: FriendObjectType }> = ({
-  friendNews,
-}) => {
+const FriendsRecentBoard: React.FC<{ friendNews: FriendObjectType }> = ({ friendNews }) => {
   return (
     <Container className="flex bg-white gap-[12px]">
       <div className="text-primary2 body2-semibold">최신근황</div>
@@ -15,26 +13,14 @@ const FriendsRecentBoard: React.FC<{ friendNews: FriendObjectType }> = ({
         <br />
         {friendNews.friendRefrigeratorIngredientGroupList[0].name}를 추가했어요!
       </div>
-      <div className="text-gray6 body2-medium">
-        그밖에 신선한 재료를 구경할 수 있어요.
-      </div>
+      <div className="text-gray6 body2-medium">그밖에 신선한 재료를 구경할 수 있어요.</div>
       <div className="flex w-full justify-center gap-[6px]">
-        {friendNews.friendRefrigeratorIngredientGroupList.map(
-          ({ name, iconImage }) => (
-            <div
-              key={name}
-              className={`flex flex-col items-center bg-gray1 p-[12px] rounded-[12px]`}
-            >
-              <Image
-                src={iconImage}
-                alt={`${name} 아이콘 이미지`}
-                width={50}
-                height={50}
-              />
-              <div className={`body2-medium text-gray7`}>{name}</div>
-            </div>
-          ),
-        )}
+        {friendNews.friendRefrigeratorIngredientGroupList.map(({ name, iconImage }) => (
+          <div key={name} className={`flex flex-col items-center bg-gray1 p-[12px] rounded-[12px]`}>
+            <Image src={iconImage} alt={`${name} 아이콘 이미지`} width={50} height={50} />
+            <div className={`body2-medium text-gray7`}>{name}</div>
+          </div>
+        ))}
       </div>
       <Link
         className="w-full"

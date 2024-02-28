@@ -11,15 +11,29 @@ interface ShareData {
   limitPerson: number;
   location: string;
   status: string;
-  thumbNailImage: string;
+  thumbnailImage: string;
+  isApplied: boolean;
 }
 
 interface ShareDetailData extends ShareData {
   userName: string;
   profileImage: ProfileEnum;
+  thumbNailImage: string;
 }
 
 interface ShareApplicantData {
   nickname: string;
   profileImage: ProfileEnum;
+}
+
+interface AddShareReq {
+  title: string;
+  ingredientDetailId: number;
+  content: string;
+  shareTime: string;
+  shareDate: string;
+  limitPerson: number;
+  location: string;
+  status: string;
+  thumbnailImage: string;
 }

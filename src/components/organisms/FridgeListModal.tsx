@@ -29,9 +29,7 @@ const FridgeListModal: React.FC<{
 
   const handleFridgeClick = (id: number, name: string) => {
     void router.push(
-      ownerId
-        ? `/friend/${ownerId}?fridgeid=${id}&name=${name}`
-        : `fridge/?fridgeid=${id}&name=${name}`,
+      ownerId ? `/friend/${ownerId}?fridgeid=${id}&name=${name}` : `fridge/?fridgeid=${id}&name=${name}`,
     );
     onCloseFridgeListModal();
   };
@@ -58,9 +56,7 @@ const FridgeListModal: React.FC<{
     <ModalContainer>
       <div>
         <div className="heading2-bold">냉장고 목록</div>
-        <div className="body2-medium text-gray5">
-          자유롭게 여러 냉장고를 정리할 수 있어요
-        </div>
+        <div className="body2-medium text-gray5">자유롭게 여러 냉장고를 정리할 수 있어요</div>
       </div>
       <div className="flex flex-col gap-[10px] mt-[25px] mb-[32px]">
         {fridgeList?.map(({ id, name }) => (
@@ -91,10 +87,7 @@ const FridgeListModal: React.FC<{
       </div>
       <div className="flex w-full gap-[8px]">
         {!ownerId && (
-          <button
-            className="p-[13px] border-2 rounded-[12px]"
-            onClick={handleDeleteFridgeClick}
-          >
+          <button className="p-[13px] border-2 rounded-[12px]" onClick={handleDeleteFridgeClick}>
             <TrashcanIcon />
           </button>
         )}

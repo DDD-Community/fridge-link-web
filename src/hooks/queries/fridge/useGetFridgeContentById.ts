@@ -1,8 +1,8 @@
-import { queryKeys } from '../queryKeys';
 import type { LocationEnum } from '@/types/common';
+import { queryKeys } from '../queryKeys';
 import { useBaseInfiniteQuery } from '../useBaseInfiniteQuery';
 
-interface FridgeContentType {
+export interface FridgeContentType {
   ingredientDetailId: number;
   iconImage: string;
   name: string;
@@ -13,17 +13,12 @@ interface FridgeContentType {
   expirationDate: string;
   isDeleted: true;
 }
-const useGetFridgeContentById = ({
-  sort,
-  id,
-}: {
-  sort: LocationEnum;
-  id: number;
-}) => {
+const useGetFridgeContentById = ({ sort, id }: { sort: LocationEnum; id?: number }) => {
   const data = useBaseInfiniteQuery<FridgeContentType[]>({
-    queryKey: queryKeys.MY_FRIDGE_CONTENT(id, sort),
+    queryKey: queryKeys.MY_FRIDGE_CONTENT(id as number, sort),
     url: `/ingrs/detail/refrig/${id}`,
     params: { location: sort },
+    enabled: typeof id === 'number',
   });
   return data;
 };

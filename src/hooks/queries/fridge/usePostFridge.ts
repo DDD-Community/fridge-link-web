@@ -10,11 +10,7 @@ const usePostFridge = () => {
   const onSuccess = (data: PostFridgeBodyType) => {
     void queryClient.invalidateQueries();
   };
-  return useBaseMutation<PostFridgeBodyType>(
-    queryKeys.INGREDIENT_LIST,
-    `/refrigs`,
-    onSuccess,
-  );
+  return useBaseMutation<PostFridgeBodyType>(queryKeys.INGREDIENT_LIST, `/refrigs`, onSuccess);
 };
 
 export default usePostFridge;
