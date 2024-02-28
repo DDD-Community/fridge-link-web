@@ -14,18 +14,18 @@ export const useBaseInfiniteQuery = <T>({
   url,
   size,
   params,
+  enabled,
 }: {
   queryKey: QueryKey;
   url: string;
   size?: number;
   params?: Record<string, any>;
+  enabled?: boolean;
 }) => {
   const INITIAL_PAGE_PARAM = 0;
   const DEFAULT_SIZE = 10;
 
-  const fetchData = async <T>(
-    context: QueryFunctionContext<QueryKey, number>,
-  ) => {
+  const fetchData = async <T>(context: QueryFunctionContext<QueryKey, number>) => {
     const { pageParam = 0 } = context;
 
     const paginationParamString = buildQuery({
@@ -36,8 +36,7 @@ export const useBaseInfiniteQuery = <T>({
     const queryParamString = params ? `&${buildQuery(params)}` : '';
 
     const URL = `${url}?${paginationParamString}${queryParamString}`;
-    const response =
-      await axiosInstance.get<ApiResponseType<InfiniteQueryResult<T>>>(URL);
+    const response = await axiosInstance.get<ApiResponseType<InfiniteQueryResult<T>>>(URL);
     return response.data.data;
   };
 
@@ -50,5 +49,6 @@ export const useBaseInfiniteQuery = <T>({
     initialPageParam: INITIAL_PAGE_PARAM,
     getNextPageParam: (res) => getNextOffset<T>(res),
     staleTime: 0,
+    enabled,
   });
 };

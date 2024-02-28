@@ -1,19 +1,18 @@
-import React from 'react';
+import Image from 'next/image';
 import { IngredientDateTag } from '../atoms';
 import type { IngredientDetailType } from '@/types/fridge';
-import Image from 'next/image';
+import React from 'react';
 
 const IngredientItemBox: React.FC<{
   data?: IngredientDetailType;
   handleDetailIngreditentId?: (id: number) => void;
-}> = ({ data, handleDetailIngreditentId }) => {
+  handleSelectIngredientInfo?: () => void;
+}> = ({ data, handleDetailIngreditentId, handleSelectIngredientInfo }) => {
   const addDate = new Date(data?.addDate as string);
   const expirationDate = new Date(data?.expirationDate as string);
   const today = new Date();
 
-  const dDay = Math.ceil(
-    (expirationDate.getTime() - today.getTime()) / (24 * 60 * 60 * 1000),
-  );
+  const dDay = Math.ceil((expirationDate.getTime() - today.getTime()) / (24 * 60 * 60 * 1000));
 
   return (
     <div
@@ -22,15 +21,13 @@ const IngredientItemBox: React.FC<{
         if (handleDetailIngreditentId) {
           handleDetailIngreditentId(data?.ingredientDetailId ?? 0);
         }
+        if (handleSelectIngredientInfo) {
+          handleSelectIngredientInfo();
+        }
       }}
     >
       <div className="flex justify-between items-center gap-8">
-        <Image
-          src={data?.iconImage ?? ''}
-          alt={data?.name ?? ''}
-          width={50}
-          height={50}
-        />
+        <Image src={data?.iconImage ?? ''} alt={data?.name ?? ''} width={50} height={50} />
         <div className="flex flex-col gap-8">
           <div className="heading4-semibold">{data?.name ?? ''}</div>
           <div className="body2-medium text-gray5 ">
