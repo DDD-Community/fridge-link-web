@@ -1,14 +1,17 @@
-import { ThemeProvider, CSSReset, extendTheme } from '@chakra-ui/react';
-import Layout from '@/components/templates/Layout';
 import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
-import { RecoilRoot } from 'recoil';
-import { QueryClient, QueryClientProvider, QueryErrorResetBoundary } from '@tanstack/react-query';
-import React from 'react';
 import 'dayjs/locale/ko';
-import dayjs from 'dayjs';
-import { ErrorBoundary } from 'react-error-boundary';
+
+import { CSSReset, ThemeProvider, extendTheme } from '@chakra-ui/react';
 import { ErrorFallback, SuspenseFallback } from '@/components/templates';
+import { QueryClient, QueryClientProvider, QueryErrorResetBoundary } from '@tanstack/react-query';
+
+import type { AppProps } from 'next/app';
+import { ErrorBoundary } from 'react-error-boundary';
+import Layout from '@/components/templates/Layout';
+import React from 'react';
+import { RecoilRoot } from 'recoil';
+import dayjs from 'dayjs';
+
 dayjs.locale('ko');
 
 const theme = extendTheme({

@@ -1,8 +1,9 @@
-import React from 'react';
-import { GreenArrowButton, Container } from '../atoms';
-import Link from 'next/link';
+import { Container, GreenArrowButton } from '../atoms';
+
 import type { FriendObjectType } from '@/hooks/queries/friends/useGetFriendsNews';
 import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 const FriendsRecentBoard: React.FC<{ friendNews: FriendObjectType }> = ({ friendNews }) => {
   return (

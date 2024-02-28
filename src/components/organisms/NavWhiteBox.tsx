@@ -1,6 +1,6 @@
-import React from 'react';
 import { Container } from '../atoms';
 import { NavWhiteBoxItem } from '../molecules';
+import React from 'react';
 
 interface NavItem {
   name: string;

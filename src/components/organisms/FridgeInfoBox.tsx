@@ -1,8 +1,8 @@
 import { AngleIcon } from '@/assets/icons';
 import { Button } from '../atoms';
+import type { CurrentFridgeInfoType } from '@/types/fridge';
 import React from 'react';
 import { useRouter } from 'next/router';
-import type { CurrentFridgeInfoType } from '@/types/fridge';
 
 const FridgeInfoBox: React.FC<{
   currentFridgeInfo: CurrentFridgeInfoType;

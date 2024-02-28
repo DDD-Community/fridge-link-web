@@ -1,11 +1,12 @@
-import React, { useRef, useState } from 'react';
 import { Container, Lottie } from '@/components/atoms';
 import { EmptyBox, FridgeTab, IngredientItemBox } from '@/components/molecules';
+import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import React, { useRef, useState } from 'react';
+
+import type { CurrentFridgeInfoType } from '@/types/fridge';
 import { IngredientModal } from '.';
-import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
 import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 import { useObserver } from '@/hooks/useObserver';
-import type { CurrentFridgeInfoType } from '@/types/fridge';
 
 const FridgeBoard: React.FC<{ currentFridgeInfo: CurrentFridgeInfoType }> = ({ currentFridgeInfo }) => {
   const bottom = useRef<HTMLDivElement>(null);

@@ -3,9 +3,9 @@ import { PlusIcon, TrashcanIcon } from '@/assets/icons';
 import React, { useState } from 'react';
 
 import { FridgeListItem } from '../molecules';
+import { useDeleteFridgeById } from '@/hooks/queries/fridge';
 import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
 import usePostFridge from '@/hooks/queries/fridge/usePostFridge';
-import { useDeleteFridgeById } from '@/hooks/queries/fridge';
 
 const FridgeListModal: React.FC<{
   handleCurrentFridgeInfo: (id: number, name: string) => void;

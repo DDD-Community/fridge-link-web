@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
 import type { CurrentFridgeInfoType } from '@/types/fridge';
+
 const FriendIdPage: NextPage = () => {
   const router = useRouter();
   const {

@@ -1,6 +1,7 @@
-import React from 'react';
-import { Container } from '@/components/atoms';
 import { EmptyBox, IngredientItemBox } from '@/components/molecules';
+
+import { Container } from '@/components/atoms';
+import React from 'react';
 import { useGetMyIngredientSummary } from '@/hooks/queries/home';
 
 const TermBoard: React.FC = () => {

@@ -1,7 +1,7 @@
 import type { LocationEnum } from '@/types/common';
+import { queryClient } from '@/pages/_app';
 import { queryKeys } from '../queryKeys';
 import { useBaseMutation } from '../useBaseMutation';
-import { queryClient } from '@/pages/_app';
 
 export interface FridgeBodyType {
   name: string;

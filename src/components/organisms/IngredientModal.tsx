@@ -2,20 +2,21 @@ import { BoxIcon, CalendarIcon, EditIcon, FreezerIcon, MemoIcon, TrashcanIcon } 
 import { Button, Toggle } from '@/components/atoms';
 import { Counter, IngredientAddItemContainer } from '../molecules';
 import React, { useEffect, useState } from 'react';
-import useToast from '@/hooks/useToast';
-import ModalContainer from '../atoms/ModalContainer';
 import {
   useDeleteIngredientById,
   useGetIngredientById,
   useGetMyIngredient,
   usePostIngredient,
 } from '@/hooks/queries/fridge';
+
 import Image from 'next/image';
+import ModalContainer from '../atoms/ModalContainer';
 import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
-import { useRouter } from 'next/router';
-import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
 import axiosInstance from '@/api/axiosInstance';
 import { queryClient } from '@/pages/_app';
+import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
+import { useRouter } from 'next/router';
+import useToast from '@/hooks/useToast';
 
 const IngredientModal: React.FC<{
   id: number;
