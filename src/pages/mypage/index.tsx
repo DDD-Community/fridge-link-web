@@ -39,7 +39,7 @@ const GENERAGE_NAV_LIST = [
 ];
 
 const ETC_NAV_LIST = [
-  { name: '문의', svgComponent: <QuestionIcon />, linkTo: '#' },
+  { name: '문의', svgComponent: <QuestionIcon />, linkTo: 'https://forms.gle/m9NtmA2ppgzr9h24A' },
   { name: '약관 및 정책', svgComponent: <PolicyIcon />, linkTo: '#' },
   { name: '버전정보', svgComponent: <InfoIcon />, linkTo: '', text: '1.0.1' },
 ];
