@@ -6,9 +6,7 @@ const NotificationPage: NextPage = () => {
   return (
     <div className={'pt-[52px] min-h-screen'}>
       <Header headerTitle={'알림'} />
-      <section
-        className={`flex flex-col gap-[20px] min-h-screen p-20 bg-gray1`}
-      >
+      <section className={`flex flex-col gap-[20px] min-h-screen p-20 bg-gray1`}>
         <div className="flex flex-col justify-center items-center gap-22 p-32  w-full bg-white rounded-12 p-[18px]">
           <div className="w-full flex justify-between items-center">
             <div className="heading4-semibold">알림 허용</div>

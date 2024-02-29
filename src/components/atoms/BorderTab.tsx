@@ -7,12 +7,7 @@ interface BorderTabProps {
   clickHandler?: () => void;
   className?: string;
 }
-const BorderTab: React.FC<BorderTabProps> = ({
-  tabName,
-  className,
-  currentTabName,
-  handleTabNameChange,
-}) => {
+const BorderTab: React.FC<BorderTabProps> = ({ tabName, className, currentTabName, handleTabNameChange }) => {
   return (
     <div
       className={`bg-white w-full border-2 p-[8px] text-center rounded-[24px] ${className} ${
