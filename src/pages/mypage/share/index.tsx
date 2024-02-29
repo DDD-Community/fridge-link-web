@@ -1,6 +1,6 @@
 import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 import { RadioButtonField, SortButton, TabButton } from '@/components/atoms';
-import type { ShareSortType, ShareStatusType } from '@/types/friendship';
+import type { ShareStatusType } from '@/types/friendship';
 import type { SortLabel, TabLabel } from '@/types/common';
 import { useRef, useState } from 'react';
 
@@ -11,6 +11,7 @@ import ShareListItem from '@/components/organisms/ShareListItem';
 import { SuspenseFallback } from '@/components/templates';
 import { useObserver } from '@/hooks/useObserver';
 import { useGetMyShares } from '@/hooks/queries/mypage';
+import type { MySharesSortType } from '@/types/mypage';
 
 const TABS: TabLabel[] = [
   { label: '나눔 중', value: 'SHARE_IN_PROGRESS' },
@@ -18,9 +19,9 @@ const TABS: TabLabel[] = [
 ];
 
 const SORT_TYPES: SortLabel[] = [
-  { label: '전체 나눔글', value: 'registeredDate' },
-  { label: '작성한 나눔글', value: 'dueDate' },
-  { label: '참여한 나눔글', value: 'dueDate' },
+  { label: '전체 나눔글', value: 'all' },
+  { label: '작성한 나눔글', value: 'created' },
+  { label: '참여한 나눔글', value: 'applied' },
 ];
 
 const MySharePage: NextPage = () => {
@@ -29,7 +30,7 @@ const MySharePage: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bottom = useRef<HTMLDivElement>(null);
   const { data, fetchNextPage, isFetchingNextPage } = useGetMyShares({
-    sort: curSortType.value as ShareSortType,
+    sort: curSortType.value as MySharesSortType,
     status: curTab.value as ShareStatusType,
   });
 

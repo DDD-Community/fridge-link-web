@@ -1,5 +1,7 @@
 import type { FriendshipSortType, ShareSortType, ShareStatusType } from '@/types/friendship';
 
+import type { MySharesSortType } from '@/types/mypage';
+
 export const queryKeys = {
   COUNT: () => ['count'],
   MY_FRIDGE_LIST: () => ['my_fridge_list'],
@@ -15,7 +17,7 @@ export const queryKeys = {
   KAKAO: () => ['kakao'],
   GOOGLE: () => ['google'],
   SHARES: (sort: ShareSortType, status: ShareStatusType) => ['shares', sort, status],
-  MY_SHARES: (sort: ShareSortType, status: ShareStatusType) => ['my-shares', sort, status],
+  MY_SHARES: (sort: MySharesSortType, status: ShareStatusType) => ['my-shares', sort, status],
   ME: () => ['my-info'],
   FRIENDSHIPS: (sort: FriendshipSortType) => ['friendship', sort],
   DELETE_FRIENDSHIP: () => ['deleteFriendship'],
