@@ -12,7 +12,7 @@ const FridgeInfoBox: React.FC<{
   isOkIngredientAdd?: boolean;
 }> = ({ currentFridgeInfo, fridgeName, userName = '', toggleIsOpenFridgeListModal, isOkIngredientAdd }) => {
   const router = useRouter();
-  const { fridgeid, name } = router.query;
+
   return (
     <div className="flex justify-between items-end mb-[28px]">
       <div className="flex flex-col gap-[12px]">
@@ -27,7 +27,7 @@ const FridgeInfoBox: React.FC<{
           className="rounded-6 w-[100px] p-[10px] body1-semibold bg-primary2 text-white"
           text="식자재 추가"
           onClick={() => {
-            void router.push(`/fridge/add?fridgeid=${fridgeid as string}&name=${name as string}`);
+            void router.push(`/fridge/add?fridgeid=${currentFridgeInfo.fridgeId}&name=${currentFridgeInfo.fridgeName}`);
           }}
         />
       )}

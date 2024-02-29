@@ -7,8 +7,10 @@ import { useEffect, useState } from 'react';
 import withLogin from '@/components/templates/withLogin';
 import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
 import type { CurrentFridgeInfoType } from '@/types/fridge';
+import { useRouter } from 'next/router';
 
 const FridgePage: NextPage = () => {
+  const router = useRouter();
   const [currentFridgeInfo, setCurrentFridgeInfo] = useState<CurrentFridgeInfoType>({
     username: null,
     fridgeId: 0,
@@ -23,8 +25,14 @@ const FridgePage: NextPage = () => {
   const fridgeList = useGetMyFridgeList();
   const { nickname } = useGetMe();
 
+  const { fridgeid, name } = router.query;
+
   useEffect(() => {
     if (!fridgeList || fridgeList.length < 0) {
+      return;
+    }
+    if (fridgeid) {
+      setCurrentFridgeInfo({ username: null, fridgeId: Number(fridgeid), fridgeName: name as string });
       return;
     }
     setCurrentFridgeInfo({ username: null, fridgeId: fridgeList[0].id, fridgeName: fridgeList[0].name });
