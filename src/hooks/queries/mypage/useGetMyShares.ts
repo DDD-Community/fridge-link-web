@@ -7,8 +7,8 @@ import { useBaseInfiniteQuery } from '../useBaseInfiniteQuery';
 const useGetMyShares = ({ sort, status }: { sort: ShareSortType; status: ShareStatusType }) =>
   useBaseInfiniteQuery<ShareData[]>({
     queryKey: queryKeys.MY_SHARES(sort, status),
-    url: `/shares/created`,
-    params: { status },
+    url: `/users/me/shares/all`,
+    params: { status, sort: 'string' },
   });
 
 export default useGetMyShares;
