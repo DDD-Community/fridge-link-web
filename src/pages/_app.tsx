@@ -12,6 +12,8 @@ import React from 'react';
 import { RecoilRoot } from 'recoil';
 import dayjs from 'dayjs';
 
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 dayjs.locale('ko');
 
 const theme = extendTheme({
@@ -50,6 +52,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
           </ErrorBoundary>
         )}
       </QueryErrorResetBoundary>
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }

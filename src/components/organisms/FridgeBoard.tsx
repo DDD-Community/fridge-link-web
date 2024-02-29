@@ -69,6 +69,7 @@ const FridgeBoard: React.FC<{ currentFridgeInfo: CurrentFridgeInfoType }> = ({ c
           >
             <ModalBody padding={0}>
               <IngredientModal
+                currentFridgeInfo={currentFridgeInfo}
                 isDetailModal
                 id={detailIngredientId}
                 ingredientsRefetch={ingredientsRefetch}

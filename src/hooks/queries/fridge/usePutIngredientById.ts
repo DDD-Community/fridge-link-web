@@ -16,10 +16,10 @@ export interface FridgeBodyType {
 const usePutIngredientById = (id: number, fridgeId: number, location: string, fn?: () => void) => {
   const onSuccess = () => {
     if (fn) fn();
-    void queryClient.invalidateQueries();
+    void queryClient.resetQueries({ queryKey: queryKeys.MY_FRIDGE_CONTENT(fridgeId, location), exact: true });
   };
   return useBaseMutation<FridgeBodyType>(
-    [...queryKeys.MY_FRIDGE_CONTENT(fridgeId, location), ...queryKeys.MY_INGREDIENT_ID(id)],
+    queryKeys.MY_FRIDGE_CONTENT(fridgeId, location),
     `/ingrs/detail/${id}`,
     onSuccess,
     'PUT',

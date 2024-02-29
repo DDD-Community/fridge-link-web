@@ -9,6 +9,7 @@ import {
   usePostIngredient,
 } from '@/hooks/queries/fridge';
 
+import type { CurrentFridgeInfoType } from '@/types/fridge';
 import Image from 'next/image';
 import ModalContainer from '../atoms/ModalContainer';
 import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
@@ -25,7 +26,16 @@ const IngredientModal: React.FC<{
   categoryImage?: string;
   category?: string;
   toggleIsOpenIngredientModal: () => void;
-}> = ({ id, categoryImage, toggleIsOpenIngredientModal, isDetailModal = false, category, ingredientsRefetch }) => {
+  currentFridgeInfo?: CurrentFridgeInfoType;
+}> = ({
+  id,
+  categoryImage,
+  currentFridgeInfo,
+  toggleIsOpenIngredientModal,
+  isDetailModal = false,
+  category,
+  ingredientsRefetch,
+}) => {
   const router = useRouter();
   const today = new Date();
 
@@ -60,11 +70,11 @@ const IngredientModal: React.FC<{
     isDeleted: false,
   });
 
-  const deleteIngredient = useDeleteIngredientById(id, Number(fridgeid), reqBody?.location, () => {
+  const deleteIngredient = useDeleteIngredientById(id, currentFridgeInfo?.fridgeId as number, reqBody?.location, () => {
     ingredientsRefetch();
     toggleIsOpenIngredientModal();
   });
-  const putIngredient = usePutIngredientById(id, Number(fridgeid), reqBody?.location, () => {
+  const putIngredient = usePutIngredientById(id, currentFridgeInfo?.fridgeId as number, reqBody?.location, () => {
     ingredientsRefetch();
     toggleIsOpenIngredientModal();
   });
