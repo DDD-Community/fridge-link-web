@@ -10,7 +10,7 @@ export const fetchData = async <T>(url: string, isNotCatch: boolean) => {
       if (error.response && error.response.status === 404) {
         return await Promise.resolve({ data: null });
       } else {
-        throw error;
+        console.error(error);
       }
     }
   }

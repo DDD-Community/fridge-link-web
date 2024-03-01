@@ -3,7 +3,7 @@ import { useBaseMutation } from '../useBaseMutation';
 import { useRouter } from 'next/router';
 
 interface PostUserBodyType {
-  nickName: string;
+  nickname: string;
   kakaoId: number;
   kakaoEmail: string;
   googleEmail: string | null;
@@ -18,8 +18,6 @@ const usePostUser = () => {
     data: {
       accessToken: string;
       refreshToken: string;
-      email: string;
-      nickName: string;
     };
   }) => {
     localStorage.setItem('accessToken', data.accessToken);

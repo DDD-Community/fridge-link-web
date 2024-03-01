@@ -35,9 +35,9 @@ const ProfilePage: NextPage = () => {
   const router = useRouter();
   const { kakaoId, kakaoEmail, googleEmail } = router.query;
 
-  const MyInfo = useGetMe();
+  const MyInfo = kakaoId ? null : useGetMe();
 
-  const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>('BLUE');
+  const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>('GREEN');
   const [nickname, setNickname] = useState(MyInfo?.nickname ?? '');
   const [isNicknameAvailable, setIsNicknameAvailable] = useState<null | boolean>(null);
   const [isNicknameChecked, setIsNicknameChecked] = useState<null | boolean>(null);
@@ -84,10 +84,10 @@ const ProfilePage: NextPage = () => {
 
     if ((kakaoEmail && kakaoId) ?? googleEmail) {
       postUser.mutate({
-        nickName: nickname,
-        kakaoId: Number(kakaoId ?? MyInfo.kakaoId),
-        kakaoEmail: (kakaoEmail as string) ?? MyInfo.kakaoEmail,
-        googleEmail: (googleEmail as string) ?? MyInfo.googleEmail,
+        nickname,
+        kakaoId: Number(kakaoId ?? MyInfo?.kakaoId),
+        kakaoEmail: (kakaoEmail as string) ?? MyInfo?.kakaoEmail,
+        googleEmail: (googleEmail as string) ?? MyInfo?.googleEmail ?? null,
         profileImage: selectedProfile,
       });
     } else {
@@ -141,7 +141,7 @@ const ProfilePage: NextPage = () => {
           </div>
           <button
             type="submit"
-            className={`p-18 gap-12 rounded-12 heading4-semibold ${(MyInfo?.nickname !== nickname && MyInfo.profileImage === selectedProfile) || (MyInfo?.nickname === nickname && MyInfo.profileImage !== selectedProfile) || (isNicknameAvailable && selectedProfile) ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
+            className={`p-18 gap-12 rounded-12 heading4-semibold ${(MyInfo?.nickname !== nickname && MyInfo?.profileImage === selectedProfile) || (MyInfo?.nickname === nickname && MyInfo.profileImage !== selectedProfile) || (isNicknameAvailable && selectedProfile) ? 'bg-primary2' : 'bg-gray3'} mt-[205px] text-white`}
           >
             편집완료
           </button>

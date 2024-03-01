@@ -13,6 +13,7 @@ const FridgeInfoBox: React.FC<{
 }> = ({ currentFridgeInfo, fridgeName, userName = '', toggleIsOpenFridgeListModal, isOkIngredientAdd }) => {
   const router = useRouter();
 
+  console.log(currentFridgeInfo);
   return (
     <div className="flex justify-between items-end mb-[28px]">
       <div className="flex flex-col gap-[12px]">

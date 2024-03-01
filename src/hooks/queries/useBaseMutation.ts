@@ -22,7 +22,7 @@ export const useBaseMutation = <T>(
     mutationFn: async (body: T) => {
       const response = await fetchData<T>(url, body, method);
 
-      if (onSuccess) onSuccess(response.data);
+      if (onSuccess) onSuccess(response);
     },
   });
 };

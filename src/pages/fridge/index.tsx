@@ -8,13 +8,14 @@ import withLogin from '@/components/templates/withLogin';
 import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
 import type { CurrentFridgeInfoType } from '@/types/fridge';
 import { useRouter } from 'next/router';
+import { EmptyBox } from '@/components/molecules';
 
 const FridgePage: NextPage = () => {
   const router = useRouter();
   const [currentFridgeInfo, setCurrentFridgeInfo] = useState<CurrentFridgeInfoType>({
     username: null,
     fridgeId: 0,
-    fridgeName: '',
+    fridgeName: '냉장고정보없음',
   });
   const {
     isOpen: isOpenFridgeListModal,
@@ -28,7 +29,8 @@ const FridgePage: NextPage = () => {
   const { fridgeid, name } = router.query;
 
   useEffect(() => {
-    if (!fridgeList || fridgeList.length < 0) {
+    if (!fridgeList || fridgeList.length === 0 || !currentFridgeInfo) {
+      onOpenFridgeListModal();
       return;
     }
     if (fridgeid) {
@@ -76,7 +78,13 @@ const FridgePage: NextPage = () => {
             toggleIsOpenFridgeListModal={onOpenFridgeListModal}
             isOkIngredientAdd={true}
           />
-          <FridgeBoard currentFridgeInfo={currentFridgeInfo} />
+          {!fridgeList || fridgeList.length === 0 ? (
+            <div>
+              <EmptyBox text={`냉장칸에 추가된 식자재가 없어요!`} />
+            </div>
+          ) : (
+            <FridgeBoard currentFridgeInfo={currentFridgeInfo} />
+          )}
         </section>
       </div>
     </>
