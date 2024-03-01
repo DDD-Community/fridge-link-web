@@ -1,5 +1,5 @@
 import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
-import { RadioButtonField, SortButton, TabButton } from '@/components/atoms';
+import { Lottie, RadioButtonField, SortButton, TabButton } from '@/components/atoms';
 import type { ShareStatusType } from '@/types/friendship';
 import type { SortLabel, TabLabel } from '@/types/common';
 import { useRef, useState } from 'react';
@@ -8,7 +8,6 @@ import Header from '@/components/organisms/Header';
 import type { NextPage } from 'next';
 import { type ShareData } from '@/types/share';
 import ShareListItem from '@/components/organisms/ShareListItem';
-import { SuspenseFallback } from '@/components/templates';
 import { useObserver } from '@/hooks/useObserver';
 import { useGetMyShares } from '@/hooks/queries/mypage';
 import type { MySharesSortType } from '@/types/mypage';
@@ -73,7 +72,7 @@ const MySharePage: NextPage = () => {
           {data?.pages.map((page) =>
             page.content.map((ele: ShareData) => <ShareListItem key={ele.shareId} data={ele} />),
           )}
-          {isFetchingNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
+          {isFetchingNextPage ? <Lottie /> : <div ref={bottom} />}
         </div>
         <Modal onClose={onClose} isOpen={isOpen} motionPreset="slideInBottom" trapFocus={false}>
           <ModalOverlay height="100vh" onClick={onClose} />
