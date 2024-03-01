@@ -1,5 +1,5 @@
 import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
-import { RadioButtonField, SortButton, TabButton } from '@/components/atoms';
+import { Lottie, RadioButtonField, SortButton, TabButton } from '@/components/atoms';
 import type { ShareSortType, ShareStatusType } from '@/types/friendship';
 import type { SortLabel, TabLabel } from '@/types/common';
 import { useRef, useState } from 'react';
@@ -10,7 +10,6 @@ import type { NextPage } from 'next';
 import { PlusIcon } from '@/assets/icons';
 import { type ShareData } from '@/types/share';
 import ShareListItem from '@/components/organisms/ShareListItem';
-import { SuspenseFallback } from '@/components/templates';
 import { useGetShares } from '@/hooks/queries/share';
 import { useObserver } from '@/hooks/useObserver';
 
@@ -46,6 +45,10 @@ const SharePage: NextPage = () => {
     onIntersect,
   });
 
+  if (!data?.pages[0].content) {
+    return <Lottie />;
+  }
+
   return (
     <>
       <div className={'pt-[52px] min-h-screen'}>
@@ -74,7 +77,7 @@ const SharePage: NextPage = () => {
           {data?.pages.map((page) =>
             page.content.map((ele: ShareData) => <ShareListItem key={ele.shareId} data={ele} />),
           )}
-          {isFetchingNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
+          {isFetchingNextPage ? <Lottie /> : <div ref={bottom} />}
         </div>
 
         <div className="flex justify-end pr-[20px]">

@@ -2,11 +2,10 @@ import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@ch
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { type SortLabel } from '@/types/common';
-import { Button, RadioButtonField, SortButton } from '@/components/atoms';
+import { Button, Lottie, RadioButtonField, SortButton } from '@/components/atoms';
 import { FriendListItem } from '../organisms';
 import { useDeleteFriendship, useGetFriendships } from '@/hooks/queries/friendship';
 import type { FriendshipData, FriendshipSortType } from '@/types/friendship';
-import { SuspenseFallback } from '.';
 import { useObserver } from '@/hooks/useObserver';
 
 export const SORT_TYPES: SortLabel[] = [
@@ -72,7 +71,7 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({ possibleDel
   }, [possibleDelete]);
 
   if (!friendsData?.pages[0].content) {
-    return <SuspenseFallback />;
+    return <Lottie />;
   }
 
   return (
@@ -99,7 +98,7 @@ const FriendListTemplate: React.FC<{ possibleDelete: boolean }> = ({ possibleDel
             />
           )),
         )}
-        {isFetchingfriendsNextPage ? <SuspenseFallback /> : <div ref={bottom} />}
+        {isFetchingfriendsNextPage ? <Lottie /> : <div ref={bottom} />}
       </div>
 
       {possibleDelete ? (
