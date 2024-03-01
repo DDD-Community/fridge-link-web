@@ -17,7 +17,7 @@ import { useObserver } from '@/hooks/useObserver';
 const TABS: TabLabel[] = [
   { label: '나눔 신청', value: 'SHARE_START' },
   { label: '나눔 중', value: 'SHARE_IN_PROGRESS' },
-  { label: '나눔 완료', value: 'SHARE_END' },
+  { label: '나눔 완료', value: 'SHARE_COMPLETE' },
 ];
 
 const SORT_TYPES: SortLabel[] = [
