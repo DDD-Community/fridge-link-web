@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
 import { queryKeys } from '../queryKeys';
 import { useBaseQuery } from '../useBaseQuery';
+import { useRouter } from 'next/router';
 
 const useGetGoogleToken = (code: string | null = '') => {
   const router = useRouter();

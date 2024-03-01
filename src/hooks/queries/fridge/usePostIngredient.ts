@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
 import { queryKeys } from '../queryKeys';
 import { useBaseMutation } from '../useBaseMutation';
+import { useRouter } from 'next/router';
 
 export interface PostIngredientBodyType {
   refrigeratorId: number;

@@ -9,7 +9,7 @@ import type { FriendshipData, FriendshipSortType } from '@/types/friendship';
 import { SuspenseFallback } from '.';
 import { useObserver } from '@/hooks/useObserver';
 
-const SORT_TYPES: SortLabel[] = [
+export const SORT_TYPES: SortLabel[] = [
   { label: '이름순', value: 'nickname' },
   { label: '등록순', value: 'createdAt' },
 ];

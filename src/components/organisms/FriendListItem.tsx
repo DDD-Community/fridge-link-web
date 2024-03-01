@@ -10,9 +10,12 @@ const FriendListItem: React.FC<{
   possibleDelete: boolean;
   onClick: () => void;
   active: boolean;
-}> = ({ data, possibleDelete, onClick, active }) => {
+}> = ({ data, possibleDelete, onClick = () => {}, active }) => {
   return (
-    <div className="flex p-[16px] mb-[12px] justify-between items-center bg-white rounded-[12px]">
+    <div
+      onClick={possibleDelete ? () => {} : onClick}
+      className="flex p-[16px] mb-[12px] justify-between items-center bg-white rounded-[12px]"
+    >
       <div className="flex items-center">
         <Image
           src={returnProfileImg(data.profileImage)}

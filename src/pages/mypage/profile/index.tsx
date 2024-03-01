@@ -10,6 +10,7 @@ import { useGetMe, usePutMe } from '@/hooks/queries/mypage';
 import type { ProfileEnum } from '@/types/common';
 import axiosInstance from '@/api/axiosInstance';
 import { returnProfileImg } from '@/utils/returnProfileImg';
+import { useRouter } from 'next/router';
 
 const PROFILES: Array<{ string: ProfileEnum; pointColor: string }> = [
   {
@@ -31,6 +32,9 @@ const PROFILES: Array<{ string: ProfileEnum; pointColor: string }> = [
 ];
 
 const ProfilePage: NextPage = () => {
+  const router = useRouter();
+  const { kakaoId, kakaoEmail, googleEmail } = router.query;
+
   const MyInfo = useGetMe();
 
   const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>('BLUE');
@@ -78,16 +82,12 @@ const ProfilePage: NextPage = () => {
   const handleSumbit = (e: FormEvent) => {
     e.preventDefault();
 
-    const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
-    const kakaoId = urlParams?.get('kakaoId');
-    const kakaoEmail = urlParams?.get('kakaoEmail');
-
-    if (kakaoEmail && kakaoId) {
+    if ((kakaoEmail && kakaoId) ?? googleEmail) {
       postUser.mutate({
         nickName: nickname,
         kakaoId: Number(kakaoId ?? MyInfo.kakaoId),
-        kakaoEmail: kakaoEmail ?? MyInfo.kakaoEmail,
-        googleEmail: null,
+        kakaoEmail: (kakaoEmail as string) ?? MyInfo.kakaoEmail,
+        googleEmail: (googleEmail as string) ?? MyInfo.googleEmail,
         profileImage: selectedProfile,
       });
     } else {

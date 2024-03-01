@@ -2,20 +2,22 @@ import { BoxIcon, CalendarIcon, EditIcon, FreezerIcon, MemoIcon, TrashcanIcon } 
 import { Button, Toggle } from '@/components/atoms';
 import { Counter, IngredientAddItemContainer } from '../molecules';
 import React, { useEffect, useState } from 'react';
-import useToast from '@/hooks/useToast';
-import ModalContainer from '../atoms/ModalContainer';
 import {
   useDeleteIngredientById,
   useGetIngredientById,
   useGetMyIngredient,
   usePostIngredient,
 } from '@/hooks/queries/fridge';
+
+import type { CurrentFridgeInfoType } from '@/types/fridge';
 import Image from 'next/image';
+import ModalContainer from '../atoms/ModalContainer';
 import type { PostIngredientBodyType } from '@/hooks/queries/fridge/usePostIngredient';
-import { useRouter } from 'next/router';
-import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
 import axiosInstance from '@/api/axiosInstance';
 import { queryClient } from '@/pages/_app';
+import usePutIngredientById from '@/hooks/queries/fridge/usePutIngredientById';
+import { useRouter } from 'next/router';
+import useToast from '@/hooks/useToast';
 
 const IngredientModal: React.FC<{
   id: number;
@@ -24,7 +26,16 @@ const IngredientModal: React.FC<{
   categoryImage?: string;
   category?: string;
   toggleIsOpenIngredientModal: () => void;
-}> = ({ id, categoryImage, toggleIsOpenIngredientModal, isDetailModal = false, category, ingredientsRefetch }) => {
+  currentFridgeInfo?: CurrentFridgeInfoType;
+}> = ({
+  id,
+  categoryImage,
+  currentFridgeInfo,
+  toggleIsOpenIngredientModal,
+  isDetailModal = false,
+  category,
+  ingredientsRefetch,
+}) => {
   const router = useRouter();
   const today = new Date();
 
@@ -59,8 +70,14 @@ const IngredientModal: React.FC<{
     isDeleted: false,
   });
 
-  const deleteIngredient = useDeleteIngredientById(id, Number(fridgeid), reqBody?.location, ingredientsRefetch);
-  const putIngredient = usePutIngredientById(id, Number(fridgeid), reqBody?.location, ingredientsRefetch);
+  const deleteIngredient = useDeleteIngredientById(id, currentFridgeInfo?.fridgeId as number, reqBody?.location, () => {
+    ingredientsRefetch();
+    toggleIsOpenIngredientModal();
+  });
+  const putIngredient = usePutIngredientById(id, currentFridgeInfo?.fridgeId as number, reqBody?.location, () => {
+    ingredientsRefetch();
+    toggleIsOpenIngredientModal();
+  });
 
   const [isInFreezer, setIsInFreezer] = useState(reqBody?.location === 'REFRIGERATION');
 
@@ -180,7 +197,6 @@ const IngredientModal: React.FC<{
               className="p-[13px] border-2 rounded-[12px]"
               onClick={() => {
                 deleteIngredient.mutate({});
-                toggleIsOpenIngredientModal();
               }}
             >
               <TrashcanIcon />
@@ -198,7 +214,6 @@ const IngredientModal: React.FC<{
                   expirationDate: reqBody.expirationDate,
                   isDeleted: false,
                 });
-                toggleIsOpenIngredientModal();
               }}
             />
           </div>

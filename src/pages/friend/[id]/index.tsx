@@ -4,24 +4,38 @@ import { type NextPage } from 'next';
 import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import useGetMyFridgeList from '@/hooks/queries/fridge/useGetFridgeList';
+import type { CurrentFridgeInfoType } from '@/types/fridge';
+
 const FriendIdPage: NextPage = () => {
   const router = useRouter();
-  const [nickname, setNickName] = useState('');
   const {
     isOpen: isOpenFridgeListModal,
     onOpen: onOpenFridgeListModal,
     onClose: onCloseFridgeListModal,
   } = useDisclosure();
 
-  const { id: userId, fridgeid: fridgeId, name } = router.query;
+  const { id: userId, name: username } = router.query;
 
-  if (!fridgeId) {
-    onOpenFridgeListModal();
-  }
+  const [currentFridgeInfo, setCurrentFridgeInfo] = useState<CurrentFridgeInfoType>({
+    username: username as string,
+    fridgeId: 0,
+    fridgeName: '',
+  });
+
+  const fridgeList = useGetMyFridgeList(Number(userId));
+
+  const handleCurrentFridgeInfo = (id: number, name: string) => {
+    setCurrentFridgeInfo((prev) => ({ ...prev, fridgeId: id, fridgeName: name }));
+  };
 
   useEffect(() => {
-    setNickName(name as string);
-  }, []);
+    if (!fridgeList || fridgeList.length < 0) {
+      return;
+    }
+    handleCurrentFridgeInfo(fridgeList[0].id, fridgeList[0].name);
+  }, [fridgeList]);
+
   return (
     <>
       <Modal
@@ -40,15 +54,23 @@ const FriendIdPage: NextPage = () => {
           margin={0}
         >
           <ModalBody padding={0}>
-            <FridgeListModal onCloseFridgeListModal={onCloseFridgeListModal} ownerId={Number(userId)} />
+            <FridgeListModal
+              handleCurrentFridgeInfo={handleCurrentFridgeInfo}
+              onCloseFridgeListModal={onCloseFridgeListModal}
+              ownerId={Number(userId)}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>
       <div className={'pt-[52px] min-h-screen'}>
         <Header headerTitle={'친구 냉장고'} />
         <section className={`flex flex-col min-h-screen p-0 pl-20 pr-20 pb-20 bg-gray1`}>
-          <FridgeInfoBox userName={nickname} toggleIsOpenFridgeListModal={onOpenFridgeListModal} />
-          <FridgeBoard />
+          <FridgeInfoBox
+            userName={username as string}
+            currentFridgeInfo={currentFridgeInfo}
+            toggleIsOpenFridgeListModal={onOpenFridgeListModal}
+          />
+          <FridgeBoard currentFridgeInfo={currentFridgeInfo} />
         </section>
       </div>
     </>

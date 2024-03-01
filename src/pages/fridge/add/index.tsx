@@ -1,12 +1,13 @@
-import type { NextPage } from 'next';
 import { Header, IngredientModal } from '@/components/organisms';
-import { Container } from '../../../components/atoms';
+import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
-import { useGetIngredientList } from '@/hooks/queries/fridge';
-import Image from 'next/image';
-import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
+
+import { Container } from '../../../components/atoms';
 import Draggable from 'react-draggable';
 import type { DraggableEvent } from 'react-draggable';
+import Image from 'next/image';
+import type { NextPage } from 'next';
+import { useGetIngredientList } from '@/hooks/queries/fridge';
 
 // 임시 식자재 추가 disapper
 const CATEGORY_COUNT: Record<string, number> = {

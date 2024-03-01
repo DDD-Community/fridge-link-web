@@ -1,18 +1,17 @@
-import React, { useRef, useState } from 'react';
 import { Container, Lottie } from '@/components/atoms';
 import { EmptyBox, FridgeTab, IngredientItemBox } from '@/components/molecules';
+import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import React, { useRef, useState } from 'react';
+
+import type { CurrentFridgeInfoType } from '@/types/fridge';
 import { IngredientModal } from '.';
-import { Modal, ModalOverlay, ModalBody, ModalContent, useDisclosure } from '@chakra-ui/react';
 import { useGetFridgeContentById } from '@/hooks/queries/fridge';
 import { useObserver } from '@/hooks/useObserver';
-import { useRouter } from 'next/router';
 
-const FridgeBoard: React.FC = () => {
+const FridgeBoard: React.FC<{ currentFridgeInfo: CurrentFridgeInfoType }> = ({ currentFridgeInfo }) => {
   const bottom = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const [detailIngredientId, setDetailIngredientId] = useState(0);
   const [currentTabName, setCurrentTabName] = useState<'냉장' | '냉동'>('냉장');
-  const { fridgeid: fridgeId } = router.query;
 
   const {
     data: ingredients,
@@ -20,7 +19,7 @@ const FridgeBoard: React.FC = () => {
     isFetchingNextPage: isFetchingIngredientNextPage,
     refetch: ingredientsRefetch,
   } = useGetFridgeContentById({
-    id: Number(fridgeId),
+    id: Number(currentFridgeInfo.fridgeId),
     sort: currentTabName === '냉장' ? 'FREEZING' : 'REFRIGERATION',
   });
 
@@ -52,7 +51,7 @@ const FridgeBoard: React.FC = () => {
 
   return (
     <>
-      {isOpenIngredientModal && (
+      {!currentFridgeInfo.username && isOpenIngredientModal && (
         <Modal
           onClose={onCloseIngredientModal}
           isOpen={isOpenIngredientModal}
@@ -70,6 +69,7 @@ const FridgeBoard: React.FC = () => {
           >
             <ModalBody padding={0}>
               <IngredientModal
+                currentFridgeInfo={currentFridgeInfo}
                 isDetailModal
                 id={detailIngredientId}
                 ingredientsRefetch={ingredientsRefetch}

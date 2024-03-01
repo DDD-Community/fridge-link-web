@@ -19,3 +19,9 @@ export interface FridgeData {
   id: number;
   name: string;
 }
+
+export interface CurrentFridgeInfoType {
+  username: string | null;
+  fridgeId: number;
+  fridgeName: string;
+}
