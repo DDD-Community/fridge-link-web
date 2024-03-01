@@ -28,6 +28,8 @@ export const queryKeys = {
   UPLOAD: () => ['upload'],
   ADD_SHARE: () => ['addShare'],
   MODIFY_SHARE_STATUS: () => ['modify_share_status'],
+  APPLY_SHARE: () => ['apply_share'],
+  DELETE_APPLY_SHARE: () => ['delete_share'],
 } as const;
 
 export type QueryKeys = (typeof queryKeys)[keyof typeof queryKeys];
