@@ -4,6 +4,4 @@ echo "> FE 배포"
 
 cd /home/ubuntu/fridge-link-deploy
 
-pm2 reload fridge-link
-pm2 startup
-pm2 save
+pm2 restart all --watch
