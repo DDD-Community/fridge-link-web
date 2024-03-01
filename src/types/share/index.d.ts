@@ -18,7 +18,6 @@ interface ShareData {
 interface ShareDetailData extends ShareData {
   userName: string;
   profileImage: ProfileEnum;
-  thumbNailImage: string;
 }
 
 interface ShareApplicantData {
