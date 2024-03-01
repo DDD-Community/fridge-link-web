@@ -1,4 +1,5 @@
 import type { ProfileEnum } from '../common';
+import type { ShareStatusType } from '../friendship';
 
 interface ShareData {
   shareId: number;
@@ -10,14 +11,15 @@ interface ShareData {
   limitDate: string;
   limitPerson: number;
   location: string;
-  status: string;
+  status: ShareStatusType;
   thumbnailImage: string;
   isApplied: boolean;
 }
 
 interface ShareDetailData extends ShareData {
-  userName: string;
+  nickname: string;
   profileImage: ProfileEnum;
+  isCreatedByCurrentLoginUser: boolean;
 }
 
 interface ShareApplicantData {
