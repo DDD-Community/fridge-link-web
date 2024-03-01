@@ -30,10 +30,10 @@ const ShareDetailPage: NextPage = () => {
     <>
       <div className={'min-h-screen mb-[110px]'}>
         <Header backgroundColor="transparent" />
-        {data?.thumbNailImage ? (
+        {data?.thumbnailImage ? (
           <Image
             alt="detailImage"
-            src={data?.thumbNailImage}
+            src={data?.thumbnailImage}
             sizes="100vw"
             width={0}
             height={0}
