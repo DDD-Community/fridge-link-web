@@ -1,12 +1,15 @@
 import { ClockIcon, DateIcon, LocationIcon } from '@/assets/icons';
 import { Header, ShareDetailAuthorBottomWrapper } from '@/components/organisms';
+import { Lottie, ShareStatusBadge } from '@/components/atoms';
 import { ShareInfoRowItem, VerticalLabelValue } from '@/components/molecules';
 
 import Image from 'next/image';
-import { Lottie } from '@/components/atoms';
 import type { NextPage } from 'next';
+import type { ProfileEnum } from '@/types/common';
 import React from 'react';
+import type { ShareStatusType } from '@/types/friendship';
 import dayjs from 'dayjs';
+import { returnProfileImg } from '@/utils/returnProfileImg';
 import { useGetShareDetail } from '@/hooks/queries/share';
 import { useRouter } from 'next/router';
 
@@ -40,9 +43,19 @@ const ShareDetailPage: NextPage = () => {
         )}
 
         <div className="relative mt-[-13px] mx-[20px] px-[16px] py-[24px] bg-white rounded-[12px]">
-          <p className="text-center body1-semibold text-gray7">
-            {data.data?.isCreatedByCurrentLoginUser ? '나의 나눔' : data.data?.nickname}
-          </p>
+          <div className="flex justify-center items-center">
+            <Image
+              alt="profileImage"
+              src={returnProfileImg(data.data?.profileImage as ProfileEnum)}
+              width={16}
+              height={16}
+              className="aspect-square w-[16px] h-[16px]"
+            />
+            <p className="mx-2 text-center body1-semibold text-gray7">
+              {data.data?.isCreatedByCurrentLoginUser ? '나의 나눔' : data.data?.nickname}
+            </p>
+            <ShareStatusBadge status={data.data?.status as ShareStatusType} />
+          </div>
           <p className="mt-[14px] mb-[20px] text-center heading2-semibold text-black">{data.data?.title}</p>
           <div className="flex p-[16px] mb-[6px] justify-between rounded-[12px] bg-gray1">
             <VerticalLabelValue label="식자재" value={data.data?.itemName as string} />
