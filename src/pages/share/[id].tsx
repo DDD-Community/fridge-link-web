@@ -1,13 +1,14 @@
 import { ClockIcon, DateIcon, LocationIcon } from '@/assets/icons';
-import { ShareInfoRowItem, VerticalLabelValue } from '@/components/molecules';
 import { Header, ShareDetailAuthorBottomWrapper } from '@/components/organisms';
-import { useGetShareDetail } from '@/hooks/queries/share';
-import { type SortLabel } from '@/types/common';
-import dayjs from 'dayjs';
-import { type NextPage } from 'next';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { ShareInfoRowItem, VerticalLabelValue } from '@/components/molecules';
+
+import Image from 'next/image';
+import type { NextPage } from 'next';
+import type { SortLabel } from '@/types/common';
+import dayjs from 'dayjs';
+import { useGetShareDetail } from '@/hooks/queries/share';
+import { useRouter } from 'next/router';
 
 const MOCK_DATA_IS_AUTHOR: boolean = true;
 
