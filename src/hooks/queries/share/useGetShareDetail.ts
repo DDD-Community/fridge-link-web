@@ -6,9 +6,9 @@ const useGetShareDetail = ({ id }: { id: string | string[] | undefined }) => {
   if (typeof id !== 'string') {
     return null;
   }
-  const { data } = useBaseQuery<ShareDetailData>(queryKeys.SHARE_DETAIL(), `/shares/${id}`);
+  const { data, refetch } = useBaseQuery<ShareDetailData>(queryKeys.SHARE_DETAIL(), `/shares/${id}`);
 
-  return data?.data;
+  return { data, refetch };
 };
 
 export default useGetShareDetail;

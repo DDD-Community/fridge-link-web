@@ -1,22 +1,30 @@
-import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
-
 import { Button, RadioButtonField } from '@/components/atoms';
-import React from 'react';
-import { type SortLabel } from '@/types/common';
-import { useGetShareApplicants } from '@/hooks/queries/share';
-import ShareApplicantListItem from './ShareApplicantListItem';
+import { Modal, ModalBody, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { useGetShareApplicants, usePutShareStatus } from '@/hooks/queries/share';
 
-const SHARE_STATUSES = [
-  { label: '나눔 신청', value: 'enroll' },
-  { label: '나눔 중', value: 'proceeding' },
-  { label: '나눔 완료', value: 'complete' },
+import ShareApplicantListItem from './ShareApplicantListItem';
+import type { ShareStatusType } from '@/types/friendship';
+
+export interface ShareStatusKeyValue {
+  label: string;
+  value: ShareStatusType;
+}
+
+const SHARE_STATUSES: ShareStatusKeyValue[] = [
+  { label: '나눔 신청', value: 'SHARE_START' },
+  { label: '나눔 중', value: 'SHARE_IN_PROGRESS' },
+  { label: '나눔 완료', value: 'SHARE_COMPLETE' },
 ];
 
 const ShareDetailAuthorBottomWrapper: React.FC<{
   id: string | string[] | undefined;
-  curStatus: SortLabel;
-  onChangeStatus: React.Dispatch<React.SetStateAction<SortLabel>>;
-}> = ({ id, curStatus, onChangeStatus }) => {
+  refetch: () => void;
+  curStatus: ShareStatusType;
+}> = ({ id, refetch, curStatus }) => {
+  const [selectedStatus, setSelectedStatus] = useState<ShareStatusKeyValue>(
+    SHARE_STATUSES.find((ele) => ele.value === curStatus) as ShareStatusKeyValue,
+  );
   const { isOpen: isStatusModalOpen, onOpen: onStatusModalOpen, onClose: onStatusModalClose } = useDisclosure();
   const {
     isOpen: isParticipantsModalOpen,
@@ -25,6 +33,22 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
   } = useDisclosure();
 
   const applicants = useGetShareApplicants({ id });
+  const modifyShareStatus = usePutShareStatus({
+    id: Number(id),
+    status: selectedStatus.value as ShareStatusType,
+    onSuccessParam: refetch,
+  });
+
+  const onModifyShareStatus = () => {
+    onStatusModalClose();
+    modifyShareStatus.mutate({});
+  };
+
+  useEffect(() => {
+    const initialStatus = SHARE_STATUSES.find((ele) => ele.value === curStatus);
+    console.log(initialStatus);
+    setSelectedStatus(initialStatus as { label: string; value: ShareStatusType });
+  }, []);
 
   return (
     <>
@@ -53,13 +77,13 @@ const ShareDetailAuthorBottomWrapper: React.FC<{
                 key={ele.value}
                 label={ele.label}
                 onClick={() => {
-                  onChangeStatus(ele);
+                  setSelectedStatus(ele);
                 }}
-                checked={ele.value === curStatus.value}
+                checked={ele.value === selectedStatus.value}
               />
             ))}
             <div className="px-[20px] pb-[32px]">
-              <Button className="block w-full bg-primary2" text={'선택 완료'} onClick={onStatusModalClose} />
+              <Button className="block w-full bg-primary2" text={'선택 완료'} onClick={onModifyShareStatus} />
             </div>
           </ModalBody>
         </ModalContent>
