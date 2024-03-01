@@ -15,3 +15,4 @@ export { default as FriendListItem } from './FriendListItem';
 export { default as BulletNoticeBox } from './BulletNoticeBox';
 export { default as SelectFridgeModal } from './SelectFridgeModal';
 export { default as SelectFridgeBoard } from './SelectFridgeBoard';
+export { default as ShareDetailFriendBottomWrapper } from './ShareDetailFriendBottomWrapper';

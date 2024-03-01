@@ -1,5 +1,5 @@
 import { ClockIcon, DateIcon, LocationIcon } from '@/assets/icons';
-import { Header, ShareDetailAuthorBottomWrapper } from '@/components/organisms';
+import { Header, ShareDetailAuthorBottomWrapper, ShareDetailFriendBottomWrapper } from '@/components/organisms';
 import { Lottie, ShareStatusBadge } from '@/components/atoms';
 import { ShareInfoRowItem, VerticalLabelValue } from '@/components/molecules';
 
@@ -85,11 +85,12 @@ const ShareDetailPage: NextPage = () => {
       {data.data?.isCreatedByCurrentLoginUser ? (
         <ShareDetailAuthorBottomWrapper id={id} refetch={refetch} curStatus={data.data.status} />
       ) : (
-        <div className="fixed w-full max-w-[480px] bottom-0 p-[20px] pb-[32px] z-300 bg-gray1">
-          <button className="w-full text-center py-[16px] rounded-[12px] text-white bg-primary2 heading4-semibold">
-            나눔 신청
-          </button>
-        </div>
+        <ShareDetailFriendBottomWrapper
+          id={id}
+          curStatus={data.data?.status as ShareStatusType}
+          isApplied={data.data?.isApplied as boolean}
+          refetch={refetch}
+        />
       )}
     </>
   );
