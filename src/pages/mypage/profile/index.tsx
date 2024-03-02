@@ -37,7 +37,7 @@ const ProfilePage: NextPage = () => {
 
   const MyInfo = kakaoId ? null : useGetMe();
 
-  const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>('GREEN');
+  const [selectedProfile, setSelectedProfile] = useState<ProfileEnum>(MyInfo?.profileImage ?? 'GREEN');
   const [nickname, setNickname] = useState(MyInfo?.nickname ?? '');
   const [isNicknameAvailable, setIsNicknameAvailable] = useState<null | boolean>(null);
   const [isNicknameChecked, setIsNicknameChecked] = useState<null | boolean>(null);
