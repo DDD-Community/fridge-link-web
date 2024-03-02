@@ -29,7 +29,7 @@ const AddFriendTemplate: React.FC = () => {
   };
 
   const onAddFriend = () => {
-    if (friendInviteCode.length < 9) {
+    if (friendInviteCode.length < 8) {
       setWarningVisible(true);
     } else {
       addFriendship.mutate({ inviteCode: friendInviteCode });
@@ -67,7 +67,7 @@ const AddFriendTemplate: React.FC = () => {
               />
               <MiniButton label="추가" onClick={onAddFriend} variant="clickable" />
             </div>
-            {warningVisible ? <WarningLine text="9-10자리 초대 코드를 입력해주세요." /> : null}
+            {warningVisible ? <WarningLine text="8-10자리 초대 코드를 입력해주세요." /> : null}
           </>
         }
       />
