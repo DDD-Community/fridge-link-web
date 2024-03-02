@@ -10,7 +10,7 @@ const FridgeInfoBox: React.FC<{
   userName: string;
   toggleIsOpenFridgeListModal: () => void;
   isOkIngredientAdd?: boolean;
-}> = ({ currentFridgeInfo, fridgeName, userName = '', toggleIsOpenFridgeListModal, isOkIngredientAdd }) => {
+}> = ({ currentFridgeInfo, userName = '', toggleIsOpenFridgeListModal, isOkIngredientAdd }) => {
   const router = useRouter();
 
   console.log(currentFridgeInfo);
@@ -20,7 +20,13 @@ const FridgeInfoBox: React.FC<{
         <div className="body1-medium text-gray7">{userName ?? '사용자정보없음'} 님의</div>
         <div className="flex items-center gap-[8px]" onClick={toggleIsOpenFridgeListModal}>
           <div className="heading1-bold">{currentFridgeInfo.fridgeName ?? '냉장고정보없음'}</div>
-          <AngleIcon width={16} height={16} fill="#000000" transform="rotate(-90)" />
+          <AngleIcon
+            width={16}
+            height={16}
+            fill="#000000"
+            transform="rotate(-90)"
+            style={{ transform: 'rotate(-90deg)' }}
+          />
         </div>
       </div>
       {isOkIngredientAdd && (

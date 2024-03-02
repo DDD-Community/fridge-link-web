@@ -83,7 +83,13 @@ const SelectIngredientTemplate: React.FC<{
               <div className="body1-medium text-gray7">{nickname} 님의</div>
               <div className="flex items-center gap-[8px]" onClick={onOpenFridgeListModal}>
                 <div className="heading1-bold">{selectedFridge?.name}</div>
-                <AngleIcon width={16} height={16} fill="#000000" transform="rotate(-90)" />
+                <AngleIcon
+                  width={16}
+                  height={16}
+                  fill="#000000"
+                  transform="rotate(-90)"
+                  style={{ transform: 'rotate(-90deg)' }}
+                />
               </div>
             </div>
           </div>

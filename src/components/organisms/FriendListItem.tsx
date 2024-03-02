@@ -32,7 +32,14 @@ const FriendListItem: React.FC<{
       {possibleDelete ? (
         <CheckBox onClick={onClick} active={active} />
       ) : (
-        <AngleIcon width={16} height={16} fill="#CCCFD7" transform="rotate(180)" className="z-0" />
+        <AngleIcon
+          width={16}
+          height={16}
+          fill="#CCCFD7"
+          transform="rotate(180)"
+          style={{ transform: 'rotate(180deg)' }}
+          className="z-0"
+        />
       )}
     </div>
   );
