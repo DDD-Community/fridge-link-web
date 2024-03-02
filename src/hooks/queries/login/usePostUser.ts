@@ -22,7 +22,7 @@ const usePostUser = () => {
   }) => {
     localStorage.setItem('accessToken', data.accessToken);
     localStorage.setItem('refreshToken', data.refreshToken);
-    void router.push('/home');
+    void router.push('/login');
   };
   return useBaseMutation<PostUserBodyType>(queryKeys.KAKAO(), `/users`, onSuccess);
 };

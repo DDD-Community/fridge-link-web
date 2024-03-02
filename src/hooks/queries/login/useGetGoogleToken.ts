@@ -12,6 +12,7 @@ const useGetGoogleToken = (code: string | null = '') => {
 
   if (data?.data?.accessToken === undefined) {
     void router.push(`/mypage/profile?googleEmail=${data?.data?.googleEmail}`);
+    return;
   }
   if (data?.data) {
     localStorage.setItem('accessToken', data.data.accessToken);
