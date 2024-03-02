@@ -18,7 +18,13 @@ const NavWhiteBoxItem: React.FC<NavWhiteBoxItemProps> = ({ name, linkTo, text, s
       {text ? (
         <div className="text-gray4">{text}</div>
       ) : (
-        <AngleIcon fill={'gray'} width={16} height={16} transform="rotate(180)" />
+        <AngleIcon
+          fill={'gray'}
+          width={16}
+          height={16}
+          transform="rotate(180)"
+          style={{ transform: 'rotate(180deg)' }}
+        />
       )}
     </Link>
   );

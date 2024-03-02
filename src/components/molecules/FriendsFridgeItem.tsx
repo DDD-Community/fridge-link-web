@@ -23,7 +23,7 @@ const FriendsFridgeItem: React.FC<FriendsFridgeItemProps> = ({ name, ingredientC
         </div>
       </div>
       <Link href={`${linkTo}`}>
-        <AngleIcon width={16} height={16} transform="rotate(180)" />
+        <AngleIcon width={16} height={16} transform="rotate(180)" style={{ transform: 'rotate(180deg)' }} />
       </Link>
     </Link>
   );
